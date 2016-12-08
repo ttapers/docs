@@ -104,7 +104,7 @@ ping -c3 hologram.io
 If you don't receive any errors, you are now connected to the internet via the
 Hologram network!
 
-If you want the modem to connect automatially when the BeagleBone boots up,
+If you want the modem to connect automatically when the BeagleBone boots up,
 edit the file */etc/network/interfaces*, adding the following two lines:
 
 ```bash
