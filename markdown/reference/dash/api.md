@@ -1,18 +1,21 @@
 ---
-title: Arduino Reference
+title: Dash API
 nav_sort: 1
 container_class: apidoc
 autotoc: true
 layout: reference.hbs
-description: Classes and functions available in the Arduino programming environment
+description: Classes and functions available when programming the Dash
 icon: docs
 ---
 
-This page documents methods available on the `Dash` class when developing
-with the Arduino toolchain. Source code is available 
-on [Github](https://github.com/hologram-io/hologram-dash-arduino-integration).
+This page documents methods available when developing code for the Dash
+microcontroller. You can target the Dash in the Arduino IDE by
+adding the board as described in the
+[guide](/docs/guide/dash/programming-and-firmware).
 
-For example code, see our [Arduino Examples
+Source code is available
+on [Github](https://github.com/hologram-io/hologram-dash-arduino-integration).
+For examples, see our [Arduino Examples
 repository](https://github.com/hologram-io/hologram-dash-arduino-examples).
 
 
@@ -20,7 +23,7 @@ repository](https://github.com/hologram-io/hologram-dash-arduino-examples).
 
 #### Pins
 
-The Dash's Arduino library provides aliases for addressing pins by physical
+The Dash's API provides aliases for addressing pins by physical
 location, GPIO channel, and analog channel. Refer to the [Dash
 datasheet](/docs/reference/dash/datasheet/) for pinouts for specific Dash
 variants.
@@ -40,13 +43,15 @@ int val = analogRead(A01);    // Read from analog input 1
 
 #### Serial Interfaces
 
-The Dash has several instances of Arduino's [Serial
-interface](https://www.arduino.cc/en/Reference/Serial):
+The Dash has several serial channels:
 
 * `SerialUSB` -- Serial communication over USB. Aliased to `Serial`.
 * `SerialCloud` -- Communication with the system chip. Writes to this interface
   are sent as messages to the Hologram Cloud.
 * `Serial2` -- UART channel 2 (*RX2/TX2* pins)
+
+These instances are compatible with Arduino's [Serial
+interface](https://www.arduino.cc/en/Reference/Serial).
 
 
 ### Dash Instantiation
