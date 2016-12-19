@@ -30,7 +30,8 @@ Topics can be arbitrary strings, and a message can be tagged with multiple topic
 You are encouraged to develop your own
 conventions on how to use topics. Thoughtful use of topics can make it easier
 to implement new routing rules and service integrations without the need to 
-update device firmware. 
+update device firmware.  (Note: User topics cannot begin with an underscore character
+as that is reserved for system topics such as _DEVICE_ID_)
 
 Here are some examples of good topics to add to messages:
 
