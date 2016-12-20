@@ -51,23 +51,19 @@ On error, a different message may be returned, or the connection may simply be c
 
 #### Examples
 
-Using the Unix *netcat* command, send "Hello, World!" authenticating as the device with 
+Using the Unix *netcat* command, send "Hello, World!" authenticating as the device with
 source ID `ABCD` and key `WXYZ`:
 
 ```bash
-$ nc cloudsocket.hologram.io 9999
-> {"s":"ABCD","c":"WXYZ","d":"Hello, World!","t":"TOPIC1"}
->
-< [0,0]     # Success response
+$ echo '{"s":"ABCD","c":"WXYZ","d":"Hello, World!","t":"TOPIC1"}' | nc -i1 cloudsocket.hologram.io 9999
+[0,0]     # Success response
 ```
 
 Or, with full-word JSON keys and an array of topics:
 
 ```bash
-$ nc cloudsocket.hologram.io 9999
-> {"source":"ABCD", "checksum":"WXYZ", "data":"Hello, World!", "t":["TOPIC1", "TOPIC2"]}
->
-< [0,0]     # Success response
+$ echo {"source":"ABCD", "checksum":"WXYZ", "data":"Hello, World!", "t":["TOPIC1", "TOPIC2"]} | nc -i1 cloudsocket.hologram.io 9999
+[0,0]     # Success response
 ```
 
 
@@ -82,7 +78,7 @@ Send a string composed of the following fields:
 * **Source ID** -- Four-character source ID used for authentication
 * **Source Key** -- Four-character source Key used for authentication
 * **Destination number** -- '+', country code, and telephone number, 
-  e.g. `+3125551212`
+  e.g. `+13125551212`
 * **Message** -- Text of the SMS message. Separated from the destination number 
   with a space and terminated with two newline characters
 
@@ -96,10 +92,8 @@ Using the Unix *netcat* command, send the SMS message "Hello, SMS!" to `+1-312-5
 Authenticate as the device with source ID `ABCD` and key `WXYZ`:
 
 ```bash
-$ nc cloudsocket.hologram.io 9999
-> SABCDWXYZ+13125551212 Hello, SMS!
->
-< 00    # Success response
+$ echo 'SABCDWXYZ+13125551212 Hello, SMS!' | nc -i1 cloudsocket.hologram.io 9999
+00    # Success response
 ```
 
 ### SMS API
