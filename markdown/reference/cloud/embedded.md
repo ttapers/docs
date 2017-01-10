@@ -86,6 +86,12 @@ On success, the server will return the text `00` and then close the connection.
 On error, a different message may be returned, or the connection may simply be closed 
 with no response.
 
+Note that the "From Number" on the SMS will be one of Hologram's cloud phone numbers
+unless you purchased a phone number for the device.
+
+All messages sent through this method will be saved into your Data Logs for the device
+with the `_SMSOVERIP_` tag
+
 #### Example
 
 Using the Unix *netcat* command, send the SMS message "Hello, SMS!" to `+1-312-555-1212`.

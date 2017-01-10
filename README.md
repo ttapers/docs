@@ -13,3 +13,6 @@ This repo has three subdirectories:
   and instruction snippets.
 * **json/** -- Table data in JSON format. Mainly used on the Downloads and Dash
   Datasheet pages.
+
+The root directory also contains **apiary.apib**. This is the source for
+our [HTTP API docs](http://docs.hologram.apiary.io/#), hosted on Apiary.
