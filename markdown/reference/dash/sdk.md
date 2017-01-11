@@ -112,7 +112,7 @@ self.setRawCloud(raw)
 
 #### .setAuthenticationType(authentication)
 
-Sets the Authentication type used by the Hologram SDK. You can choose between CSRPSK or TOTP.
+Sets the `Authentication` type used by the Hologram SDK. You can choose between CSRPSK or TOTP.
 
 **Parameters:**
 
@@ -134,7 +134,7 @@ Returns the SDK version.
 
 ### Network
 
-The Network class is responsible for defining the networking interfaces of Hologram SDK.
+The `Network` class is responsible for defining the networking interfaces of Hologram SDK.
 There are interfaces here that allow you to, for example, connect and disconnect from
 a network of your choice.
 
@@ -176,7 +176,7 @@ Returns the AP address.
 
 **Parameters:** None
 
-**Returns:** (string) the AP address.
+**Returns:** the AP address (string)
 
 #### .getAvgSignalStrength()
 
@@ -197,7 +197,7 @@ Returns the SSID.
 
 **Parameters:** None
 
-**Returns:** `string` - the SSID.
+**Returns:** the SSID (string)
 
 ### Event
 
@@ -205,17 +205,17 @@ This Hologram SDK allows the developer to publish/subscribe to certain events vi
 the `Event` interface. Registered event handlers based on predefined strings below
 will get executed when the event occurs. Some of these predefined strings are as follows:
 
-##### Network
+Network
 
-`wifi.connected` - There's an active WiFi connection.
-`wifi.disconnected` - The Bluetooth connection became inactive.
+* `wifi.connected` - There's an active WiFi connection.
+* `wifi.disconnected` - The Bluetooth connection became inactive.
 
-`network.connected` - There's an active network connection.
-`network.disconnected` - The network connection became inactive.
+* `network.connected` - There's an active network connection.
+* `network.disconnected` - The network connection became inactive.
 
-##### Raw/Cloud
-`socket.connected` - The socket has been connected.
-`socket.closed` - The socket connection is closed.
+Raw/Cloud
+* `socket.connected` - The socket has been connected.
+* `socket.closed` - The socket connection is closed.
 
 #### .subscribe(event, callback)
 
@@ -260,7 +260,7 @@ Broadcasts the triggered event to all handler functions subscribed to it.
 hologram.raw.event.broadcast('wifi.connected')
 ```
 
-### LOG
+### Log
 
 ```bash
 INFO:<classtype>,<msg>
