@@ -33,28 +33,23 @@ The Credentials object stores most of the credentials required to make remote ca
 **Properties:**
 Here is a list of properties that you can set/get manually:
 
-* `csr_key` (string) -- The network type used to make an active connection. Choose between 'wifi' or 'cellular'
-* `imsi` (string) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with.
 * `cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
-* `device_id` (string) -- Your device id, also obtained from the Hologram dashboard.
-* `private_key` (string) -- The private key
+* `device_id` (string) -- Your SIM number, also obtained from the Hologram dashboard.
+* `private_key` (string) -- The device IMSI.
 * `host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
 * `port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
 
-#### .Credentials(csr_key, imsi, cloud_id, cloud_key, device_id, private_key)
+#### .Credentials(cloud_id, cloud_key, device_id, private_key)
 
 Constructor.
 
 **Parameters:**
 
-* `ssid` (string, optional) -- The Credentials object used to store the keys for authentication purposes.
-* `csr_key` (string, optional) -- The network type used to make an active connection. Choose between 'wifi' or 'cellular'
-* `imsi` (string, optional) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with.
 * `cloud_id` (string, optional) -- The 4 character cloud id obtained from your dashboard.
 * `cloud_key` (string, optional) -- The 4 character cloud key obtained from your dashboard.
-* `device_id` (string, optional) -- Your device id, also obtained from the Hologram dashboard.
-* `private_key` (string, optional) -- The private key
+* `device_id` (string, optional) -- Your SIM number, also obtained from the Hologram dashboard.
+* `private_key` (string, optional) -- The device IMSI.
 
 **Example:**
 
