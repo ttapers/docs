@@ -33,7 +33,6 @@ The Credentials object stores most of the credentials required to make remote ca
 **Properties:**
 Here is a list of properties that you can set/get manually:
 
-* `ssid` (string) -- The Credentials object used to store the keys for authentication purposes.
 * `csr_key` (string) -- The network type used to make an active connection. Choose between 'wifi' or 'cellular'
 * `imsi` (string) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with.
 * `cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
@@ -43,7 +42,7 @@ Here is a list of properties that you can set/get manually:
 * `host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
 * `port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
 
-#### .Credentials(ssid, csr_key, imsi, cloud_id, cloud_key, device_id, private_key)
+#### .Credentials(csr_key, imsi, cloud_id, cloud_key, device_id, private_key)
 
 Constructor.
 
