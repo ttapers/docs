@@ -22,7 +22,7 @@ on [GitHub](https://github.com/hologram-io/hologram-python).
 
 ### Installation
 1. Go ahead and `git clone` this repository.
-2. Type `cd hologram-python` and then `pip install -r requirements.txt`
+2. Type `cd hologram-python`
 3. After that, type `python setup.py install`
 
 
