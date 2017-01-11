@@ -268,6 +268,7 @@ INFO:<classtype>,<msg>
 
 SDK log messages. Messages show internal information.
 
+* **classtype** -- The internal SDK class that logged the message.
 * **msg** -- Text body of the log message.
 
 **Example:**
