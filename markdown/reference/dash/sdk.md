@@ -57,8 +57,6 @@ Constructor.
 * `device_id` (string, optional) -- Your device id, also obtained from the Hologram dashboard.
 * `private_key` (string, optional) -- The private key
 
-**Returns:** `void`
-
 **Example:**
 
 ```python
@@ -78,9 +76,6 @@ Constructor/init function.
 * `raw` (string) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with.
 * `authentication` (string) -- The type of authentication used (either CSRPSK or TOTP).
 
-**Returns:** `void`
-
-
 **Example:**
 
 ```python
@@ -94,8 +89,6 @@ Set up the `Network` type used by the Hologram SDK.
 **Parameters:**
 
 * `network` (string) -- The network type used to make an active connection. Choose between 'wifi', 'cellular', 'ble'
-
-**Returns:** `void`
 
 **Example:**
 
@@ -111,8 +104,6 @@ Sets the Hologram SDK to use either a `Raw` (a separate server) or `Cloud` (Holo
 
 * `raw` (string) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with.
 
-**Returns:** `void`
-
 **Example:**
 
 ```python
@@ -126,8 +117,6 @@ Sets the Authentication type used by the Hologram SDK. You can choose between CS
 **Parameters:**
 
 * `authentication` (string) -- The type of authentication used (either 'csrpsk' or 'totp').
-
-**Returns:** `void`
 
 **Example:**
 
@@ -143,7 +132,6 @@ Returns the SDK version.
 
 **Returns:** (string) Hologram SDK version
 
-
 ### Network
 
 The Network class is responsible for defining the networking interfaces of Hologram SDK.
@@ -156,23 +144,17 @@ Connects to the specified network.
 
 **Parameters:** None
 
-**Returns:** `void`
-
 #### .disconnect()
 
 Disconnect from an active network.
 
 **Parameters:** None
 
-**Returns:** `void`
-
 #### .reconnect()
 
 Reconnects to the specified network.
 
 **Parameters:** None
-
-**Returns:** `void`
 
 ### Wifi
 
@@ -182,15 +164,11 @@ Connect to Wifi
 
 **Parameters:** None
 
-**Returns:** `void`
-
 #### .disconnect()
 
 Disconnect from an active Wifi connection
 
 **Parameters:** None
-
-**Returns:** `void`
 
 #### .getAPAddress()
 
@@ -206,15 +184,12 @@ Prints the average signal strength of the Wifi connection.
 
 **Parameters:** None
 
-**Returns:** `void`
-
 #### .getMaxSignalStrength()
 
 Prints the max signal strength of the Wifi connection.
 
 **Parameters:** None
 
-**Returns:** `void`
 
 #### .getSSID()
 
@@ -251,8 +226,7 @@ Registers an event handler function to the specific event.
 * `event` (string) -- Choose from one of the predefined event strings listed above.
 * `callback` (function) -- Callback function
 
-**Returns:** `void`
-
+**Example:**
 ```python
 hologram.raw.event.subscribe('wifi.connected', wifiIsUp)
 ```
@@ -266,8 +240,7 @@ Unregisters an event handler function to the specific event.
 * `event` (string) -- Choose from one of the predefined event strings listed above.
 * `callback` (function) -- Callback function
 
-**Returns:** `void`
-
+**Example:**
 ```python
 hologram.raw.event.unsubscribe('message.sent', sayHello)
 ```
@@ -280,7 +253,6 @@ Broadcasts the triggered event to all handler functions subscribed to it.
 
 * `event` (string) -- Choose from one of the predefined event strings listed above.
 
-**Returns:** `void`
 
 **Example:**
 
