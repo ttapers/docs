@@ -307,7 +307,7 @@ Here is a list of properties that you can set/get manually:
 * `-f` `--file` (string) -- Configuration (HJSON) file that stores the required credentials to send the message to the cloud
 
 The HJSON file looks something like:
-```
+```json
 {
 	// Hologram cloud id (4 characters long)
 	"cloud_id": "xxxx",
