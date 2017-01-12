@@ -59,14 +59,24 @@ credentials = Credentials.Credentials('', '', '', 'xxxx', 'xxxx')
 
 ### Hologram
 
+**Properties:**
+Here is a list of properties that you can set/get manually:
+
+* `credentials` (Credentials) -- `Credentials` object that will be used by the Hologram SDK.
+* `network` (Network) -- The `Network` interface that will be used by the Hologram SDK.
+* `raw` (Raw) -- The `Raw` interface that will be used by the Hologram SDK.
+* `authentication` (Authentication) -- The `Authentication` interface that will be used by the Hologram SDK.
+
 #### .Hologram(credentials, network, raw, authentication)
 
 Constructor/init function.
 
+The constructor is responsible for initializing many of SDK components selected by the user. All of this is done by specifying the string names in each argument except the `Credentials` object.
+
 **Parameters:**
 
 * `credentials` (`Credentials`) -- The Credentials object used to store the keys for authentication purposes.
-* `network` (string) -- The network type used to make an active connection. The network interface will be initialized in the Hologram instance itself. 'wifi' is the only choice avaialble right now, but we'll be adding more in the future.
+* `network` (string) -- The network type used to make an active connection. The network interface will be initialized in the Hologram instance itself. 'wifi' is the only choice available right now, but we'll be adding more in the future.
 * `raw` (string) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
 * `authentication` (string) -- The type of authentication used (either CSRPSK or TOTP).
 
@@ -74,6 +84,7 @@ Constructor/init function.
 
 ```python
 hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk')
+hologram = Hologram(credentials, 'wifi', 'cloud', 'totp')
 ```
 
 #### .setNetworkType(network)
@@ -129,8 +140,8 @@ Returns the SDK version.
 ### Network
 
 The `Network` class is responsible for defining the networking interfaces of Hologram SDK.
-There are interfaces here that allow you to, for example, connect and disconnect from
-a network of your choice.
+There are interfaces here that allow you to, for example, connect and disconnect from a network of your choice.
+You can access `hologram.network`, the `Network` instance from the instantiated Hologram interface.
 
 **Example:**
 
@@ -161,6 +172,8 @@ Reconnects to the specified network.
 **Parameters:** None
 
 ### Wifi
+
+The `Wifi` class is a derived class and is responsible for defining the `Network` interface of Hologram SDK.
 
 #### .connect()
 
