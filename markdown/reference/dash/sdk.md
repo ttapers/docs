@@ -174,6 +174,8 @@ Reconnects to the specified network.
 ### Wifi
 
 The `Wifi` class is a derived class and is responsible for defining the `Network` interface of Hologram SDK.
+The `Wifi` interface requires root permissions to connect/disconnect from access points. I strongly recommend
+running your scripts with `sudo` priviledges.
 
 #### .connect()
 
@@ -339,7 +341,7 @@ The HJSON file looks something like:
 **Example:**
 
 ```bash
-python hologram_send.py --file ../credentials.json --topic topic-example message1 message2 message3
+python hologram_send.py "message message" "one more message" --file ../credentials.json --topic "topic-example"
 ```
 
 #### scripts/hologram_sms.py
@@ -361,5 +363,5 @@ python hologram_sms.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
 **Example:**
 
 ```bash
-python hologram_sms.py -f ../credentials.json --destination +11234567890 yo
+python hologram_sms.py -f ../credentials.json --destination +11234567890 "hey there!"
 ```
