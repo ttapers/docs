@@ -279,6 +279,8 @@ hologram.raw.event.broadcast('wifi.connected')
 
 ### Log
 
+We use the standard Python `logger` framework to report all SDK internal messages.
+
 ```bash
 INFO:<classtype>,<msg>
 ```
