@@ -54,7 +54,7 @@ Constructor.
 **Example:**
 
 ```python
-credentials = Credentials.Credentials('', '', '', 'xxxx', 'xxxx')
+credentials = Credentials.Credentials('xxxx', 'xxxx')
 ```
 
 ### Hologram
