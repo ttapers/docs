@@ -314,10 +314,10 @@ python hologram_send.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
                         [message [message ...]]
 ```
 
-**Properties:**
-Here is a list of properties that you can set/get manually:
+**Options:**
+Here is a list of command line options that you can use in this script:
 
-* `message` (string) -- message that will be sent to the cloud
+* `message` (string) -- message(s) that will be sent to the cloud. Multiple messages can be sent by putting them right next together. If there are whitespaces in one of your messages, you probably want to encapsulate it with double quotes to denote a single `string` in Python.
 * `--ssid` (string) -- ssid for the Wifi interface
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `--cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
@@ -352,6 +352,9 @@ python hologram_sms.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
                        [-f [FILE]]
                        [message]
 ```
+
+**Options:**
+Here is a list of command line options that you can use in this script:
 
 * `message` (string) -- message that will be sent to the cloud
 * `--ssid` (string) -- ssid for the Wifi interface
