@@ -11,7 +11,7 @@ preview_image: "/wp-content/uploads/2016/11/arduino-gprs-med.jpg"
 This tutorial will walk through connecting an Arduino Uno to the Hologram
 cellular network using the Seeed Studio GPRS shield.
 
-{{{ image src="/wp-content/uploads/2016/11/unpack.jpg"
+{{{ image src="/wp-content/uploads/2017/01/unpack.jpg"
     alt="Required components" }}}
 
 Before starting, make sure you have the following components available:
@@ -48,19 +48,19 @@ Punch out the Hologram SIM and slide it into the slot on the back of the GPRS
 shield.  To open the slot, you may need to slide the case slightly horizontal,
 in the direction of the "OPEN" arrow.
 
-{{{ image src="/wp-content/uploads/2016/11/sim_open.jpg"
+{{{ image src="/wp-content/uploads/2017/01/sim_open.jpg"
     alt="SIM open" }}}
 
 Make sure the SIM is inserted so that the metal connectors will touch when the
 case is closed.  After shutting the case, make sure to lock it by sliding it
 slightly horizontal in the direction of the "LOCK" arrow.
 
-{{{ image src="/wp-content/uploads/2016/11/sim_close.jpg"
+{{{ image src="/wp-content/uploads/2017/01/sim_close.jpg"
     alt="SIM close" }}}
 
 Stack and connect the GPRS shield on top of the Arduino
 
-{{{ image src="/wp-content/uploads/2016/11/stack_close.jpg"
+{{{ image src="/wp-content/uploads/2017/01/stack_close.jpg"
     alt="Stacked shield and Arduino" }}}
 
 #### Connect your computer to the Arduino via USB
@@ -68,14 +68,14 @@ Stack and connect the GPRS shield on top of the Arduino
 A green light should illuminate on top of the GPRS shield.
 You may also want to plug in the power adapter at this time.
 
-{{{ image src="/wp-content/uploads/2016/11/usb.jpg"
+{{{ image src="/wp-content/uploads/2017/01/usb.jpg"
     alt="Connected to USB" }}}
 
 Power on the GPRS shield using the tiny button on the side.  Hold the button
 down for 2 seconds, then release. A red light will illuminate to tell you that
 the shield is on.
 
-{{{ image src="/wp-content/uploads/2016/11/button_on.jpg"
+{{{ image src="/wp-content/uploads/2017/01/button_on.jpg"
     alt="Shield with red light on" }}}
 
 A green light will start flashing next to the red light, about once every second
