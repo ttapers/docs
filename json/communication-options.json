@@ -32,6 +32,6 @@
     "Outbound": "Yes",
     "Inbound": "Yes",
     "Pricing": "Outbound: Per message, Inbound: Buy phone number",
-    "Dash Support": "Yes"
+    "Dash Support": "Inbound Only"
   }
 ]
