@@ -44,7 +44,7 @@ Here is a list of properties that you can set/get manually:
 
 #### .Credentials(cloud_id, cloud_key, device_id, private_key)
 
-Constructor.
+The `Credentials` constructor takes in all the provided property values.
 
 **Parameters:**
 
@@ -59,10 +59,18 @@ Constructor.
 credentials = Credentials.Credentials('xxxx', 'xxxx')
 ```
 
+You can also choose to set these properties manually like this:
+
+```python
+credentials.cloud_id = 'yyyy'
+```
+
 ### Hologram
 
+The `Hologram` class is where all the major modules/components are instantiated and
+operated on.
+
 **Properties:**
-Here is a list of properties that you can set/get manually:
 
 * `credentials` (Credentials) -- `Credentials` object that will be used by the Hologram SDK.
 * `network` (Network) -- The `Network` interface that will be used by the Hologram SDK.
@@ -297,8 +305,9 @@ INFO:Raw:A buffered message has been sent since an active connection is establis
 
 The package includes some command line tools that you can use to perform operations
 with the Hologram cloud or as examples for writing your own application using this SDK.
+These files can be found under the `/scripts` folder.
 
-#### scripts/hologram_send.py
+#### hologram_send.py
 
 This script sends messages to a host that is specified by you.
 
@@ -340,7 +349,7 @@ The HJSON file looks something like:
 python hologram_send.py "message message" "one more message" --file ../credentials.json --topic "topic-example"
 ```
 
-#### scripts/hologram_sms.py
+#### hologram_sms.py
 
 ```bash
 python hologram_sms.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
