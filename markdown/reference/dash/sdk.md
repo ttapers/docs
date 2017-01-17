@@ -10,7 +10,7 @@ icon: docs
 
 This is a Python SDK that allows you to send messages to either your or our cloud.
 
-You can also send SMSes via our cloud services to a given destination number of your choice!
+You can also send SMS via our cloud services to a given destination number of your choice!
 
 We understand that you may run this library in smaller, more power constraint devices.
 In the spirit of bringing connectivity to your devices, we also provided you with
@@ -21,6 +21,8 @@ Source code is available
 on [GitHub](https://github.com/hologram-io/hologram-python).
 
 ### Installation
+
+#### Manual Installation
 1. Go ahead and `git clone` this repository.
 2. Type `cd hologram-python`
 3. After that, type `python setup.py install`
@@ -37,8 +39,6 @@ Here is a list of properties that you can set/get manually:
 * `cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
 * `device_id` (string) -- Your SIM number, also obtained from the Hologram dashboard.
 * `private_key` (string) -- The device IMSI.
-* `host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
-* `port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
 
 #### .Credentials(cloud_id, cloud_key, device_id, private_key)
 
@@ -76,57 +76,15 @@ The constructor is responsible for initializing many of SDK components selected 
 **Parameters:**
 
 * `credentials` (`Credentials`) -- The Credentials object used to store the keys for authentication purposes.
-* `network` (string) -- The network type used to make an active connection. The network interface will be initialized in the Hologram instance itself. 'wifi' is the only choice available right now, but we'll be adding more in the future.
-* `raw` (string) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
-* `authentication` (string) -- The type of authentication used (either CSRPSK or TOTP).
+* `network` (string, optional) -- The network type used to make an active connection. The network interface will be initialized in the Hologram instance itself. 'wifi' is the only choice available right now, but we'll be adding more in the future.
+* `raw` (string, optional) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
+* `authentication` (string, optional) -- The type of authentication used (either CSRPSK or TOTP).
 
 **Example:**
 
 ```python
-hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk')
-hologram = Hologram(credentials, 'wifi', 'cloud', 'totp')
-```
-
-#### .setNetworkType(network)
-
-Set up the `Network` type used by the Hologram SDK.
-
-**Parameters:**
-
-* `network` (string) -- The network type used to make an active connection. Choose between 'wifi', 'cellular', 'ble'
-
-**Example:**
-
-```python
-hologram.setNetworkType(networkVariable)
-```
-
-#### .setRawCloud(raw)
-
-Sets the Hologram SDK to use either a `Raw` (a separate server) or `Cloud` (Hologram cloud) type.
-
-**Parameters:**
-
-* `raw` (string) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with.
-
-**Example:**
-
-```python
-hologram.setRawCloud(rawVariable)
-```
-
-#### .setAuthenticationType(authentication)
-
-Sets the `Authentication` type used by the Hologram SDK. You can choose between CSRPSK or TOTP.
-
-**Parameters:**
-
-* `authentication` (string) -- The type of authentication used (either 'csrpsk' or 'totp').
-
-**Example:**
-
-```python
-hologram.setAuthenticationType(authenticationVariable)
+hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk') # first example
+hologram = Hologram(credentials, 'wifi', 'cloud', 'totp') # second example
 ```
 
 #### .getSDKVersion()
@@ -137,11 +95,39 @@ Returns the SDK version.
 
 **Returns:** (string) Hologram SDK version
 
+### Raw
+
+The `Raw` class contains interfaces for how the payload is sent to a server. This
+can be configured manually with two exposed properties: `host` and `port`.
+
+**Properties:**
+
+* `host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
+* `port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
+
+**Example:**
+
+```python
+hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk')
+hologram.raw.host = 'host.com'
+hologram.raw.port = '9999'
+# <send your message here>
+```
+You must manually set these two variables before sending any payload and after
+Hologram instantiation if you choose to use the `Raw` type in your application.
+
+### Cloud
+
+`Cloud` is a derived class of `Raw`, and it is set to utilize the Hologram cloud
+(host: `cloudsocket.hologram.io` and port: `9999`) instead of a raw host and port
+that the user can set manually.
+
 ### Network
 
 The `Network` class is responsible for defining the networking interfaces of Hologram SDK.
-There are interfaces here that allow you to, for example, connect and disconnect from a network of your choice.
-You can access `hologram.network`, the `Network` instance from the instantiated Hologram interface.
+There are interfaces here that allow you to, for example, connect and disconnect
+from a network of your choice. You can access `hologram.network`, the `Network`
+instance from the instantiated Hologram interface.
 
 **Example:**
 
@@ -199,16 +185,19 @@ Returns the AP address.
 
 #### .getAvgSignalStrength()
 
-Prints the average signal strength of the Wifi connection.
+Returns the average signal strength of the Wifi connection.
 
 **Parameters:** None
+
+**Returns:** the average signal strength (string)
 
 #### .getMaxSignalStrength()
 
-Prints the max signal strength of the Wifi connection.
+Returns the max signal strength of the Wifi connection.
 
 **Parameters:** None
 
+**Returns:** the maximum signal strength (string)
 
 #### .getSSID()
 
@@ -247,6 +236,8 @@ Registers an event handler function to the specific event.
 
 **Example:**
 ```python
+# wifiIsUp() will execute whenever a broadcast happens on wifi.connected
+# (or whenever a Wifi connection is established)
 hologram.raw.event.subscribe('wifi.connected', wifiIsUp)
 ```
 
@@ -276,6 +267,8 @@ Broadcasts the triggered event to all handler functions subscribed to it.
 **Example:**
 
 ```python
+# This will broadcast the 'wifi.connected' event, which triggers and executes any
+# event handler functions subscribed to it.
 hologram.raw.event.broadcast('wifi.connected')
 ```
 
@@ -286,8 +279,8 @@ We use the standard Python `logger` framework to report all SDK internal message
 ```bash
 INFO:<classtype>,<msg>
 ```
-
-SDK log messages. Messages show internal information.
+SDK log messages show internal information that could help you understand
+how the SDK works.
 
 * **classtype** -- The internal SDK class that logged the message.
 * **msg** -- Text body of the log message.
@@ -300,7 +293,8 @@ INFO:Raw:A buffered message has been sent since an active connection is establis
 
 ### Command Line Interface (CLI)
 
-The package includes some command line tools that you can use to perform operations with the Hologram cloud or as examples for writing your own application using this SDK
+The package includes some command line tools that you can use to perform operations
+with the Hologram cloud or as examples for writing your own application using this SDK.
 
 #### scripts/hologram_send.py
 
