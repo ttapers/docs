@@ -56,7 +56,8 @@ The `Credentials` constructor takes in all the provided property values.
 **Example:**
 
 ```python
-credentials = Credentials.Credentials('xxxx', 'xxxx')
+from Hologram.Credentials import Credentials
+credentials = Credentials('xxxx', 'xxxx')
 ```
 
 You can also choose to set these properties manually like this:
@@ -142,7 +143,7 @@ instance from the instantiated Hologram interface.
 **Example:**
 
 ```python
-credentials = Credentials.Credentials('xxxx', 'xxxx')
+credentials = Credentials('xxxx', 'xxxx')
 hologram = Hologram(credentials, 'wifi', 'cloud', 'csrpsk')
 hologram.network.connect()
 hologram.network.getSSID()
