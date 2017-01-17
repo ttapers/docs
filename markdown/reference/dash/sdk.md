@@ -75,10 +75,10 @@ operated on.
 
 * `credentials` (Credentials) -- `Credentials` object that will be used by the Hologram SDK.
 * `network` (Network) -- The `Network` interface that will be used by the Hologram SDK.
-* `raw` (Raw) -- The `Raw` interface that will be used by the Hologram SDK.
+* `message_mode` (Raw) -- The message mode that will be used by the Hologram SDK.
 * `authentication` (Authentication) -- The `Authentication` interface that will be used by the Hologram SDK.
 
-#### .Hologram(credentials, network, raw, authentication)
+#### .Hologram(credentials, network, message_mode, authentication)
 
 Constructor/init function.
 
@@ -88,7 +88,7 @@ The constructor is responsible for initializing many of SDK components selected 
 
 * `credentials` (`Credentials`) -- The Credentials object used to store the keys for authentication purposes.
 * `network` (string, optional) -- The network type used to make an active connection. The network interface will be initialized in the Hologram instance itself. 'wifi' is the only choice available right now, but we'll be adding more in the future.
-* `raw` (string, optional) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
+* `message_mode` (string, optional) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
 * `authentication` (string, optional) -- The type of authentication used (either CSRPSK or TOTP).
 
 **Example:**
@@ -120,8 +120,8 @@ can be configured manually with two exposed properties: `host` and `port`.
 
 ```python
 hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk')
-hologram.raw.host = 'host.com'
-hologram.raw.port = '9999'
+hologram.message_mode.host = 'host.com'
+hologram.message_mode.port = '9999'
 # <send your message here>
 ```
 You must manually set these two variables before sending any payload and after
@@ -249,7 +249,7 @@ Registers an event handler function to the specific event.
 ```python
 # wifiIsUp() will execute whenever a broadcast happens on wifi.connected
 # (or whenever a Wifi connection is established)
-hologram.raw.event.subscribe('wifi.connected', wifiIsUp)
+hologram.message_mode.event.subscribe('wifi.connected', wifiIsUp)
 ```
 
 #### .unsubscribe(event, callback)
@@ -263,7 +263,7 @@ Unregisters an event handler function to the specific event.
 
 **Example:**
 ```python
-hologram.raw.event.unsubscribe('message.sent', sayHello)
+hologram.message_mode.event.unsubscribe('message.sent', sayHello)
 ```
 
 #### .broadcast(event)
@@ -280,7 +280,7 @@ Broadcasts the triggered event to all handler functions subscribed to it.
 ```python
 # This will broadcast the 'wifi.connected' event, which triggers and executes any
 # event handler functions subscribed to it.
-hologram.raw.event.broadcast('wifi.connected')
+hologram.message_mode.event.broadcast('wifi.connected')
 ```
 
 ### Log
