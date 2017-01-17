@@ -77,6 +77,20 @@ operated on.
 * `network` (Network) -- The `Network` interface that will be used by the Hologram SDK.
 * `message_mode` (Raw) -- The message mode that will be used by the Hologram SDK.
 * `authentication` (Authentication) -- The `Authentication` interface that will be used by the Hologram SDK.
+* `host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
+* `port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
+
+**Example:**
+
+```python
+hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk')
+hologram.send_host = 'host.com'
+hologram.send_port = '9999'
+# <send your message here>
+```
+
+You must manually set these two variables before sending any payload and after
+Hologram instantiation if you choose to use the `Raw` type in your application.
 
 #### .Hologram(credentials, network, message_mode, authentication)
 
@@ -106,32 +120,44 @@ Returns the SDK version.
 
 **Returns:** (string) Hologram SDK version
 
-### Raw
+#### .sendMessage(messages, topics)
 
-The `Raw` class contains interfaces for how the payload is sent to a server. This
-can be configured manually with two exposed properties: `host` and `port`.
-
-**Properties:**
-
-* `host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
-* `port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
+**Parameters:**
+* `messages` (string) -- The message(s) that will be sent.
+* `topics` (string array, optional) -- The topic(s) that will be sent.
 
 **Example:**
 
 ```python
-hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk')
-hologram.message_mode.host = 'host.com'
-hologram.message_mode.port = '9999'
-# <send your message here>
+hologram.sendMessage(messages=["msg1", "msg2"], topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
 ```
-You must manually set these two variables before sending any payload and after
-Hologram instantiation if you choose to use the `Raw` type in your application.
 
-### Cloud
+#### .sendSMS(destination_number, message)
+* `destination_number` (string) -- The destination number.
+* `message` (string) -- The SMS body
 
-`Cloud` is a derived class of `Raw`, and it is set to utilize the Hologram cloud
-(host: `cloudsocket.hologram.io` and port: `9999`) instead of a raw host and port
-that the user can set manually.
+**Example:**
+
+```python
+destination_number = "+11234567890"
+hologram.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination number
+```
+
+#### .receiveMessage()
+
+Returns the received message.
+
+**Parameters:** None
+
+**Returns:** (string) The received string.
+
+
+**Example:**
+
+```python
+recv = hologram.receiveMessage()
+print "DATA RECEIVED: " + recv
+```
 
 ### Network
 
