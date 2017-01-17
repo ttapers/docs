@@ -31,6 +31,17 @@ When activating a SIM, you must choose a data plan and geographic zone; see our
 Different devices can have different plans or zones. You can change the plan
 of an existing device by contacting Hologram support from the dashboard.
 
+### Usage data
+
+The [usage page](https://dashboard.hologram.io/devices/usages) in the dashboard
+contains several reports and visualizations of your device activity:
+
+{{{ image src="/wp-content/uploads/2017/01/Screen-Shot-2017-01-05-at-2.55.53-PM.png"
+    alt="Usage page" }}}
+
+From this page, you can view data usage on a per-device basis as well as
+aggregated across your account. You can also download CSV usage reports.
+
 ### Billing
 
 The billing period for a data plan is 30 days, beginning from the time of
