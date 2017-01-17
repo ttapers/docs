@@ -373,3 +373,10 @@ Here is a list of command line options that you can use in this script:
 ```bash
 python hologram_sms.py -f ../credentials.json --destination +11234567890 "hey there!"
 ```
+
+### Tests
+
+We use the `pytest` testing framework, and unit tests can be found under the `/tests` folder.
+
+To run them from the top level directory, go ahead and type `pytest tests`, or `make test`
+via the Makefile we provided.
