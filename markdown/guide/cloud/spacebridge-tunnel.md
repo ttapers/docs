@@ -20,11 +20,18 @@ tunneling for your SIM.
 From the Hologram Dashboard's [device list](https://dashboard.hologram.io/),
 select the SIM that you wish to tunnel to.
 
+{{{ image src="/wp-content/uploads/2016/11/device-tunnel-toggle.png" alt="Enable/disable tunneling toggle" }}}
+
 Select the *Cloud and messaging* view and scroll down to the *Device
 tunneling* section. If tunneling isn't already enabled, click the *Enable
 tunneling* button.
 
-{{{ image src="/wp-content/uploads/2016/11/device-tunnel-toggle.png" alt="Enable/disable tunneling toggle" }}}
+{{#callout}}
+Your device itself must also be configured to support inbound
+connections. If you're using an E303 or similar USB modem on Linux, that means
+connecting via PPP mode instead of the simpler HiLink mode. See the [E303
+guide](/docs/guide/connect/e303/) for details.
+{{/callout}}
 
 #### Establishing the Tunnel With the Spacebridge Client
 
