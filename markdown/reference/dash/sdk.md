@@ -244,6 +244,23 @@ Returns the SSID.
 
 **Returns:** the SSID (string)
 
+### Ethernet
+
+The `Ethernet` class is a derived class and is responsible for defining the `Network` interface of Hologram SDK.
+The `Ethernet` interface requires root permissions to connect/disconnect from a given address. I strongly recommend
+running your scripts with `sudo` priviledges.
+
+#### .connect()
+
+Connect to an Ethernet connection
+
+**Parameters:** None
+
+#### .disconnect()
+
+Disconnect from an active Ethernet connection
+
+
 ### Event
 
 This Hologram SDK allows the developer to publish/subscribe to certain events via
