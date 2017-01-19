@@ -178,13 +178,15 @@ hologram.network.disconnect()
 
 #### .connect()
 
-Connects to the specified network.
+Connects to the specified network. This will also broadcast the `network.connected`
+event.
 
 **Parameters:** None
 
 #### .disconnect()
 
-Disconnect from an active network.
+Disconnect from an active network. This will also broadcast the `network.disconnected`
+event.
 
 **Parameters:** None
 
@@ -202,13 +204,15 @@ running your scripts with `sudo` priviledges.
 
 #### .connect()
 
-Connect to Wifi
+Connect to Wifi. This will also broadcast the `wifi.connected`
+event.
 
 **Parameters:** None
 
 #### .disconnect()
 
-Disconnect from an active Wifi connection
+Disconnect from an active Wifi connection. This will also broadcast the
+`wifi.disconnected` event.
 
 **Parameters:** None
 
@@ -252,13 +256,15 @@ running your scripts with `sudo` priviledges.
 
 #### .connect()
 
-Connect to an Ethernet connection
+Connect to an Ethernet connection. This will also broadcast the `ethernet.connected`
+event.
 
 **Parameters:** None
 
 #### .disconnect()
 
-Disconnect from an active Ethernet connection
+Disconnect from an active Ethernet connection. This will also broadcast the
+`ethernet.disconnected` event.
 
 
 ### Event
