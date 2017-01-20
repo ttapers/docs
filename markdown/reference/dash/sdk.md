@@ -136,6 +136,10 @@ event if the message is sent successfully.
 hologram.sendMessage(messages=["msg1", "msg2"], topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
 ```
 
+Cloud messages can also be buffered if the network is down (on a `network.disconnected`
+event). Once the network is reestablished (a broadcast on `network.connected`), 
+these messages that failed to send initially will be sent to the cloud again.
+
 #### .sendSMS(destination_number, message)
 * `destination_number` (string) -- The destination number.
 * `message` (string) -- The SMS body
@@ -166,6 +170,10 @@ print "DATA RECEIVED: " + recv
 
 ### Network
 
+NOTE: The `Network` interface is still under major development, and although we hope we
+don't have to change the interface, this might still happen as we introduce more features
+in the future. We hope you keep this in mind as you develop your applications on top of it.
+
 The `Network` class is responsible for defining the networking interfaces of Hologram SDK.
 There are interfaces here that allow you to, for example, connect and disconnect
 from a network of your choice. You can access `hologram.network`, the `Network`
@@ -180,6 +188,11 @@ hologram.network.connect()
 hologram.network.getSSID()
 hologram.network.disconnect()
 ```
+
+The Network interface allows you to choose between 3 different network options:
+1. `Wifi`
+2. `Ethernet`
+3. `None` (non network mode)
 
 #### .connect()
 
