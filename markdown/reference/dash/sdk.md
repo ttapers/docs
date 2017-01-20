@@ -333,14 +333,6 @@ Unregisters an event handler function to the specific event.
 hologram.message_mode.event.unsubscribe('message.sent', sayHello)
 ```
 
-#### .broadcast(event)
-
-Broadcasts the triggered event to all handler functions subscribed to it.
-
-**Parameters:**
-
-* `event` (string) -- Choose from one of the predefined event strings listed above.
-
 
 **Example:**
 
