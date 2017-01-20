@@ -218,7 +218,7 @@ Reconnects to the specified network.
 
 The `Wifi` class is a derived class and is responsible for defining the `Network` interface of Hologram SDK.
 The `Wifi` interface requires root permissions to connect/disconnect from access points. I strongly recommend
-running your scripts with `sudo` priviledges.
+running your scripts with `sudo` privileges.
 
 #### .connect()
 
@@ -270,7 +270,7 @@ Returns the SSID.
 
 The `Ethernet` class is a derived class and is responsible for defining the `Network` interface of Hologram SDK.
 The `Ethernet` interface requires root permissions to connect/disconnect from a given address. I strongly recommend
-running your scripts with `sudo` priviledges.
+running your scripts with `sudo` privileges.
 
 #### .connect()
 
@@ -438,5 +438,10 @@ python hologram_sms.py -f ../credentials.json --destination +11234567890 "hey th
 
 We use the `pytest` testing framework, and unit tests can be found under the `/tests` folder.
 
-To run them from the top level directory, go ahead and type `pytest tests`, or `make test`
-via the Makefile we provided.
+To run them from the top level directory, go ahead and type `make test`
+via the Makefile we provided. This will run all unit tests under `/tests` except the ones under
+`tests/Network`.
+
+Since the `Network` interface requires root/sudo privileges, we decided to omit this by default.
+You can run all unit tests, including `Network` tests, by typing `make testAll` with sudo
+permissions.
