@@ -77,8 +77,8 @@ operated on.
 * `network` (Network) -- The `Network` interface that will be used by the Hologram SDK.
 * `message_mode` (Raw) -- The message mode that will be used by the Hologram SDK.
 * `authentication` (Authentication) -- The `Authentication` interface that will be used by the Hologram SDK.
-* `host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
-* `port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
+* `send_host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
+* `send_port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
 
 **Example:**
 
