@@ -406,7 +406,7 @@ The HJSON file looks something like:
 **Example:**
 
 ```bash
-python hologram_send.py "message message" "one more message" --file ../credentials.json --topic "topic-example"
+python hologram_send.py "1st message" "2nd message" --file ../credentials.json --topic "topic-example"
 ```
 
 #### hologram_sms.py
