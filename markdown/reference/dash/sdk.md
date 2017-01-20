@@ -122,6 +122,9 @@ Returns the SDK version.
 
 #### .sendMessage(messages, topics)
 
+This method sends a message to the specified host. This will also broadcast the `message.sent`
+event if the message is sent successfully.
+
 **Parameters:**
 * `messages` (string) -- The message(s) that will be sent.
 * `topics` (string array, optional) -- The topic(s) that will be sent.
@@ -145,7 +148,8 @@ hologram.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination
 
 #### .receiveMessage()
 
-Returns the received message.
+Returns the received message. This will also broadcast the `message.received`
+event if the message is received successfully.
 
 **Parameters:** None
 
