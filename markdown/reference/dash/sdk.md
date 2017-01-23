@@ -103,7 +103,7 @@ The constructor is responsible for initializing many of SDK components selected 
 * `credentials` (`Credentials`) -- The Credentials object used to store the keys for authentication purposes.
 * `network` (string, optional) -- The network type used to make an active connection. The network interface will be initialized in the Hologram instance itself. Choose between '', 'wifi', and 'ethernet'.
 * `message_mode` (string, optional) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
-* `authentication` (string, optional) -- The type of authentication used (either CSRPSK or TOTP).
+* `authentication` (string, optional) -- The type of authentication used (either 'csrpsk' or 'totp').
 
 **Example:**
 
