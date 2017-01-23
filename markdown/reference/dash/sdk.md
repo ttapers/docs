@@ -192,7 +192,11 @@ hologram.network.disconnect()
 The Network interface allows you to choose between 3 different network options:
 1. `Wifi`
 2. `Ethernet`
-3. `None` (non network mode)
+3. `None` (non-network mode)
+
+Non-network mode allows you to use the Python SDK independent of the network used
+by your machine. This assumes that you have figured out the network connectivity
+layer required by the SDK.
 
 #### .connect()
 
@@ -331,15 +335,6 @@ Unregisters an event handler function to the specific event.
 **Example:**
 ```python
 hologram.message_mode.event.unsubscribe('message.sent', sayHello)
-```
-
-
-**Example:**
-
-```python
-# This will broadcast the 'wifi.connected' event, which triggers and executes any
-# event handler functions subscribed to it.
-hologram.message_mode.event.broadcast('wifi.connected')
 ```
 
 ### Log
