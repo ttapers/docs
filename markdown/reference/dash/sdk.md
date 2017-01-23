@@ -293,6 +293,7 @@ event.
 Disconnect from an active Ethernet connection. This will also broadcast the
 `ethernet.disconnected` event.
 
+**Parameters:** None
 
 ### Event
 
@@ -310,7 +311,7 @@ Network
 
 Raw/Cloud
 * `socket.connected` - The socket has been connected.
-* `socket.closed` - The socket connection is closed.
+* `socket.closed` - The socket connection has been closed.
 
 #### .subscribe(event, callback)
 
