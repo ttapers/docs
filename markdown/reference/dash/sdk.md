@@ -146,7 +146,8 @@ these messages that failed to send initially will be sent to the cloud again.
 
 #### .sendSMS(destination_number, message)
 * `destination_number` (string) -- The destination number.
-* `message` (string) -- The SMS body
+* `message` (string) -- The SMS body. This SMS must be less than or equal to 160
+characters in length
 
 **Example:**
 
