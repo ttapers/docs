@@ -32,7 +32,7 @@ on [GitHub](https://github.com/hologram-io/hologram-python).
 
 ### Credentials
 
-The Credentials object stores most of the credentials required to make remote calls in the Hologram SDK.
+The `Credentials` object stores most of the credentials required to make remote calls in the Hologram SDK.
 
 **Properties:**
 Here is a list of properties that you can set/get manually:
@@ -94,9 +94,7 @@ Hologram instantiation if you choose to use the `Raw` type in your application.
 
 #### .Hologram(credentials, network, message_mode, authentication)
 
-Constructor/init function.
-
-The constructor is responsible for initializing many of SDK components selected by the user. All of this is done by specifying the string names in each argument except the `Credentials` object.
+The `Hologram` constructor is responsible for initializing many of SDK components selected by the user. All of this is done by specifying the string names in each argument except the `Credentials` object.
 
 **Parameters:**
 
@@ -119,7 +117,13 @@ Returns the SDK version.
 
 **Parameters:** None
 
-**Returns:** (string) Hologram SDK version
+**Returns:** A formatted Hologram SDK version string (string)
+
+**Example:**
+
+```python
+print hologram.getSDKVersion() # 0.1.0
+```
 
 #### .sendMessage(messages, topics)
 
@@ -334,7 +338,8 @@ Unregisters an event handler function to the specific event.
 
 **Example:**
 ```python
-hologram.message_mode.event.unsubscribe('message.sent', sayHello)
+# wifiIsUp() will no longer be executed when a wifi connection is established.
+hologram.message_mode.event.unsubscribe('wifi.connected', wifiIsUp)
 ```
 
 ### Log
