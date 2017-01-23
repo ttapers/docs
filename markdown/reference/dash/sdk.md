@@ -324,9 +324,14 @@ Registers an event handler function to the specific event.
 
 **Example:**
 ```python
-# wifiIsUp() will execute whenever a broadcast happens on wifi.connected
-# (or whenever a Wifi connection is established)
-hologram.message_mode.event.subscribe('wifi.connected', wifiIsUp)
+def wifiIsUp():
+  print 'hi there!'
+  # do something
+
+def temp():
+  # wifiIsUp() will execute whenever a broadcast happens on wifi.connected
+  # (or whenever a Wifi connection is established)
+  hologram.message_mode.event.subscribe('wifi.connected', wifiIsUp)
 ```
 
 #### .unsubscribe(event, callback)
