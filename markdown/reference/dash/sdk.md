@@ -42,7 +42,7 @@ Here is a list of properties that you can set/get manually:
 * `cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
 
-#### .Credentials(cloud_id, cloud_key, device_id, private_key)
+#### .Credentials(cloud_id, cloud_key)
 
 The `Credentials` constructor takes in all the provided property values.
 
@@ -234,8 +234,8 @@ This script sends messages to a host that is specified by you.
 
 ```bash
 python hologram_send.py [-h] [--cloud_id [CLOUD_ID]]
-                        [--cloud_key [CLOUD_KEY]] [--device_id [DEVICE_ID]]
-                        [--private_key [PRIVATE_KEY]] [-t [TOPIC [TOPIC ...]]]
+                        [--cloud_key [CLOUD_KEY]]
+                        [-t [TOPIC [TOPIC ...]]]
                         [-f [FILE]]
                         [message [message ...]]
 ```
@@ -246,8 +246,6 @@ Here is a list of command line options that you can use in this script:
 * `message` (string) -- message(s) that will be sent to the cloud. Multiple messages can be sent by putting them right next together. If there are whitespaces in one of your messages, you probably want to encapsulate it with double quotes to denote a single `string` in Python.
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `--cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
-* `--device_id` (string) -- Your device id, also obtained from the Hologram dashboard.
-* `--private_key` (string) -- The private key
 * `--host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
 * `-p` `--port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
 * `-t` `--topic` (string, optional) -- Topics for the message
