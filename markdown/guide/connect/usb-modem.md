@@ -1,5 +1,5 @@
 ---
-title: USB Modems
+title: USB Cellular Modems
 nav_sort: 4
 autotoc: true
 layout: guide.hbs
@@ -9,7 +9,8 @@ layout: guide.hbs
 
 Huawei makes several models of cellular USB modems. These devices are great for
 connecting embedded Linux devices to cellular, or for development and testing.
-You can buy unlocked USB modems from the [Hologram Store](/store).
+You can buy unlocked USB modems, such as the global MS2131, from the
+[Hologram Store](/store).
 
 This guide describes how to set up a USB modem on a Linux system as a PPP
 interface using the

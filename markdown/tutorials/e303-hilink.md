@@ -1,19 +1,21 @@
 ---
-title: HiLink mode on the Huawei E303
+title: HiLink mode on the Huawei E303/353
 nav_sort: 5
+autotoc: true
 layout: tutorial.hbs
-preview_image: ""
+preview_image: "/wp-content/uploads/2016/12/huawei-e303-front-1.jpg"
 ---
 
 ### Introduction
 
-Some Huawei USB modems, such as the E303 support an easy-to-use HiLink mode. 
-This mode allows you to perform basic modem configuration via a web interface
-instead of the command line.
+Some Huawei USB modems, such as the E303 and E353, support an easy-to-use HiLink
+mode.  This mode allows you to perform basic modem configuration via a web
+interface instead of the command line.
+
 HiLink mode is more limited than the standard
-[PPP configuration](/docs/guide/connect/usb-modem/) -- notably, you cannot
+[PPP configuration](/docs/guide/connect/usb-modem/)--notably, you cannot
 establish inbound connections to the device. Still, it may be useful for some
-simple applications.
+simple applications if your modem supports it.
 
 ### Windows and MacOS
 
