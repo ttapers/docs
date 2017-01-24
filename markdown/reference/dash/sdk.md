@@ -83,7 +83,7 @@ operated on.
 **Example:**
 
 ```python
-hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk')
+hologram = Hologram(credentials)
 hologram.send_host = 'host.com'
 hologram.send_port = '9999'
 # <send your message here>
@@ -92,23 +92,20 @@ hologram.send_port = '9999'
 You must manually set these two variables before sending any payload and after
 Hologram instantiation if you choose to use the `Raw` type in your application.
 
-#### .Hologram(credentials, network, message_mode, authentication)
+#### .Hologram(credentials, message_mode = 'hologram_cloud')
 
 The `Hologram` constructor is responsible for initializing many of SDK components selected by the user. All of this is done by specifying the string names in each argument except the `Credentials` object.
 
 **Parameters:**
 
 * `credentials` (`Credentials`) -- The Credentials object used to store the keys for authentication purposes.
-* `network` (string, optional) -- The network type used to make an active connection. The network interface will be initialized in the Hologram instance itself. Choose between '', 'wifi', and 'ethernet'.
 * `message_mode` (string, optional) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
-* `authentication` (string, optional) -- The type of authentication used (either 'csrpsk' or 'totp').
 
 **Example:**
 
 ```python
-hologram = Hologram(credentials, 'wifi', 'raw', 'csrpsk') # first example
-hologram = Hologram(credentials, 'wifi', 'cloud', 'totp') # second example
-hologram = Hologram(credentials, message_mode='cloud', authentication='totp') # third example
+hologram = Hologram(credentials) # first example
+hologram = Hologram(credentials, message_mode='hologram_cloud') # second example
 ```
 
 #### .getSDKVersion()
@@ -125,19 +122,19 @@ Returns the SDK version.
 print hologram.getSDKVersion() # 0.1.0
 ```
 
-#### .sendMessage(messages, topics)
+#### .sendMessage(message, topics = None)
 
 This method sends a message to the specified host. This will also broadcast the `message.sent`
 event if the message is sent successfully.
 
 **Parameters:**
-* `messages` (string) -- The message(s) that will be sent.
+* `message` (string) -- The message that will be sent.
 * `topics` (string array, optional) -- The topic(s) that will be sent.
 
 **Example:**
 
 ```python
-hologram.sendMessage(messages=["msg1", "msg2"], topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
+hologram.sendMessage("msg1", topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
 ```
 
 Cloud messages can also be buffered if the network is down (on a `network.disconnected`
@@ -156,23 +153,6 @@ destination_number = "+11234567890"
 hologram.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination number
 ```
 
-#### .receiveMessage()
-
-Returns the received message. This will also broadcast the `message.received`
-event if the message is received successfully.
-
-**Parameters:** None
-
-**Returns:** (string) The received string.
-
-
-**Example:**
-
-```python
-recv = hologram.receiveMessage()
-print "DATA RECEIVED: " + recv
-```
-
 ### Event
 
 This Hologram SDK allows the developer to publish/subscribe to certain events via
@@ -181,15 +161,7 @@ will get executed when the event occurs. Some of these predefined strings are as
 
 Network
 
-* `wifi.connected` - There's an active WiFi connection.
-* `wifi.disconnected` - The Bluetooth connection became inactive.
-
-* `network.connected` - There's an active network connection.
-* `network.disconnected` - The network connection became inactive.
-
-Raw/Cloud
-* `socket.connected` - The socket has been connected.
-* `socket.closed` - The socket connection has been closed.
+* `message.sent` - A message has just been sent.
 
 #### .subscribe(event, callback)
 
@@ -257,7 +229,7 @@ These files can be found under the `/scripts` folder.
 This script sends messages to a host that is specified by you.
 
 ```bash
-python hologram_send.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
+python hologram_send.py [-h] [--cloud_id [CLOUD_ID]]
                         [--cloud_key [CLOUD_KEY]] [--device_id [DEVICE_ID]]
                         [--private_key [PRIVATE_KEY]] [-t [TOPIC [TOPIC ...]]]
                         [-f [FILE]]
@@ -268,7 +240,6 @@ python hologram_send.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
 Here is a list of command line options that you can use in this script:
 
 * `message` (string) -- message(s) that will be sent to the cloud. Multiple messages can be sent by putting them right next together. If there are whitespaces in one of your messages, you probably want to encapsulate it with double quotes to denote a single `string` in Python.
-* `--ssid` (string) -- ssid for the Wifi interface
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `--cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
 * `--device_id` (string) -- Your device id, also obtained from the Hologram dashboard.
@@ -297,7 +268,7 @@ python hologram_send.py "1st message" "2nd message" --file ../credentials.json -
 #### hologram_sms.py
 
 ```bash
-python hologram_sms.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
+python hologram_sms.py [-h] [--cloud_id [CLOUD_ID]]
                        [--cloud_key [CLOUD_KEY]] [--destination [DESTINATION]]
                        [-f [FILE]]
                        [message]
@@ -307,7 +278,6 @@ python hologram_sms.py [-h] [--ssid [SSID]] [--cloud_id [CLOUD_ID]]
 Here is a list of command line options that you can use in this script:
 
 * `message` (string) -- message that will be sent to the cloud
-* `--ssid` (string) -- ssid for the Wifi interface
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `--cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
 * `--destination` (string) -- The destination number in which the SMS will be sent
