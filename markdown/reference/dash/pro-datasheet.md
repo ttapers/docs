@@ -1,7 +1,7 @@
 ---
-title: Hologram Dash Datasheet
+title: Hologram Dash Pro Datasheet
 autotoc: true
-nav_sort: 0
+hide_in_nav: true
 layout: reference.hbs
 description: Pinouts and electrical specifications
 icon: docs
@@ -9,15 +9,15 @@ icon: docs
 
 ### Introduction
 
-Hologram Dash cellular
+Hologram Dash Pro cellular
 development board technical operation manual. Cost efficient cellular
 connectivity with a powerful Cortex M4 microcontroller or to a PC via
 USB, allowing the device to either push data to the cloud, or allow
 cloud control of the device or PC via USB using the Hologram SIM and
 cloud. This manual covers:
 
--   Hologram Dash (KON-SU260) North America
--   Hologram Dash (KON-SU270) EU / Asia
+-   Hologram Dash Pro (KON-LU200) Worldwide
+-   Hologram Dash Pro (KON-CU200) CDMA
 
 #### Revisions
 
@@ -35,17 +35,17 @@ cloud. This manual covers:
 All instructions must be read and followed in detail for safe use of the
 equipment. Use of this equipment in any other way can result in
 electrical fire and shock hazards or explosion hazards from
-battery overcharging. The Hologram Dash is intended for
+battery overcharging. The Hologram Dash and Dash Pro are intended for
 integration into electronic systems only by experienced professionals
 and individuals trained in electronic design principles or electrical
 engineering. Users are required to have a basic understanding of
 electronic safety precautions and understand that although normal
 operation does not present hazardous voltages or currents, that improper
 handling of the devices can result in hazardous currents. The Hologram
-Dash is not designed to be used for life-support systems
+Dash Pro is not designed to be used for life-support systems
 or real-time systems that could induce physical harm or property damage
 if the hardware or network connections fail. The end user assumes all
-liability for systems implemented with the Hologram Dash.
+liability for systems implemented with the Hologram Dash Pro.
 
 #### Hazards
 
@@ -96,11 +96,11 @@ Hazards include but are not limited to:
 
 ### Operating Conditions
 
-The Hologram Dash as a bare PCBA is designed for indoor use
+The Hologram Dash Pro as a bare PCBA is designed for indoor use
 between 0-55 degrees Celsius. The devices are not designed to withstand
 material contact with moisture or any other conductors, aside from
 intended use of the user pins, Micro-USB, or battery terminal. The
-Hologram Dash may be installed into appropriate enclosures
+Hologram Dash Pro may be installed into appropriate enclosures
 that can protect the device from heat, cold, moisture, and humidity for
 Industrial use.
 
@@ -123,7 +123,7 @@ periods may affect device reliability.
 
 #### Mechanical Specifications
 
-The mechanical specifications of the Hologram Dash
+The mechanical specifications of the Hologram Dash Pro
 can be found in our [hardware GitHub 
 repository](https://github.com/hologram-io/hologram-hardware)
 
@@ -143,19 +143,19 @@ Improper Configuration of the on-board jumpers can result in a fire,
 electrical hazard, and exploding batteries. The configurations must
 either be placed in DC 5V Mode or Battery Mode.
 
-{{{ image src="/wp-content/uploads/2017/01/dash-jumpers.jpg"
+{{{ image src="/wp-content/uploads/2017/01/dash-pro-jumpers.jpg"
   alt="Hologram Dash jumpers" }}}
 
 ### Buttons / LEDS
 
-{{{ image src="/wp-content/uploads/2017/01/dash-led-buttons.png"
+{{{ image src="/wp-content/uploads/2017/01/dash-pro-led-buttons.png"
     alt="LED buttons" }}}
 
-The only LEDs that are active on the Dash are the System and
+The only LEDs that are active on the Dash Pro are the System and
 User IC LEDs. The rest have had their current limiting resistor removed
-to conserve energy. The Dash has three buttons:
+to conserve energy. The Dash Pro has three buttons:
 
-1.  Program: Pressing this will enter the Dash into USB program mode
+1.  Program: Pressing this will enter the Dash Pro into USB program mode
 2.  User IC reset: This will cause a hard reset on the user IC.
 3.  System IC Reset: This will cause a hard reset on the system IC.
 
@@ -166,10 +166,10 @@ referred to the "Left" and "Right" side, when looking at the side with
 the modem, with the antenna facing upwards to the literal clouds,
 referencing the literal cloud. Hologram Pinout Legend
 
--   Connector: USB Micro, used to supply power to the Dash and
+-   Connector: USB Micro, used to supply power to the Dash Pro and
     communicate to a PC. (Power shall only be supplied to either the USB
     Micro or the GND+USB\_5V Pins) (See Jumper Settings).
--   Connector: Battery, used to connect the Dash to a battery (See
+-   Connector: Battery, used to connect the Dash Pro to a battery (See
     Jumper Settings).
 -   Connector: U.FL, used to connect an antenna to the modem.
 -   GND: Digital and Analog Ground, 0V potential.
@@ -188,37 +188,20 @@ referencing the literal cloud. Hologram Pinout Legend
 -   CANX: CANBus serial pins.
 -   DACX: Digital to Analog Converter.
 
-#### Hologram Dash
-
-{{{ image src="/wp-content/uploads/2017/01/dash-pinout.png"
-    alt="Dash pinout diagram" }}}
-
+{{{ image src="/wp-content/uploads/2015/10/Konekt-Dash-Pro-Pinout-Modern.png" 
+    alt="Dash Pro pinout diagram" }}}
 
 Pinout Changelog:
 
--   2017-01-17
-    -   Updated Dash pintout design
 -   2015-12-13
-    -   Updated Dash + Pro to "Modern" UI to allow for the development
+    -   Updated Dash Pro to "Modern" UI to allow for the development
         of scriptable documentation updates.
 
 Older:
 
--   Left.17 from U30 to U.24
--   Left.16 from U31 to U.25
--   Left.15 from U29 to U.23
--   Left.3 M1 from -- to 1
--   Left.4 M1 from -- to 2
--   Left.5 M1 from 1 to 58
--   Left.6 M1 from 2 to 59
--   Left.7 M1 from 58 to 62
--   Left.8 M1 from 59 to 60
--   Left.9 M1 from 62 to 36
--   Left.10 M1 from 60 to 27
--   Left.11 M1 from 36 to 28
--   Left.12 M1 from 27 to 29
--   Left.13 M1 from 28 to 35
--   Left.14 M1 from 29 to 18
+-   Right.13 from M1.51 to M1.34 (?35)
+-   Right.14 from M1.52 to M1.16
+-   Right.11 from M1.54 to --
 -   Left.8 UART from -- to UART2_TX
 -   Left.8 I2C from -- to I2C0_SDA
 -   Left.7 UART from UART2_TX to UART0_CTS

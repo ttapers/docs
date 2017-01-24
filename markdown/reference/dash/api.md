@@ -48,6 +48,7 @@ The Dash has several serial channels:
 * `SerialUSB` -- Serial communication over USB. Aliased to `Serial`.
 * `SerialCloud` -- Communication with the system chip. Writes to this interface
   are sent as messages to the Hologram Cloud.
+* `Serial0` -- UART channel 0 (*RX0/TX0* pins)
 * `Serial2` -- UART channel 2 (*RX2/TX2* pins)
 
 These instances are compatible with Arduino's [Serial
@@ -82,7 +83,7 @@ Turn on or off the user LED.
 
 **Parameters:**
 
-* `on` (boolean) -- `true` turns on the LED, false turns it off.
+* `on` (boolean) -- `true` turns on the LED, `false` turns it off.
 
 **Returns:** `void`
 
