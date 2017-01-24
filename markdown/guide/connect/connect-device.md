@@ -8,6 +8,10 @@ layout: guide.hbs
 The Hologram network is device-agnostic. All you need to get online
 is an activated Hologram Global SIM Card and a cellular device or modem.
 
+We sell USB modems on [our online store](/store) that can be used with any
+computer or Linux-based embedded device. See our 
+[USB modem guide](/docs/guide/connect/usb-modem/) for details.
+
 ### APN Settings
 
 If you don't already have one, order a Hologram Global SIM Card 
@@ -31,13 +35,4 @@ The correct APN settings are as follows:
 * **Data Roaming:** *Enabled*
 
 That's it! Your device should now be connected to the Hologram cellular network.
-
-### Huawei E303 USB Modem
-
-The Huawei E303 USB modem is an extraordinary cellular
-modem for development and testing work. You can buy the E303 from
-[our online store](/store).
-
-Our [E303 Guide](/docs/guide/connect/e303) describes in more detail the process
-of connecting via this modem.
 

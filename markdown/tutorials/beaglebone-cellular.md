@@ -18,24 +18,19 @@ Before starting, make sure you have the following components available:
 
 -   BeagleBone Black
 -   USB Cable (included in BeagleBone box)
+-   USB Hub
+-   USB mouse and keyboard
+-   Monitor with HDMI input
 -   8GB MicroSD card
--   Huawei E303 Cellular Modem -- available from the [Hologram Store](/store)
--   Hologram SIM Card -- available from the [Hologram Store](/store)
--   Windows or Mac Computer with a free USB port
+-   USB cellular modem such as Huawei's MS2131 or E303
+-   Hologram SIM Card
 
+The SIM card and USB modem are both available from the [Hologram store](/store).
 
-The Beaglebone has some complications that make this a little more
-difficult than the Raspberry Pi:
-
--   There is only a single USB host port, so you can't plug in a keyboard and
-    mouse at the same time as the modem without a USB hub.
--   The default OS image does not support creating an Ethernet device
-    for the modem in HiLink mode.
-
-To get around the first issue, we'll be using another PC for the bulk of the
-configuration, and using SSH over the USB client port to finish the setup.
-For the second issue, we'll need to boot the BeagleBone off
-of a MicroSD card with a newer OS image on it.
+This tutorial requires the use of the GUI (which means monitor, keyboard,
+and mouse).
+It also requires you initially connect the Pi to the internet via Ethernet or
+Wi-Fi in order to download software packages.
 
 ### Instructions
 
@@ -43,57 +38,40 @@ of a MicroSD card with a newer OS image on it.
 
 {{{ include "activate-sim" }}}
 
-#### Set up the E303 using another PC
-
-Follow the instructions in the [E303
-guide](/docs/guide/connect/e303#hilink-mode-windows-and-macos-) to configure 
-the E303 modem on another computer. Then unplug the modem from the computer--the
-settings you changed are now saved on the E303.
-
 #### Upgrade the BeagleBone
 
-Plug the Beaglebone into your other PC using the Beaglebone's USB client (small
+Plug the Beaglebone into your other PC using the Beaglebone's USB client (micro
 USB) port.
 
-The BeagleBone will also install itself as a flash drive at first.
+The BeagleBone will install itself as a flash drive at first.
 Open the Readme.htm file in your browser to and follow the instructions
 to install the correct drivers for your computer.
 
-Download the latest Debian image from the [BeagleBone 
+Download the latest Debian image from the [BeagleBone
 website](https://beagleboard.org/latest-images) and install
 it to the MicroSD card according to the instructions in the Readme.
 
-Plug the E303 into the BeagleBone's USB Host port, and reboot the BeagleBone
-with the MicroSD card in the slot.
+Plug the USB hub into the BeagleBone's USB Host port, and connect the keyboard, 
+mouse, and modem to the hub. Plug in the monitor to the HDMI port, insert the
+MicroSD card, and reboot the BeagleBone. Set up an internet connection via
+Ethernet or Wi-Fi.
 
-The modem should now be connecting to the network on its own. While
-it is attempting to connect, the light will flash green and it will
-be steady green once it has connected.
+After setting up the cellular connection, you can then
+run the BeagleGone "headless" anywhere that has cellular coverage.
 
-#### Finishing up over SSH
+#### Connect with the USB modem
 
-When you connect the BeagleBone into another computer via the small USB client
-port, it appears as a network device. This means you can SSH to it without
-setting up networking using Ethernet or Wi-Fi. The BeagleBone's default SSH info
-is:
+Open the terminal application to get to a command line interface, and follow 
+the instructions in our [USB modem
+guide](/docs/guide/connect/usb-modem/#linux-instructions).
 
-* IP address: 192.168.7.2
-* Username: root
-* Password: *<none>*
-
-Linux and MacOS include a built-in command line SSH client, so from a terminal
-you can simply run:
+After completing the setup, disable the BeagleBone's other network interfaces to ensure
+that all network communication goes over cellular:
 
 ```bash
-ssh root@192.168.7.2
+sudo ifconfig wlan0 down
+sudo ifconfig eth0 down
 ```
-
-On Windows, download
-[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and
-open a session with the information above.
-
-When the modem light stays solid green, the connection has been established.
-In the SSH session, type `dhclient eth1` to acquire an IP address.
 
 Then, test your connection by pinging hologram.io:
 
@@ -104,11 +82,37 @@ ping -c3 hologram.io
 If you don't receive any errors, you are now connected to the internet via the
 Hologram network!
 
-If you want the modem to connect automatically when the BeagleBone boots up,
-edit the file */etc/network/interfaces*, adding the following two lines:
+### SSH instructions
+
+Now that your BeagleBone is connected to the internet via cellular,
+you may wish to log into it via SSH. This requires some extra setup compared to
+SSH over a LAN.
+
+#### Establish an inbound tunnel with Spacebridge
+
+By default, the Hologram network blocks inbound connections to cellular devices.
+In order to connect to your BeagleBone with SSH, you'll need to relay the connection through
+Hologram's servers using the Spacebridge service.
+
+Enable tunneling for your SIM in the Hologram Dashboard, and use the Spacebridge
+client to forward a local port to the device's port 22 (the standard SSH port).
+The [Spacebridge guide](/docs/guide/cloud/spacebridge-tunnel) describes this
+process in more detail.
+
+With the Spacebridge client running, you can now SSH to your BeagleBone by
+connecting to localhost on the port you're forwarding to (e.g. 5000).
+
+Linux and MacOS include a built-in command line SSH client, so from a terminal
+you can simply run:
 
 ```bash
-allow-hotplug eth1
-iface eth1 inet dhcp
+ssh -p 5000 root@localhost
 ```
+
+By default, the BeagleBone does not have a root password.
+
+On Windows, download
+[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and
+open a session with hostname 'localhost', and port 5000 (or the local port you
+configured). When prompted, enter the username 'root' and an empty password.
 
