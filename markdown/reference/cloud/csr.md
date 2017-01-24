@@ -7,6 +7,9 @@ description: Data format of CSR messages and Routing Rules options
 icon: docs
 ---
 
+For a description of CSR routing rules, see [the
+guide](/docs/guide/cloud/routing-rules).
+
 ### CSR Message Fields
 
 The CSR sends these fields to downstream apps and webhook recipients by default.

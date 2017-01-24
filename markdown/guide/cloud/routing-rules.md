@@ -16,7 +16,7 @@ Routes can be configured through the
 [Hologram Dashboard](https://dashboard.hologram.io/routes) or the
 HTTP API.
 
-### Components of a route
+#### Components of a route
 
 An route configuration has two parts: the message topic(s) that the route
 subscribes to,
@@ -31,6 +31,8 @@ The CSR supports several route types and formats:
 * **SMS** -- Send payload as a text message
 * **Email** -- Send payload and metadata in an email
 * **AT&T M2X** -- Publish data to AT&T's M2X platform
+* **Heartbeat** -- Emit an event if no data has been received for a period of
+  time
 * **Advanced Webhook Builder (Your Own App)** -- Send a configurable HTTP request
   to a URL
 * **Custom Webhook URL (Your Own App)** -- Send payload and metadata in
@@ -38,9 +40,8 @@ The CSR supports several route types and formats:
 
 {{{ image src="/wp-content/uploads/2016/11/route-create-form.png" alt="Route create form" }}}
 
-### Route Types
 
-#### Slack
+### Slack
 
 Slack is a group messaging application that has great support for integrating
 with external services. Hologram's Slack integration posts matching messages
@@ -65,7 +66,7 @@ Hologram messages will display as two lines in Slack: the first line is the
 message payload in text format, the second line is a JSON representation of the
 message, including metadata such as received time and message topics.
 
-#### AT&T M2X
+### AT&T M2X
 
 M2X is a platform by AT&T for logging and streaming data from
 device sources to various cloud destinations. M2X organizes data within *devices*, 
@@ -95,7 +96,7 @@ The M2X route has two parameters:
 * **Stream Name:** The name of the stream to publish the message to. Default is
   `konekt_default`.
 
-##### Device and Stream Mapping
+#### Device and Stream Mapping
 
 Hologram relies on M2X's Device Serial identifier for mapping between Hologram and M2X
 devices.
@@ -108,6 +109,33 @@ non-numeric stream will be created. This allows for arbitrary text payloads to
 be stored in M2X. However, if you pre-create a numeric stream with the given
 name, M2X will attempt to parse the data payload as a number. This can be useful
 for devices sending numeric sensor readings to the Hologram Cloud.
+
+### Heartbeat
+
+The Heartbeat routing rule emits an event if it does not receive data from its
+subscribed topics for a period of time. This can be useful to generate alerts
+when devices unexpectedly go offline.
+
+While most routing rules send their output to an external service, the Heartbeat 
+rule feeds back into the CSR under a different, configurable topic. By creating another rule that
+subscribes to the Heartbeat output, you can send the alert to any external
+destination. For example, let's create an alert to send an email when the device
+with ID `12345` fails to write a message for 15 minutes.
+
+Create a Hologram route, and select *Heartbeat* as the route type. The heartbeat
+rule has two parameters:
+
+* **Publish To:** The CSR topic that this rule will write an event to. This
+  should be different than the *Subscribes to* topic.
+* **Heartbeat time:** The output event will be sent if no messages are received
+  for this many seconds.
+
+{{{ image src="/wp-content/uploads/2017/01/heartbeat-route.png"
+          alt="Configuration for Heartbeat route" }}}
+
+Then, create an email route which subscribes to the *Publish To*
+topic that you defined in the Heartbeat route. Now, if your device
+fails to write a message in a 15-minute period, you'll receive an email.
 
 
 ### Custom Integrations With Webhooks
