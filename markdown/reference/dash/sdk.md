@@ -129,10 +129,12 @@ event if the message is sent successfully.
 * `message` (string) -- The message that will be sent.
 * `topics` (string array, optional) -- The topic(s) that will be sent.
 
+**Returns:** A message response description (string)
+
 **Example:**
 
 ```python
-hologram.sendMessage("msg1", topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
+recv = hologram.sendMessage("msg1", topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
 ```
 
 Cloud messages can also be buffered if the network is down (on a `network.disconnected`
@@ -140,15 +142,19 @@ event). Once the network is reestablished (a broadcast on `network.connected`),
 these messages that failed to send initially will be sent to the cloud again.
 
 #### .sendSMS(destination_number, message)
+
+**Parameters:**
 * `destination_number` (string) -- The destination number.
 * `message` (string) -- The SMS body. This SMS must be less than or equal to 160
 characters in length
+
+**Returns:** A message response description (string)
 
 **Example:**
 
 ```python
 destination_number = "+11234567890"
-hologram.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination number
+recv = hologram.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination number
 ```
 
 ### Event
