@@ -33,14 +33,14 @@ on [GitHub](https://github.com/hologram-io/hologram-python).
 ### Credentials
 
 The `Credentials` object stores most of the credentials required to make remote calls in the Hologram SDK.
+You will require the 4 character cloud id and cloud key of your device. Please refer to
+[this guide](/docs/guide/connect/device-management#hologram-cloud-credentials) for more details.
 
 **Properties:**
 Here is a list of properties that you can set/get manually:
 
 * `cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
-* `device_id` (string) -- Your SIM number, also obtained from the Hologram dashboard.
-* `private_key` (string) -- The device IMSI.
 
 #### .Credentials(cloud_id, cloud_key, device_id, private_key)
 
@@ -50,8 +50,6 @@ The `Credentials` constructor takes in all the provided property values.
 
 * `cloud_id` (string, optional) -- The 4 character cloud id obtained from your dashboard.
 * `cloud_key` (string, optional) -- The 4 character cloud key obtained from your dashboard.
-* `device_id` (string, optional) -- Your SIM number, also obtained from the Hologram dashboard.
-* `private_key` (string, optional) -- The device IMSI.
 
 **Example:**
 
