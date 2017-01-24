@@ -174,14 +174,14 @@ Registers an event handler function to the specific event.
 
 **Example:**
 ```python
-def wifiIsUp():
-  print 'hi there!'
+def messageSent():
+  print 'hurray!'
   # do something
 
 def temp():
-  # wifiIsUp() will execute whenever a broadcast happens on wifi.connected
-  # (or whenever a Wifi connection is established)
-  hologram.message_mode.event.subscribe('wifi.connected', wifiIsUp)
+  # messageSent() will execute whenever a broadcast happens on message.sent
+  # (or whenever a message is sent)
+  hologram.event.subscribe('message.sent', messageSent)
 ```
 
 #### .unsubscribe(event, callback)
@@ -195,8 +195,8 @@ Unregisters an event handler function to the specific event.
 
 **Example:**
 ```python
-# wifiIsUp() will no longer be executed when a wifi connection is established.
-hologram.message_mode.event.unsubscribe('wifi.connected', wifiIsUp)
+# messageSent() will no longer be executed when a message is sent.
+hologram.event.unsubscribe('message.sent', messageSent)
 ```
 
 ### Log
