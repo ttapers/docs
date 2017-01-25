@@ -97,7 +97,7 @@ The `Hologram` constructor is responsible for initializing many of SDK component
 **Parameters:**
 
 * `credentials` (`Credentials`) -- The Credentials object used to store the keys for authentication purposes.
-* `message_mode` (string, optional) -- Choose between 'raw' or 'cloud' on whom the SDK will communicate with. the `Raw` type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `Cloud` assumes communication with our Hologram cloud.
+* `message_mode` (string, optional) -- Choose between 'tcp-other' or 'hologram_cloud' on whom the SDK will communicate with. The `tcp-other` (a higher abstraction of `Raw`) type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `hologram-cloud` assumes communication with our Hologram cloud.
 
 **Example:**
 
@@ -138,7 +138,7 @@ recv = hologram.sendMessage("msg1", topics = ["TOPIC 1","TOPIC 2"]) # Send advan
 ```
 
 Cloud messages can also be buffered if the network is down (on a `network.disconnected`
-event). Once the network is reestablished (a broadcast on `network.connected`), 
+event). Once the network is reestablished (a broadcast on `network.connected`),
 these messages that failed to send initially will be sent to the cloud again.
 
 #### .sendSMS(destination_number, message)
@@ -246,8 +246,8 @@ Here is a list of command line options that you can use in this script:
 * `message` (string) -- message(s) that will be sent to the cloud. Multiple messages can be sent by putting them right next together. If there are whitespaces in one of your messages, you probably want to encapsulate it with double quotes to denote a single `string` in Python.
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `--cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
-* `--host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
-* `-p` `--port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
+* `--host` (string) -- The server IP address (This needs to be set if you're using the `tcp-other` type)
+* `-p` `--port` (string) -- The server port (This needs to be set if you're using the `tcp-other` type)
 * `-t` `--topic` (string, optional) -- Topics for the message
 * `-f` `--file` (string) -- Configuration (HJSON) file that stores the required credentials to send the message to the cloud
 
