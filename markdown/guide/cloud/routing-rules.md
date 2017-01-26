@@ -198,7 +198,7 @@ than the *Custom Webhook URL* destination--it can be used when the
 destination application expects an HTTP request in a specific format.
 
 Variables can be included by enclosing the variable name in double angle
-brackets, e.g. `<<device_id>>`. Supported variable names are:
+brackets, e.g. `<<device_id>>`. Supported variables are:
 
 * `received`: ISO8601-formatted UTC timestamp when the message was received by
 the CSR
@@ -207,7 +207,10 @@ the CSR
 * `device_id`: Integer ID of the device
 * `data`: Base64-encoded representation of the data payload
 * `decdata`: Decoded (raw) representation of the data payload. This may not be valid
-if the message has a non-text payload.
+  if the message has a non-text payload.
+* `decdata.fieldName`: Access a JSON field in the data payload, for example,
+  `decdata.voltage`. Results in an empty string if the payload isn't valid JSON
+  or if the field isn't present.
 
 One common use case is to construct a custom JSON string as the webhook
 body. For example, the payload template could be:

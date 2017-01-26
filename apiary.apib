@@ -565,6 +565,43 @@ There is no cost to send SMS messages to Hologram devices via API.
     + Attributes
         + success: true (boolean) - Was the request successful?
 
+## Device Messaging [/api/1/devices/message]
+
+Send a TCP or UDP message to one or more devices on the Hologram network.
+See the [guide](/docs/guide/cloud/message-to-device/) for details.
+
+### Send message to a device [POST /api/1/devices/messages]
+
++ Request (application/json)
+    + Attributes
+        + deviceids (array, required) - IDs of devices to send message
+            + 1234 (number)
+            + 1236 (number)
+        + protocol: TCP (string, required) - The protocol to use: 'TCP' or 'UDP'
+        + port: 80 (number, required) - The port to use
+        + data: Hello world! (string) - The data to send. Max length of 10k bytes
++ Response 200 (application/json)
+    + Attributes
+        + success: true (boolean) - Was the request successful?
+        + data (array)
+            + (object)
+                + deviceid: 1234 (number)
+                + messageid: 9a9e55f0-a167-4d9d-972e-b2ad0740d449 (string)
+
+### Send message to a device via webhook [POST /api/1/devices/messages/:deviceid/:webhookguid]
+
+In order to generate a webhook, please visit the cloud configuration page for your device
+
++ Request (application/json)
+    + Attributes
+        + data: Hello world! (string) - The data to send. Max length of 10k bytes
++ Response 200 (application/json)
++ Attributes
+    + success: true (boolean) - Was the request successful?
+    + data (array)
+        + (object)
+            + deviceid: 1234 (number)
+            + messageid: 9a9e55f0-a167-4d9d-972e-b2ad0740d449 (string)
 
 ## Group Account Management
 

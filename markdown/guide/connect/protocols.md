@@ -18,16 +18,34 @@ plan. See [Pricing](/pricing/) for details.
 
 ### Hologram Cloud Messaging
 
-The Hologram Cloud is the easiest way to get data from your device to the
-internet. The Dash provides built-in functions for sending Hologram Cloud
-messages, and any internet-connected device can use its [TCP
-API](/docs/reference/cloud/embedded) even if it's not on Hologram's
-cellular network.
+The Hologram Cloud is the easiest way to send data between your device and the
+internet. The mechanisms for inbound and outbound communication are somewhat different,
+but in both cases, the Hologram cloud is responsible for forwarding messages
+between the device and the internet using the device's cellular data.
 
-You can set up routing rules to forward messages from the Hologram Cloud to
-other internet services. This means you can update where your messages are sent
-without needing to deploy code updates to your 
+#### Outbound (from Device)
+
+The Dash provides built-in functions for sending messages to the Hologram Cloud.
+Any connected device can use its [TCP API](/docs/reference/cloud/embedded), even 
+if it's not on Hologram's cellular network. Messages take the form of a binary
+payload (usually UTF8-encoded text), and an optional list of topic strings that
+you can use for filtering or routing in the cloud.
+
+By configuring routing rules in the Hologram Dashboard, you can forward messages
+to other internet services. This means you can update where your
+messages are sent without needing to deploy code updates to your
 cellular devices. See the [Cloud Guide](/docs/guide/cloud/overview/) for
+details.
+
+#### Inbound (to Device)
+
+Hologram exposes an API and a Dashboard interface to send TCP or UDP messages to
+any port on your cellular device. This requires that your device runs embedded 
+Linux or otherwise implements a networking stack. The Hologram Cloud
+translates the API requests (or Dashboard submissions) into raw TCP/UDP messages
+and sends them to the desired device.
+
+See the [Cloud Messaging API reference](/docs/reference/cloud/http/#) for
 details.
 
 ### Direct IP
@@ -58,8 +76,14 @@ The solution is to establish a connection through a different server which does
 have the ability to connect to your device. This is known as *tunneling*.
 
 Hologram provides a service called SpaceBridge, which uses secure SSH tunneling
-to let you connect to any port on your device. See our [SpaceBridge
+to let you connect to any port on your device. The inbound Cloud Messaging
+feature above relies on a SpaceBridge tunnel behind the scenes. The Cloud
+Messaging approach is a simpler alternative to SpaceBridge if you don't require
+direct access to the network socket.
+
+See our [SpaceBridge
 guide](/docs/guide/cloud/spacebridge-tunnel/) for details.
+
 
 ### SMS via Hologram Cloud
 
