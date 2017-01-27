@@ -1,27 +1,27 @@
 [
   {
     "package": "Windows",
-    "version": "0.7.1",
-    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-0.7.1-i686-mingw32.zip)",
-    "sha1": "a130b984489e01449d93e362183b1e8241fd5f41"
+    "version": "0.7.2",
+    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-0.7.2-i686-mingw32.zip)",
+    "sha1": "46b4a1842374dd94d8a41255c398fee11b97e8d0"
   },
   {
     "package": "Mac",
-    "version": "0.7.1",
-    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-0.7.1-x86_64-apple-darwin.tar.bz2)",
-    "sha1": "b68f8990a8608faa8caca6e0d061b572fd1ed90f"
+    "version": "0.7.2",
+    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-0.7.2-x86_64-apple-darwin.tar.bz2)",
+    "sha1": "22605f7a1a14bed0356e53367bf81af75228cb5b"
   },
   {
     "package": "Linux",
-    "version": "0.7.1",
-    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-0.7.1-x86_64-pc-linux-gnu.tar.bz2)",
-    "sha1": "53eaeeab13a2e2ce745b467864d2aad178ce565d"
+    "version": "0.7.2",
+    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-0.7.2-x86_64-pc-linux-gnu.tar.bz2)",
+    "sha1": "19334573e63bb79022000a32703a735c54cd73f6"
   },
   {
     "package": "Python Source",
-    "version": "0.7.1",
-    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-pysrc-0.7.1.tar.bz2)",
-    "sha1": "5fad4286d0071cf9d9a0c32c95197a415d1e5c25"
+    "version": "0.7.2",
+    "link": "[Download](http://downloads.hologram.io/dash/updater/dashupdater-pysrc-0.7.2.tar.bz2)",
+    "sha1": "d04716b2bf9da5d26ce03e5443d548684c1a64ed"
   }
 ]
 
