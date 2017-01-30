@@ -27,10 +27,11 @@ tunneling* section. If tunneling isn't already enabled, click the *Enable
 tunneling* button.
 
 {{#callout}}
-Your device itself must also be configured to support inbound
-connections. If you're using an E303 or similar USB modem on Linux, that means
-connecting via PPP mode instead of the simpler HiLink mode. See the [E303
-guide](/docs/guide/connect/e303/) for details.
+Your network interface itself must also be configured to support inbound
+connections. Web-based configurations for some USB modems (e.g. E303's HiLink mode)
+usually do not support this. [Configure the
+modem](/docs/guide/connect/usb-modem/) using PPP or similar to
+expose full network functionality.
 {{/callout}}
 
 #### Establishing the Tunnel With the Spacebridge Client

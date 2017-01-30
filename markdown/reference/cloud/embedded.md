@@ -62,7 +62,7 @@ $ echo '{"s":"ABCD","c":"WXYZ","d":"Hello, World!","t":"TOPIC1"}' | nc -i1 cloud
 Or, with full-word JSON keys and an array of topics:
 
 ```bash
-$ echo {"source":"ABCD", "checksum":"WXYZ", "data":"Hello, World!", "t":["TOPIC1", "TOPIC2"]} | nc -i1 cloudsocket.hologram.io 9999
+$ echo {"source":"ABCD", "checksum":"WXYZ", "data":"Hello, World!", "tags":["TOPIC1", "TOPIC2"]} | nc -i1 cloudsocket.hologram.io 9999
 [0,0]     # Success response
 ```
 

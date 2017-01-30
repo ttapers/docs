@@ -114,7 +114,7 @@ For information on sending SMS to the device via HTTP API, see the [Incoming SMS
 API reference](http://docs.hologram.apiary.io/#reference/sms).
 
 To read inbound SMSes on the device, you will likely need to use AT commands to
-request them from the modem. Our [E303 modem guide](/docs/guide/connect/e303/) has
+request them from the modem. Our [USB modem guide](/docs/guide/connect/usb-modem/) has
 some general information about using AT commands, and [this external
 article](http://www.smssolutions.net/tutorials/gsm/receivesmsat/) documents the
 process for receiving SMS messages.
@@ -124,8 +124,8 @@ process for receiving SMS messages.
 #### Outbound
 
 To send an SMS via the standard SMS switching network, you will likely need to
-use AT commands with your cellular modem. Our [E303 
-modem guide](/docs/guide/connect/e303/) describes the sequence required to send an
+use AT commands with your cellular modem. Our [USB
+modem guide](/docs/guide/connect/usb-modem/) describes the sequence required to send an
 SMS.
 
 Outbound SMS messages will appear as originating from an internal
@@ -140,7 +140,7 @@ device page on the Hologram Dashboard, under *Cloud & messaging* > *Configure
 phone number*.
 
 To read inbound SMSes on the device, you will likely need to use AT commands to
-request them from the modem. Our [E303 modem guide](/docs/guide/connect/e303/) has
+request them from the modem. Our [USB modem guide](/docs/guide/connect/usb-modem/) has
 some general information about using AT commands, and [this external
 article](http://www.smssolutions.net/tutorials/gsm/receivesmsat/) documents the
 process for receiving SMS messages.
