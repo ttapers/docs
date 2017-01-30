@@ -474,8 +474,8 @@ you must refer to the plan by its ID, which you can determine from these endpoin
 
 ## CSR Messages [/api/1/csr/rdm]
 
-See the [guide](https://hologram.io/docs/guide/cloud/csr) for details on the 
-Cloud Services Router (CSR).
+See the [guide](https://hologram.io/docs/guide/cloud/csr) for details on sending 
+messages to the Cloud Services Router (CSR).
 
 ### Send a CSR Message [POST]
 
@@ -565,7 +565,7 @@ There is no cost to send SMS messages to Hologram devices via API.
     + Attributes
         + success: true (boolean) - Was the request successful?
 
-## Device Messaging [/api/1/devices/message]
+## Cloud-to-Device Messaging [/api/1/devices/message]
 
 Send a TCP or UDP message to one or more devices on the Hologram network.
 See the [guide](/docs/guide/cloud/message-to-device/) for details.
@@ -588,9 +588,15 @@ See the [guide](/docs/guide/cloud/message-to-device/) for details.
                 + deviceid: 1234 (number)
                 + messageid: 9a9e55f0-a167-4d9d-972e-b2ad0740d449 (string)
 
-### Send message to a device via webhook [POST /api/1/devices/messages/:deviceid/:webhookguid]
+### Send message to a device via webhook [POST /api/1/devices/messages/{deviceid}/{webhookguid}]
 
-In order to generate a webhook, please visit the cloud configuration page for your device
+This endpoint does not require authentication with your API key, as the webhook GUID serves as
+an authentication token.
+In order to generate a webhook URL, please visit the cloud configuration page for your device.
+
++ Parameters
+    + deviceid: 12345 (number) - ID of the device to send to
+    + webhookguid: f56839c23a801251af8bf8c820f28a1f (string) - generated UUID for the webhook URL
 
 + Request (application/json)
     + Attributes
