@@ -1,6 +1,6 @@
 ---
-title: Hologram Python SDK API
-nav_sort: 1
+title: Python SDK
+nav_sort: 9
 container_class: apidoc
 autotoc: true
 layout: reference.hbs
@@ -10,25 +10,23 @@ icon: docs
 
 ### Introduction
 
-This is a Python SDK that allows you to send messages to either your or our cloud.
+Hologram's Python SDK is an easy-to-use interface for communicating with the
+Hologram cloud, other cloud services, and SMS destinations.
 
-You can also send SMS via our cloud services to a given destination number of your choice!
-
-We understand that you may run this library in smaller, more power constraint devices.
-In the spirit of bringing connectivity to your devices, we also provided you with
-many popular networking interfaces such as WiFi and Cellular services, which you can
-choose within this SDK.
+It's designed to be run on small
+Linux devices such as Raspberry Pi, which are connected to the internet using
+a [USB Cellular Modem](/docs/guide/connect/usb-modem/).
 
 Source code is available
 on [GitHub](https://github.com/hologram-io/hologram-python).
 
-### Installation
+#### Installation
 
-#### Manual Installation
-1. Go ahead and `git clone` this repository.
-2. Type `cd hologram-python`
-3. After that, type `python setup.py install`
-
+```bash
+git clone https://github.com/hologram-io/hologram-python.git
+cd hologram-python
+python setup.py install
+```
 
 ### Credentials
 
@@ -37,7 +35,6 @@ You will require the 4 character cloud id and cloud key of your device. Please r
 [this guide](/docs/guide/connect/device-management#hologram-cloud-credentials) for more details.
 
 **Properties:**
-Here is a list of properties that you can set/get manually:
 
 * `cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
@@ -58,7 +55,7 @@ from Hologram.Credentials import Credentials
 credentials = Credentials('xxxx', 'xxxx')
 ```
 
-You can also choose to set these properties manually like this:
+You can also choose to set these properties directly:
 
 ```python
 credentials.cloud_id = 'yyyy'
@@ -66,8 +63,7 @@ credentials.cloud_id = 'yyyy'
 
 ### Hologram
 
-The `Hologram` class is where all the major modules/components are instantiated and
-operated on.
+The `Hologram` class is the main interface for interacting with the SDK.
 
 **Properties:**
 
@@ -78,17 +74,6 @@ operated on.
 * `send_host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
 * `send_port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
 
-**Example:**
-
-```python
-hologram = Hologram(credentials)
-hologram.send_host = 'host.com'
-hologram.send_port = '9999'
-# <send your message here>
-```
-
-You must manually set these two variables before sending any payload and after
-Hologram instantiation if you choose to use the `Raw` type in your application.
 
 #### .Hologram(credentials, message_mode = 'hologram_cloud')
 
@@ -97,20 +82,33 @@ The `Hologram` constructor is responsible for initializing many of SDK component
 **Parameters:**
 
 * `credentials` (`Credentials`) -- The Credentials object used to store the keys for authentication purposes.
-* `message_mode` (string, optional) -- Choose between 'tcp-other' or 'hologram_cloud' on whom the SDK will communicate with. The `tcp-other` (a higher abstraction of `Raw`) type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `hologram-cloud` assumes communication with our Hologram cloud.
+* `message_mode` (string, optional) -- Choose between 'tcp-other' or 'hologram_cloud' on whom the SDK will communicate with. The `tcp-other` (a higher abstraction of `Raw`) type uses [TCP](/docs/reference/cloud/embedded) to connect to a server of your choice, whereas `hologram_cloud` assumes communication with our Hologram cloud.
 
 **Example:**
 
 ```python
-hologram = Hologram(credentials) # first example
-hologram = Hologram(credentials, message_mode='hologram_cloud') # second example
+from Hologram import Hologram
+hologram = Hologram(credentials)
+hologram = Hologram(credentials, message_mode='hologram_cloud') # Equivalent to above
+```
+
+{{#callout}}
+You must set `send_host` and `send_port`
+if you choose to use the `tcp-other` message mode in your application.
+{{/callout}}
+
+**`tcp-other` Example:**
+
+```python
+from Hologram import Hologram
+hologram = Hologram(credentials, message_mode='tcp-other')
+hologram.send_host = 'host.com'
+hologram.send_port = '9999'
 ```
 
 #### .getSDKVersion()
 
 Returns the SDK version.
-
-**Parameters:** None
 
 **Returns:** A formatted Hologram SDK version string (string)
 
@@ -146,7 +144,7 @@ specific error descriptions that will be returned as follows:
 recv = hologram.sendMessage("msg1", topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
 ```
 
-Cloud messages can also be buffered if the network is down (on a `network.disconnected`
+Cloud messages are buffered if the network is down (on a `network.disconnected`
 event). Once the network is reestablished (a broadcast on `network.connected`),
 these messages that failed to send initially will be sent to the cloud again.
 
@@ -207,6 +205,7 @@ Unregisters an event handler function to the specific event.
 * `callback` (function) -- Callback function
 
 **Example:**
+
 ```python
 # messageSent() will no longer be executed when a message is sent.
 hologram.event.unsubscribe('message.sent', messageSent)
@@ -250,7 +249,6 @@ python hologram_send.py [-h] [--cloud_id [CLOUD_ID]]
 ```
 
 **Options:**
-Here is a list of command line options that you can use in this script:
 
 * `message` (string) -- message(s) that will be sent to the cloud. Multiple messages can be sent by putting them right next together. If there are whitespaces in one of your messages, you probably want to encapsulate it with double quotes to denote a single `string` in Python.
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
@@ -260,13 +258,13 @@ Here is a list of command line options that you can use in this script:
 * `-t` `--topic` (string, optional) -- Topics for the message
 * `-f` `--file` (string) -- Configuration (HJSON) file that stores the required credentials to send the message to the cloud
 
-The HJSON file looks something like:
+The HJSON configuration file should contain cloud_id and cloud_key fields:
 ```json
 {
-	// Hologram cloud id (4 characters long)
-	"cloud_id": "xxxx",
-	// Hologram cloud key (4 characters long)
-	"cloud_key": "xxxx"
+  // Hologram cloud id (4 characters long)
+  "cloud_id": "xxxx",
+  // Hologram cloud key (4 characters long)
+  "cloud_key": "xxxx"
 }
 ```
 
@@ -286,7 +284,6 @@ python hologram_sms.py [-h] [--cloud_id [CLOUD_ID]]
 ```
 
 **Options:**
-Here is a list of command line options that you can use in this script:
 
 * `message` (string) -- message that will be sent to the cloud
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
