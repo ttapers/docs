@@ -59,6 +59,9 @@ interface](https://www.arduino.cc/en/Reference/Serial).
 
 #### Dash.begin()
 
+**Deprecated in Arduino SDK version 0.9.2. Starting with that version, this
+method gets called automatically.**
+
 Set up interrupts and pin settings that the Dash needs to function.
 Call this method in your program's `setup()` block.
 
@@ -140,9 +143,7 @@ Set the LED to a brightness level 0-100
 #### Dash.snooze(ms)
 
 Pauses the program for the given amount of time. This is a lower-power
-alternative to Arduino's standard `delay()` function. Be sure to call 
-`Dash.begin()` before calling this method, or else the program will not be able
-to wake back up.
+alternative to Arduino's standard `delay()` function.
 
 **Parameters:**
 
@@ -339,21 +340,11 @@ Disable all configured wakeup interrupts.
 
 #### Dash.batteryMillivolts()
 
-Returns the battery level in millivolts. Will only return a valid value if the
-board is configured for battery operation via the jumper settings.
-
-**Parameters:** None
-
-**Returns:** (unsigned int) Battery level in millivolts (1000 = 1 volt)
+**Removed in Arudino SDK version 0.9.2. Use DashCharger.batteryMillivolts() instead.**
 
 #### Dash.batteryPercentage()
 
-Returns the battery level as a percentage (0-100). Will only return a valid value if the
-board is configured for battery operation via the jumper settings.
-
-**Parameters:** None
-
-**Returns:** (byte) Battery level as a percentage.
+**Removed in Arudino SDK version 0.9.2. Use DashCharger.batteryPercentage() instead.**
 
 #### Dash.bootVersion()
 
@@ -385,6 +376,9 @@ using the `Charger` class.
 
 #### Charger.begin()
 
+**Deprecated in Arduino SDK version 0.9.2. Starting with that version, this
+method gets called automatically.**
+
 Activate charger control logic. Must be called before manually starting or
 stopping charging with `enable()`.
 
@@ -392,6 +386,28 @@ stopping charging with `enable()`.
 
 **Returns:** Boolean. `true` if the charger is working properly, `false` if the
 charger detects a problem
+
+#### Charger.batteryMillivolts()
+
+**New in Arduino SDK version 0.9.2**
+
+Returns the battery level in millivolts. Will only return a valid value if the
+board is configured for battery operation via the jumper settings.
+
+**Parameters:** None
+
+**Returns:** (unsigned int) Battery level in millivolts (1000 = 1 volt)
+
+#### Charger.batteryPercentage()
+
+**New in Arduino SDK version 0.9.2**
+
+Returns the battery level as a percentage (0-100). Will only return a valid value if the
+board is configured for battery operation via the jumper settings.
+
+**Parameters:** None
+
+**Returns:** (byte) Battery level as a percentage.
 
 #### Charger.beginAutoPercentage(minutes, percentage)
 
@@ -406,7 +422,7 @@ discharge based on the battery percentage.
   the charger to go into faulted shutdown from low voltage. A reasonable
   starting value is 20 minutes.
 * `percentage` (unsigned int) -- Start charging if the battery drops below this
-  percentage, as returned from `Dash.batteryPercentage()`. Default value is 90.
+  percentage, as returned from `Charger.batteryPercentage()`. Default value is 90.
 
 #### Charger.beginAutoMillivolts(minutes, millivolts)
 
@@ -421,7 +437,7 @@ discharge based on the battery voltage.
   the charger to go into faulted shutdown from low voltage. A reasonable
   starting value is 20 minutes.
 * `millivolts` (unsigned int) -- Start charging if the battery drops below this
-  voltage, as returned from `Dash.batteryMillivolts()`. Default value is 3900
+  voltage, as returned from `Charger.batteryMillivolts()`. Default value is 3900
   (3.9V).
 
 #### Charger.end()
@@ -443,8 +459,7 @@ discharging.
 
 #### Charger.enable(enabled)
 
-Manually switch between charging and discharging. Must call `Charger.begin()`
-before using this method.
+Manually switch between charging and discharging.
 
 **Parameters:**
 
@@ -461,7 +476,7 @@ periodic basis.
 **Parameters:**
 
 * `percentage` (unsigned int) -- Start charging if the battery is below this
-  percentage, as returned from `Dash.batteryPercentage()`. If the charger is
+  percentage, as returned from `Charger.batteryPercentage()`. If the charger is
   already charging, will only switch to discharging if the battery is at 100%.
   Default value is 90.
 
@@ -474,7 +489,7 @@ periodic basis.
 **Parameters:**
 
 * `millivolts` (unsigned int) -- Start charging if the battery is below this
-  voltage, as returned from `Dash.batteryMillivolts()`. If the charger is
+  voltage, as returned from `Charger.batteryMillivolts()`. If the charger is
   already charging, will only switch to discharging if the battery is at 100%.
   Default value is 3900 (3.9V).
 

@@ -2,9 +2,9 @@
   {
     "Method": "[Hologram Cloud messaging](#hologram-cloud-messaging)",
     "Outbound": "Yes",
-    "Inbound": "No",
+    "Inbound": "Yes",
     "Pricing": "Data",
-    "Dash Support": "Yes"
+    "Dash Support": "Yes (outbound only)"
   },
   {
     "Method": "[Direct IP](#direct-ip)",

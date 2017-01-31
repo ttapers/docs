@@ -1,14 +1,14 @@
 ---
 title: Secure Tunneling With Spacebridge
-nav_sort: 3
+nav_sort: 4
 autotoc: true
 layout: guide.hbs
 ---
 
 Hologram provides a service called Spacebridge that allows you to create secure,
 authenticated tunnels to send data to a device with a Hologram SIM card
-connected to the cellular network. You can send inbound traffic to any port on
-the device.
+connected to the cellular network. With Spacebridge, you can send inbound traffic 
+to any port on the device.
 
 ### Spacebridge Instructions
 
