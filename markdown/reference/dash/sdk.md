@@ -129,9 +129,18 @@ event if the message is sent successfully.
 * `message` (string) -- The message that will be sent.
 * `topics` (string array, optional) -- The topic(s) that will be sent.
 
-**Returns:** A message response description (string)
+**Returns:** A message response description (string) This message description depends
+on what was message mode you're using.
 
-**Example:**
+If you use the `HologramCloud` type, there are
+specific error descriptions that will be returned as follows:
+
+* `ERR_OK` -- The message has been sent successfully.
+* `ERR_CONNCLOSED` -- Connection was closed so we couldn't read the whole message.
+* `ERR_MSGINVALID` -- Failed to parse the message.
+* `ERR_AUTHINVALID` -- Auth section of the message was invalid.
+* `ERR_PAYLOADINVALID` -- Payload type was invalid.
+* `ERR_PROTINVALID` -- Protocol type was invalid.
 
 ```python
 recv = hologram.sendMessage("msg1", topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
