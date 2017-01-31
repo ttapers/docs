@@ -30,14 +30,14 @@ python setup.py install
 
 ### Credentials
 
-The `Credentials` object stores most of the credentials required to make remote calls in the Hologram SDK.
-You will require the 4 character cloud id and cloud key of your device. Please refer to
+The `Credentials` object stores the credentials required to make remote calls to the Hologram Cloud.
+It requires the 4 character shared id and 4 character shared key of your Hologram Device. For instructions on finding your shared id and shared key, please refer to
 [this guide](/docs/guide/connect/device-management#hologram-cloud-credentials) for more details.
 
 **Properties:**
 
-* `cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
-* `cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
+* `cloud_id` (string) -- The 4 character shared id obtained from your dashboard.
+* `cloud_key` (string) -- The 4 character shared key obtained from your dashboard.
 
 #### .Credentials(cloud_id, cloud_key)
 
@@ -45,8 +45,8 @@ The `Credentials` constructor takes in all the provided property values.
 
 **Parameters:**
 
-* `cloud_id` (string, optional) -- The 4 character cloud id obtained from your dashboard.
-* `cloud_key` (string, optional) -- The 4 character cloud key obtained from your dashboard.
+* `cloud_id` (string, optional) -- The 4 character shared id obtained from your dashboard.
+* `cloud_key` (string, optional) -- The 4 character shared key obtained from your dashboard.
 
 **Example:**
 
@@ -68,11 +68,9 @@ The `Hologram` class is the main interface for interacting with the SDK.
 **Properties:**
 
 * `credentials` (Credentials) -- `Credentials` object that will be used by the Hologram SDK.
-* `network` (Network) -- The `Network` interface that will be used by the Hologram SDK.
-* `message_mode` (Raw) -- The message mode that will be used by the Hologram SDK.
-* `authentication` (Authentication) -- The `Authentication` interface that will be used by the Hologram SDK.
-* `send_host` (string) -- The server IP address (This needs to be set if you're using the `Raw` type)
-* `send_port` (string) -- The server port (This needs to be set if you're using the `Raw` type)
+* `message_mode` (String) -- The message mode that will be used by the Hologram SDK.
+* `send_host` (string) -- The server IP address (This needs to be set if you're using the `tcp-other` type)
+* `send_port` (string) -- The server port (This needs to be set if you're using the `tcp-other` type)
 
 
 #### .Hologram(credentials, message_mode = 'hologram_cloud')
