@@ -133,12 +133,12 @@ on what was message mode you're using.
 If you use the `HologramCloud` type, there are
 specific error descriptions that will be returned as follows:
 
-* `ERR_OK` -- The message has been sent successfully.
-* `ERR_CONNCLOSED` -- Connection was closed so we couldn't read the whole message.
-* `ERR_MSGINVALID` -- Failed to parse the message.
-* `ERR_AUTHINVALID` -- Auth section of the message was invalid.
-* `ERR_PAYLOADINVALID` -- Payload type was invalid.
-* `ERR_PROTINVALID` -- Protocol type was invalid.
+* `ERR_OK` (0) -- The message has been sent successfully.
+* `ERR_CONNCLOSED` (1) -- Connection was closed so we couldn't read the whole message.
+* `ERR_MSGINVALID` (2) -- Failed to parse the message.
+* `ERR_AUTHINVALID` (3) -- Auth section of the message was invalid.
+* `ERR_PAYLOADINVALID` (4) -- Payload type was invalid.
+* `ERR_PROTINVALID` (5) -- Protocol type was invalid.
 
 ```python
 recv = hologram.sendMessage("msg1", topics = ["TOPIC 1","TOPIC 2"]) # Send advanced message
