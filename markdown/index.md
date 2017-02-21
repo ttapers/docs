@@ -8,7 +8,7 @@ sections:
 - title: "Build a device with the Dash"
   main_card:
     title: "Quick Start Guide"
-    image: "https://hologram.io/wp-content/uploads/2017/02/dash-thumbnail-test.jpg"
+    image: "/wp-content/uploads/2017/02/dash-thumbnail-test.jpg"
     description:
       Get up and running with Hologram's cellular-enabled microcontroller
     url: "/docs/guide/dash/quick-start/"
@@ -28,7 +28,7 @@ sections:
 - title: "Connect to our cellular network"
   main_card:
     title: "Connectivity Guide"
-    image: "http://hologram.io/wp-content/uploads/2017/02/cellular-thumbnail-test.png"
+    image: "/wp-content/uploads/2017/02/cellular-thumbnail-test.png"
     description:
       Activate your SIM and get connected using any cellular device
     url: "/docs/guide/connect/connect-device"
@@ -41,7 +41,7 @@ sections:
 - title: "Cloud messaging and APIs"
   main_card:
     title: "Cloud Services Router Guide"
-    image: "http://hologram.io/wp-content/uploads/2017/02/cloud-thumbnail-test.png"
+    image: "/wp-content/uploads/2017/02/cloud-thumbnail-test.png"
     description:
       Route data from your device to any internet service
     url: /docs/guide/cloud/csr/

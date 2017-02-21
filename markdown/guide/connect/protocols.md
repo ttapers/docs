@@ -111,7 +111,7 @@ view. Use the *Send an SMS message* form to send an SMS to your device:
                    alt="Send SMS dashboard form" }}}
 
 For information on sending SMS to the device via HTTP API, see the [Incoming SMS
-API reference](http://docs.hologram.apiary.io/#reference/sms).
+API reference](https://hologram.io/docs/reference/cloud/http#/reference/hologram-cloud/sms/send-sms-to-a-device).
 
 To read inbound SMSes on the device, you will likely need to use AT commands to
 request them from the modem. Our [USB modem guide](/docs/guide/connect/usb-modem/) has

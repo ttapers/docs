@@ -38,5 +38,5 @@ Be aware of your data usage when connected to the network. For more
 information:
 
 -   [Apple Support on APN settings](https://support.apple.com/en-us/HT201699)
--   [Stack Exchange thread](http://apple.stackexchange.com/questions/103651/where-can-i-find-the-apn-settings-for-an-unlocked-att-iphone-4-running-ios-7)
+-   [Stack Exchange thread](https://apple.stackexchange.com/questions/103651/where-can-i-find-the-apn-settings-for-an-unlocked-att-iphone-4-running-ios-7)
 

@@ -15,4 +15,4 @@ This repo has three subdirectories:
   Datasheet pages.
 
 The root directory also contains **apiary.apib**. This is the source for
-our [HTTP API docs](http://docs.hologram.apiary.io/#), hosted on Apiary.
+our [HTTP API docs](https://hologram.io/docs/reference/cloud/http), hosted on Apiary.
