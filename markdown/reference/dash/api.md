@@ -650,6 +650,94 @@ Attach a callback function to the alarm interrupt.
 
 **Returns:** `void`
 
+### HologramCloud
+
+#### HologramCloud.beginMessage()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+
+#### HologramCloud.attachAuthentication()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+
+#### HologramCloud.attachTopic(topicName, len)
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:**
+* `callback` (void *) -- Pointer to a callback function.
+
+**Returns:** `void`
+
+#### HologramCloud.startAttachmentBinary()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.write(msg, len)
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:**
+* `msg` (const char *) -- Pointer to a callback function.
+* `len` (unsigned int) -- Length of message.
+
+**Returns:** `void`
+
+#### HologramCloud.disconnect()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.flushCloudMessageBuffer()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.hasCloudMessageBegun()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.commitAttachment()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.commitMessage()
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+
 ### System Events
 
 These events are sent from the system firmware over the SerialCloud interface.
