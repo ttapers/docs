@@ -611,7 +611,8 @@ Sets the clock based on the given year, month, day, hour, minute and second para
 
 #### Clock.setDate(year, month, day)
 
-Sets the clock date based on the given year, month, and day parameters.
+Sets the clock date based on the given year, month, and day parameters. This does not
+change the existing hour, minute and second values.
 
 **Parameters:**
 * `year` (uint6_t)
@@ -623,7 +624,8 @@ Sets the clock date based on the given year, month, and day parameters.
 
 #### Clock.setTime(hour, minute, second)
 
-Sets the clock time based on the given hour, minute, and second parameters.
+Sets the clock time based on the given hour, minute, and second parameters. This does not
+change the existing year, month and day values.
 
 **Parameters:**
 * `hour` (uint6_t)
