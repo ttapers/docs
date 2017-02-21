@@ -501,6 +501,8 @@ are persistent as long as the Dash is powered. In other words, if you set an ala
 and press the program button/reprogram the Dash, the alarm will still be active unless
 you explicitly cancel it.
 
+This `Clock` class is only functional on Dash 1.1 and above hardware.
+
 #### Clock.alarmExpired()
 
 Returns `true` if alarm is not set or has expired, false otherwise.
@@ -519,9 +521,11 @@ Returns the clock timestamp/counter in seconds since epoch time.
 
 #### Clock.setAlarm(seconds)
 
-Set an alarm at the given timestamp (seconds). The timestamp must be greater than
+Set an alarm at the given timestamp (seconds). By registering a callback function via the
+.attachAlarmInterrupt(callback)` call described below, you can schedule calls to your callback
+function via the alarm interrupt. Note that the seconds parameter must be greater than
 the timestamp returned by the `.counter()` call. Only one alarm can be set at any
-given point in time. If you call .setAlarm a second time before the previous alarm
+given point in time. If you call `.setAlarm` a second time before the previous alarm
 expires, the second (latest) alarm will override the previous alarm.
 Returns `true` if alarm is sucessfully set, false otherwise.
 
