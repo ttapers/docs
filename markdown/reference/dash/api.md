@@ -503,7 +503,7 @@ you explicitly cancel it.
 
 #### Clock.alarmExpired()
 
-Returns true if alarm is expired.
+Returns `true` if alarm has expired.
 
 **Parameters:** None
 
@@ -511,11 +511,11 @@ Returns true if alarm is expired.
 
 #### Clock.counter()
 
-Returns the clock timestamp/counter.
+Returns the clock timestamp/counter in seconds since epoch time.
 
 **Parameters:** None
 
-**Returns:** `uint32_t` -- The timestamp of the clock.
+**Returns:** `uint32_t` -- The clcok timestamp/counter in seconds since epoch time.
 
 #### Clock.setAlarm(seconds)
 
@@ -631,7 +631,7 @@ will be the default Unix time plus the time lapse since the Dash is powered on.
 
 **Parameters:** None
 
-**Returns:** `String` -- a formatted date and time string.
+**Returns:** `String` -- a formatted date and time string (1970-01-01 00:55:03).
 
 #### Clock.cancelAlarm()
 
@@ -715,7 +715,7 @@ Attach a callback function to the alarm interrupt.
 
 #### HologramCloud.hasCloudMessageBegun()
 
-Attach a callback function to the alarm interrupt.
+Returns true if the cloud message has begun.
 
 **Parameters:** None
 
@@ -723,7 +723,7 @@ Attach a callback function to the alarm interrupt.
 
 #### HologramCloud.commitAttachment()
 
-Attach a callback function to the alarm interrupt.
+Commit an attachment.
 
 **Parameters:** None
 
@@ -731,7 +731,7 @@ Attach a callback function to the alarm interrupt.
 
 #### HologramCloud.commitMessage()
 
-Attach a callback function to the alarm interrupt.
+Commits the message.
 
 **Parameters:** None
 
