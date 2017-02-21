@@ -523,7 +523,7 @@ Returns the clock timestamp/counter in seconds since epoch time.
 #### Clock.setAlarm(seconds)
 
 Set an alarm at the given timestamp (seconds). By registering a callback function via the
-.attachAlarmInterrupt(callback)` call described below, you can schedule calls to your callback
+`.attachAlarmInterrupt(callback)` call described below, you can schedule calls to your callback
 function via the alarm interrupt. Note that the seconds parameter must be greater than
 the timestamp returned by the `.counter()` call. Only one alarm can be set at any
 given point in time. If you call `.setAlarm` a second time before the previous alarm
