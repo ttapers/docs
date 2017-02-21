@@ -550,11 +550,12 @@ expires, the second (latest) alarm will override the previous alarm.
 
 #### Clock.adjust(ticks)
 
-Update the number of ticks per second.
+Adjust the number of RTC clock ticks per second. The ticks parameter can either be
+a negative or positive offset.
 
 **Parameters:**
 
-* `ticks` (int8_t) -- The number of ticks per second.
+* `ticks` (int8_t) -- The RTC clock tick offset.
 
 **Returns:** `void`
 
