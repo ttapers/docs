@@ -503,7 +503,7 @@ you explicitly cancel it.
 
 #### Clock.alarmExpired()
 
-Returns `true` if alarm has expired.
+Returns `true` if alarm is not set or has expired, false otherwise.
 
 **Parameters:** None
 
@@ -520,8 +520,10 @@ Returns the clock timestamp/counter in seconds since epoch time.
 #### Clock.setAlarm(seconds)
 
 Set an alarm at the given timestamp (seconds). The timestamp must be greater than
-the timestamp returned by the `.counter()` call.
-Returns true if alarm is sucessfully set, false otherwise.
+the timestamp returned by the `.counter()` call. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+Returns `true` if alarm is sucessfully set, false otherwise.
 
 **Parameters:**
 
@@ -531,7 +533,9 @@ Returns true if alarm is sucessfully set, false otherwise.
 
 #### Clock.setAlarmSecondsFromNow(seconds)
 
-Set an alarm for the given number of seconds from now.
+Set an alarm for the given number of seconds from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
 
 **Parameters:**
 
