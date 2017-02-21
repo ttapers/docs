@@ -551,11 +551,11 @@ Update the number of ticks per second.
 
 #### Clock.adjusted()
 
-Returns the adjusted number of ticks per second.
+Returns the configured number of ticks per second.
 
 **Parameters:** None
 
-**Returns:** `int` -- The adjusted ticks per second.
+**Returns:** `int` -- The configured number of ticks per second.
 
 #### Clock.isRunning()
 
@@ -567,7 +567,7 @@ Returns true if the clock is running.
 
 #### Clock.wasReset()
 
-Returns true if the clock was reset.
+Returns `true` if the clock was reset.
 
 **Parameters:** None
 
