@@ -647,7 +647,9 @@ Cancels the alarm.
 
 #### Clock.attachAlarmInterrupt(callback)
 
-Attach a callback function to the alarm interrupt.
+Attach a callback function to the alarm interrupt. Only one callback function is allowed
+at any single point in time. If you try to register another callback function to the
+alarm interrupt, it'll override the previous callback function registered to it.
 
 **Parameters:**
 * `callback` (void *) -- Pointer to a callback function.
