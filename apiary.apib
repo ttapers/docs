@@ -228,6 +228,14 @@ to indicate success (200) and common errors (403 Forbidden, etc).
 + links
     + cellular (array) - Information about the device's SIM and data plan
 
+### Tunnel Key (object)
+
++ id: 1234 (number) - Integer key ID
++ userid: 4321 (number) - ID of the user that the key belongs to
++ disabled: 0 (number) - Non-zero if the key is disabled
++ public_key: `ssh-rsa AAAAB3Nzaasdf... user@example.com` (string) - Public key
+
+
 ## Group Device Management
 
 See the [guide](https://hologram.io/docs/guide/connect/device-management)
@@ -608,6 +616,42 @@ In order to generate a webhook URL, please visit the cloud configuration page fo
         + (object)
             + deviceid: 1234 (number)
             + messageid: 9a9e55f0-a167-4d9d-972e-b2ad0740d449 (string)
+
+## Spacebridge Tunneling [/api/1/tunnelkeys]
+
+See the [Spacebridge guide](https://hologram.io/docs/guide/cloud/spacebridge-tunnel)
+for details.
+
+### Add a public key [POST]
+
+Associate an SSH key with your user. This key can then be used to tunnel to 
+devices that you control.
+
++ Request (application/json)
+    + Attributes
+        + public_key: `ssh-rsa AAAAB3Nzaasdf... user@example.com` (string, required) - SSH public key
++ Response 200 (application/json)
+    + Attributes
+        + success: true (boolean) - Was the request successful?
+
+### List public keys [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + success: true (boolean) - Was the request successful?
+        + data (array)
+            + (Tunnel Key)
+
+### Disable a key [POST /api/1/tunnelkeys/{id}/disable]
+
++ Parameters
+    + id: 1234 (number) - ID of the tunnel key to disable
+
++ Response 200 (application/json)
+    + Attributes
+        + success: true (boolean) - Was the request successful?
+        + data
+          + id: 1234 (number) - The key ID
 
 ## Group Account Management
 
