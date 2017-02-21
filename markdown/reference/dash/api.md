@@ -575,11 +575,11 @@ Returns true if the clock is running.
 
 #### Clock.wasReset()
 
-Returns `true` if the clock was reset.
+Returns `true` if the clock has been reset since the last system reset.
 
 **Parameters:** None
 
-**Returns:** `bool` -- `true` if the clock was reset, `false` otherwise.
+**Returns:** `bool` -- `true` if the clock has been reset since the last system reset, `false` otherwise.
 
 #### Clock.setDateTime(year, month, day, hour, minute, second)
 
