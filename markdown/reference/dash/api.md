@@ -496,10 +496,11 @@ periodic basis.
 ### Clock
 
 The Dash also features RTC clock and alarm interfaces.  You can set and control these
-timers and alarms using the `Clock` class. It is important to note that `Clock` interfaces
-are persistent as long as the Dash is powered. In other words, if you set an alarm
+timers and alarms using the `Clock` class. When the Dash is powered on, the clock will default
+to epoch time (January 1, 1970), then start counting up from then. You can, among many things,
+choose to set the appropriate date and time with the interfaces below. It is important to note that `Clock` interfaces are persistent as long as the Dash is powered. In other words, if you set an alarm
 and press the program button/reprogram the Dash, the alarm will still be active unless
-you explicitly cancel it.
+you explicitly cancel/cut the power off from the Dash.
 
 This `Clock` class is only functional on Dash 1.1 and above hardware.
 
