@@ -634,7 +634,10 @@ devices that you control.
     + Attributes
         + success: true (boolean) - Was the request successful?
 
-### List public keys [GET]
+### List public keys [GET /api/1/tunnelkeys{?withdisabled}]
+
++ Parameters
+    + withdisabled: 0 (number) - Set to `1` to include disabled keys
 
 + Response 200 (application/json)
     + Attributes
@@ -652,6 +655,18 @@ devices that you control.
         + success: true (boolean) - Was the request successful?
         + data
           + id: 1234 (number) - The key ID
+
+### Enable a key [POST /api/1/tunnelkeys/{id}/enable]
+
++ Parameters
+    + id: 1234 (number) - ID of the tunnel key to enable
+
++ Response 200 (application/json)
+    + Attributes
+        + success: true (boolean) - Was the request successful?
+        + data
+          + id: 1234 (number) - The key ID
+
 
 ## Group Account Management
 
