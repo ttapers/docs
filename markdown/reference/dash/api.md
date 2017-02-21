@@ -454,7 +454,7 @@ Returns whether the charger is charging.
 
 **Parameters:** None
 
-**Returns:** Boolean. `true` if the charger is charging, false if it's
+**Returns:** Boolean. `true` if the charger is charging, `false` if it's
 discharging.
 
 #### Charger.enable(enabled)
@@ -493,6 +493,162 @@ periodic basis.
   already charging, will only switch to discharging if the battery is at 100%.
   Default value is 3900 (3.9V).
 
+### Clock
+
+The Dash also features RTC clock and alarm interfaces.  You can set and control these
+timers and alarms using the `Clock` class. It is important to note that `Clock` interfaces
+are persistent as long as the Dash is powered. In other words, if you set an alarm
+and press the program button/reprogram the Dash, the alarm will still be active unless
+you explicitly cancel it.
+
+#### Clock.alarmExpired()
+
+Returns true if alarm is expired.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if alarm is expired, `false` otherwise.
+
+#### Clock.counter()
+
+Returns the clock timestamp/counter.
+
+**Parameters:** None
+
+**Returns:** `uint32_t` -- The timestamp of the clock.
+
+#### Clock.setAlarm(seconds)
+
+Set an alarm at the given timestamp (seconds). The timestamp must be greater than
+the timestamp returned by the `.counter()` call.
+Returns true if alarm is sucessfully set, false otherwise.
+
+**Parameters:**
+
+* `seconds` (uint32_t) -- Timestamp for the alarm in seconds.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarmSecondsFromNow(seconds)
+
+Set an alarm for the given number of seconds from now.
+
+**Parameters:**
+
+* `seconds` (uint32_t) -- Number of seconds from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.adjust(ticks)
+
+Update the number of ticks per second.
+
+**Parameters:**
+
+* `ticks` (int8_t) -- The number of ticks per second.
+
+**Returns:** `void`
+
+#### Clock.adjusted()
+
+Returns the adjusted number of ticks per second.
+
+**Parameters:** None
+
+**Returns:** `int` -- The adjusted ticks per second.
+
+#### Clock.isRunning()
+
+Returns true if the clock is running.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if it is running, `false` otherwise.
+
+#### Clock.wasReset()
+
+Returns true if the clock was reset.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if the clock was reset, `false` otherwise.
+
+#### Clock.setDateTime(year, month, day, hour, minute, second)
+
+Sets the clock based on the given year, month, day, hour, minute and second parameters.
+
+**Parameters:**
+* `year` (uint6_t)
+* `month` (uint6_t)
+* `day` (uint6_t)
+* `hour` (uint6_t)
+* `minute` (uint6_t)
+* `second` (uint6_t)
+
+**Returns:** `bool` -- `true` if the date and time can be set, `false` otherwise.
+
+#### Clock.setDateTime(year, month, day, hour, minute, second)
+
+Sets the clock based on the given year, month, day, hour, minute and second parameters.
+
+**Parameters:**
+* `year` (uint6_t)
+* `month` (uint6_t)
+* `day` (uint6_t)
+* `hour` (uint6_t)
+* `minute` (uint6_t)
+* `second` (uint6_t)
+
+**Returns:** `bool` -- `true` if the date and time can be set, `false` otherwise.
+
+#### Clock.setDate(year, month, day)
+
+Sets the clock date based on the given year, month, and day parameters.
+
+**Parameters:**
+* `year` (uint6_t)
+* `month` (uint6_t)
+* `day` (uint6_t)
+
+**Returns:** `bool` -- `true` if the date can be set, `false` otherwise.
+
+
+#### Clock.setTime(hour, minute, second)
+
+Sets the clock time based on the given hour, minute, and second parameters.
+
+**Parameters:**
+* `hour` (uint6_t)
+* `minute` (uint6_t)
+* `second` (uint6_t)
+
+**Returns:** `bool` -- `true` if the time can be set, `false` otherwise.
+
+#### Clock.currentDateTime()
+
+Returns a formatted date and time string. If the clock has not beed adjusted, this
+will be the default Unix time plus the time lapse since the Dash is powered on.
+
+**Parameters:** None
+
+**Returns:** `String` -- a formatted date and time string.
+
+#### Clock.cancelAlarm()
+
+Cancels the alarm.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### Clock.attachAlarmInterrupt(callback)
+
+Attach a callback function to the alarm interrupt.
+
+**Parameters:**
+* `callback` (void *) -- Pointer to a callback function.
+
+**Returns:** `void`
 
 ### System Events
 
