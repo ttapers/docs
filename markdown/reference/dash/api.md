@@ -634,7 +634,9 @@ expires, the second (latest) alarm will override the previous alarm.
 #### Clock.adjust(ticks)
 
 Adjust the number of RTC clock ticks per second. The ticks parameter can either be
-a negative or positive offset.
+a negative or positive offset. This fine tunes the 32,768 input clock to the RTC.
+By adding/subtracting ticks per second, the accuracy of 1 second can be improved.
+You may want to do this due to factors such as the crystal and temperature.
 
 **Parameters:**
 
