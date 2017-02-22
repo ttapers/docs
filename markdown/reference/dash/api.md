@@ -674,90 +674,158 @@ alarm interrupt, it'll override the previous callback function registered to it.
 
 ### HologramCloud
 
-#### HologramCloud.beginMessage()
-
-Attach a callback function to the alarm interrupt.
-
-**Parameters:** None
-
-**Returns:** `void`
+The `HologramCloud` class provides you with a clean interface to interact with the Hologram
+Cloud. You can choose to connect and send messages to the cloud using the interfaces below.
 
 
-#### HologramCloud.attachAuthentication()
+#### HologramCloud.connect(reconnect)
 
-Attach a callback function to the alarm interrupt.
-
-**Parameters:** None
-
-**Returns:** `void`
-
-
-#### HologramCloud.attachTopic(topicName, len)
-
-Attach a callback function to the alarm interrupt.
+Explicitly connect to the Hologram Cloud. This is optional because calling `.sendMessage()`
+will connect as needed.
 
 **Parameters:**
-* `callback` (void *) -- Pointer to a callback function.
+* `reconnect` (void *) -- A reconnect option that allows connection retries. Default to `false`.
 
-**Returns:** `void`
-
-#### HologramCloud.startAttachmentBinary()
-
-Attach a callback function to the alarm interrupt.
-
-**Parameters:** None
-
-**Returns:** `void`
-
-#### HologramCloud.write(msg, len)
-
-Attach a callback function to the alarm interrupt.
-
-**Parameters:**
-* `msg` (const char *) -- Pointer to a callback function.
-* `len` (unsigned int) -- Length of message.
-
-**Returns:** `void`
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.disconnect()
 
-Attach a callback function to the alarm interrupt.
+Explicitly disconnect from the Hologram Cloud.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.getConnectionStatus()
+
+Returns the cell network connection status.
+
+**Parameters:** None
+
+**Returns:** `int`
+
+#### HologramCloud.getSignalStrength()
+
+Returns the signal strength of the cell network connection.
+
+**Parameters:** None
+
+**Returns:** `int` -- the signal strength.
+
+#### HologramCloud.getNetworkTime(dt)
+
+#### HologramCloud.powerUp()
+
+Power up the modem. This is optional as any cell network related commands will invoke a
+power up call.
 
 **Parameters:** None
 
 **Returns:** `void`
 
-#### HologramCloud.flushCloudMessageBuffer()
+#### HologramCloud.powerDown()
 
-Attach a callback function to the alarm interrupt.
-
-**Parameters:** None
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.hasCloudMessageBegun()
-
-Returns true if the cloud message has begun.
-
-**Parameters:** None
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.commitAttachment()
-
-Commit an attachment.
+Turn the modem off. This could improve power consumption when the modem is not in use.
 
 **Parameters:** None
 
 **Returns:** `void`
 
-#### HologramCloud.commitMessage()
+#### HologramCloud.pollEvents()
 
-Commits the message.
+Manually check for events, such as an SMS received while in deep sleep.
+Events are also checked automatically before powering down the modem.
 
 **Parameters:** None
 
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
+**Returns:** `void`
+
+#### HologramCloud.clear()
+
+Explicitly clear the message buffer. You may want to call this if the buffer has
+been written but don't want the contents be sent.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.checkSMS()
+
+**Parameters:** None
+
+**Returns:** `int`
+
+#### HologramCloud.sendMessage(content)
+
+**Parameters:**
+* `content` (const char *) -- The content payload.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content, tag)
+
+**Parameters:**
+* `content` (const char *) -- The content payload.
+* `tag` (const char *) -- Tags that the content is associated with.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content, length)
+
+**Parameters:**
+* `content` (const uint8_t *) -- The content payload.
+* `length` (uint32_t) -- The payload length.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content, length, tag)
+
+**Parameters:**
+* `content` (const uint8_t *) -- The content payload.
+* `length` (uint32_t) -- The payload length.
+* `tag` (const char *) -- Tags that the content is associated with.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content)
+
+**Parameters:**
+* `content` (const String &) -- The content payload.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content, tag)
+
+**Parameters:**
+* `content` (const String &) -- The content payload.
+* `tag` (const String &) -- Tags that the content is associated with.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content, tag)
+
+**Parameters:**
+* `content` (const String &) -- The content payload.
+* `tag` (const char *) -- Tags that the content is associated with.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content, tag)
+
+**Parameters:**
+* `content` (const char *) -- The content payload.
+* `tag` (const String &) -- Tags that the content is associated with.
+
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
+
+#### HologramCloud.sendMessage(content, length, tag)
+
+**Parameters:**
+* `content` (const uint8_t *) -- The content payload.
+* `length` (uint32_t) -- The payload length.
+* `tag` (const String &) -- Tags that the content is associated with.
+
+**Returns:** `bool` --- `true` if successful, `false`otherwise.
 
 
 ### System Events
