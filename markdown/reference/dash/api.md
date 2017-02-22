@@ -935,6 +935,24 @@ been written but don't want the contents be sent.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
+#### HologramCloud.attachTag(tag)
+
+Attaches a tag to the upcoming message.
+
+**Parameters:**
+* `tag` (const char *) -- Tag name.
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.attachTag(tag)
+
+Attaches a tag to the upcoming message.
+
+**Parameters:**
+* `tag` (const String &) -- Tag name.
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
 #### HologramCloud.systemVersion()
 
 **Parameters:**
