@@ -406,7 +406,7 @@ Returns the battery level as a percentage (0-100). Will only return a valid valu
 board is configured for battery operation via the jumper settings.
 
 {{#callout}}
-This battery percentage returned will be undefined if the Dash is plugged in.
+This battery percentage returned will be undefined if no battery is connected.
 {{/callout}}
 
 **Parameters:** None
@@ -467,7 +467,7 @@ Manually switch between charging and discharging.
 
 **Parameters:**
 
-* `enabled` (bool) -- `true` to set to charging, `false` to set to discharging.
+* `enabled` (bool) -- `true` to enable charge circuit, `false` to disable it.
 
 **Returns:** `void`
 
@@ -720,7 +720,7 @@ Explicitly connect to the Hologram Cloud. This is optional because calling `.sen
 will connect as needed.
 
 **Parameters:**
-* `reconnect` (void *) -- A reconnect option that allows connection retries. Default to `false`.
+* `reconnect` (bool) -- A reconnect flag that enables connection retries. Default to `false`.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
