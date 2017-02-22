@@ -743,7 +743,8 @@ will be the default Unix time plus the time lapse since the Dash is powered on.
 
 #### Clock.currentDate()
 
-Returns a formatted date string (yyyy/mm/dd). If the clock has not beed adjusted, this
+Returns a formatted date string (yyyy/mm/dd), where yyyy is the year, mm is the
+month and dd is the date. If the clock has not beed adjusted, this
 will be the default Unix time plus the time lapse since the Dash is powered on.
 
 **Parameters:** None
@@ -752,8 +753,9 @@ will be the default Unix time plus the time lapse since the Dash is powered on.
 
 #### Clock.currentTime()
 
-Returns a formatted time string (hh:mm:ss). If the clock has not beed adjusted, this
-will be the default Unix time plus the time lapse since the Dash is powered on.
+Returns a formatted time string (hh:mm:ss), where hh is the hours, mm is the minutes and ss is the seconds.
+If the clock has not beed adjusted, this will be the default Unix time plus the
+time lapse since the Dash is powered on.
 
 **Parameters:** None
 
