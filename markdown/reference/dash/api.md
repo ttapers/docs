@@ -533,7 +533,7 @@ Returns the clock timestamp/counter in seconds since epoch time.
 
 **Parameters:** None
 
-**Returns:** `uint32_t` -- The clcok timestamp/counter in seconds since epoch time.
+**Returns:** `uint32_t` -- The clock timestamp/counter in seconds since epoch time.
 
 #### Clock.setAlarm(dt)
 
@@ -688,6 +688,7 @@ typedef struct RtcDatetime
    uint8_t second;   /*!< Range from 0 to 59.*/
 } rtc_datetime_t;
 ```
+
 **Parameters:**
 * `dt` (const rtc_datetime_t &) -- RtcDatetime struct.
 
@@ -830,16 +831,31 @@ Returns the [RSSI signal strength](https://en.wikipedia.org/wiki/Received_signal
 
 #### HologramCloud.getNetworkTime(dt)
 
+This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
+
+```cpp
+typedef struct RtcDatetime
+{
+   uint16_t year;    /*!< Range from 1970 to 2099.*/
+   uint16_t month;   /*!< Range from 1 to 12.*/
+   uint16_t day;     /*!< Range from 1 to 31 (depending on month).*/
+   uint16_t hour;    /*!< Range from 0 to 23.*/
+   uint16_t minute;  /*!< Range from 0 to 59.*/
+   uint8_t second;   /*!< Range from 0 to 59.*/
+} rtc_datetime_t;
+```
+
 Fetches and stores the internal modem network time.
 
-**Parameters:** None
+**Parameters:**
+* `dt` (rtc_datetime_t) -- Populated RCDatetime struct.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.powerUp()
 
 Power up the modem. This is optional as any cell network related commands will invoke a
-power up call.
+power up call.  
 
 **Parameters:** None
 
@@ -878,13 +894,6 @@ Returns the number of queued SMS messages received.
 **Parameters:** None
 
 **Returns:** `int` -- The number of queued SMS messages received.
-
-#### HologramCloud.onURC(urc)
-
-**Parameters:**
-* `urc` (const char *) -- The URC string.
-
-**Returns:** `void`
 
 #### HologramCloud.sendMessage()
 
