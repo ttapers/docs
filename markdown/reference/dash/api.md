@@ -789,7 +789,7 @@ Cloud. You can choose to connect and send messages to the cloud using the interf
 
 #### HologramCloud.connect(reconnect)
 
-Explicitly connect to the Hologram Cloud. This is optional because calling `.sendMessage()`
+Establish a packet switched connection to the cell tower. This is optional because calling `.sendMessage()`
 will connect as needed.
 
 **Parameters:**
@@ -925,7 +925,7 @@ Appends the content and its tag to the current message buffer and sends the mess
 #### HologramCloud.attachTag(const char \*tag)
 #### HologramCloud.attachTag(const String &tag)
 
-Attaches a tag to the upcoming message.
+Attaches a tag to the upcoming message. Returns `true` if successful, `false` otherwise.
 
 **Parameters:**
 * `tag` -- Tag name.
@@ -945,7 +945,7 @@ Resets the message buffer and writes a given byte to it.
 
 **Parameters:** None
 
-**Returns:** `String` -- A formatted version string.
+**Returns:** `String` -- A formatted version string ("0.9.8").
 
 
 ### System Events
