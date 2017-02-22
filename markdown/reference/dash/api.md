@@ -811,7 +811,7 @@ Returns the cell network connection status. This is represented by the following
 return codes:
 
 **Connection Status Code:**
-* `CLOUD_DISONNECTED` -- 0
+* `CLOUD_DISCONNECTED` -- 0
 * `CLOUD_CONNECTED` -- 1
 * `CLOUD_ERR_SIM` - 3
 * `CLOUD_ERR_SIGNAL` -- 5
