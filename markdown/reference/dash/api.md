@@ -934,10 +934,7 @@ Resets the message buffer and writes a given byte to it.
 
 #### HologramCloud.systemVersion()
 
-**Parameters:**
-* `content` (const uint8_t *) -- The content payload.
-* `length` (uint32_t) -- The payload length.
-* `tag` (const String &) -- Tags that the content is associated with.
+**Parameters:** None
 
 **Returns:** `String` -- A formatted version string.
 
