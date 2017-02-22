@@ -820,7 +820,7 @@ return codes:
 
 #### HologramCloud.getSignalStrength()
 
-Returns the RSSI signal strength of the cell network connection.
+Returns the [RSSI signal strength](https://en.wikipedia.org/wiki/Received_signal_strength_indication) of the cell network connection.
 
 **Parameters:** None
 
@@ -876,6 +876,13 @@ Returns the number of queued SMS messages received.
 **Parameters:** None
 
 **Returns:** `int` -- The number of queued SMS messages received.
+
+#### HologramCloud.onURC(urc)
+
+**Parameters:**
+* `urc` (const char *) -- The URC string.
+
+**Returns:** `void`
 
 #### HologramCloud.sendMessage()
 
