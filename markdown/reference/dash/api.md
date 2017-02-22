@@ -895,6 +895,21 @@ Returns the number of queued SMS messages received.
 
 **Returns:** `int` -- The number of queued SMS messages received.
 
+#### HologramCloud.attachHandlerSMS(sms_handler)
+
+Registers a SMS handler that will be executed whenever a SMS is received.
+
+**Parameters:**
+* `sms_handler` (void * sms_handler(sender, timestamp, message))
+
+** sms_handler Parameters:**
+* `sender` (const String &) -- SMS sender.
+* `timestamp` (const rtc_datetime_t &) -- Timestamp in `rtc-datetime_t` format.
+* `message` (const String &) -- SMS body.
+
+**Returns:** `void`
+
+
 #### HologramCloud.sendMessage()
 
 Sends the contents of the message buffer. This does not clear the message buffer.
