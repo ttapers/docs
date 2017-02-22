@@ -790,7 +790,7 @@ Cloud. You can choose to connect and send messages to the cloud using the interf
 #### HologramCloud.connect(reconnect)
 
 Establish a packet switched connection to the cell tower. This is optional because calling `.sendMessage()`
-will connect as needed.
+will connect as needed. This is a blocking call with a default timeout.
 
 **Parameters:**
 * `reconnect` (bool) -- A reconnect flag that enables connection retries. Default to `false`.
@@ -799,7 +799,7 @@ will connect as needed.
 
 #### HologramCloud.disconnect()
 
-Explicitly disconnect from the Hologram Cloud.
+Explicitly disconnect from the packet switched connection.
 
 **Parameters:** None
 
