@@ -463,7 +463,13 @@ discharging.
 
 #### Charger.enable(enabled)
 
-Manually switch between charging and discharging.
+Hardware enable/disable of the charger circuit. Can be used to override the overcharge protection shutdown of the charger.
+
+Note: If the charger enters overcharge shutdown (the battery is connected, a charging power source is connected and the battery is not yet fully charged, but charging has stopped), disable and enable the charger to reset and resume charging.
+
+{{#callout}}
+Overcharging can damage or destroy the battery.
+{{/callout}}
 
 **Parameters:**
 
