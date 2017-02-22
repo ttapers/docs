@@ -55,6 +55,9 @@ These instances are compatible with Arduino's [Serial
 interface](https://www.arduino.cc/en/Reference/Serial).
 
 
+** SerialCloud will be deprecated in Arduino SDK version 0.9.8 and removed
+in the future. Please use the `HologramCloud` functions documented below. **
+
 ### Dash Instantiation
 
 #### Dash.begin()
@@ -990,6 +993,11 @@ another mobile device sending to the device's phone number.
 See the [RGB
 LED](https://github.com/hologram-io/hologram-dash-arduino-examples/blob/master/rgbleds/rgbleds.ino)
 sketch for an example of parsing SMS messages.
+
+
+** SMSRCVD will be deprecated in Arduino SDK version 0.9.8 and removed
+in the future. Please use `HologramCloud`'s `.checkSMS()` and `.attachHandlerSMS()`
+instead. **
 
 #### LOG
 
