@@ -1,6 +1,6 @@
 ---
 title: Organizations
-nav_sort: 2
+nav_sort: 1
 autotoc: true
 layout: guide.hbs
 ---

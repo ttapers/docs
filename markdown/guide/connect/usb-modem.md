@@ -1,6 +1,6 @@
 ---
 title: USB Cellular Modems
-nav_sort: 4
+nav_sort: 1
 autotoc: true
 layout: guide.hbs
 ---
