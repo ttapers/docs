@@ -532,6 +532,39 @@ Returns the clock timestamp/counter in seconds since epoch time.
 
 **Returns:** `uint32_t` -- The clcok timestamp/counter in seconds since epoch time.
 
+#### Clock.setAlarm(dt)
+
+Set an alarm at the time represented in the given `rtc_datetime_t` struct. By registering
+a callback function via the `.attachAlarmInterrupt(callback)` call described below,
+you can schedule calls to your callback function via the alarm interrupt. Note that
+the seconds parameter must be greater than the timestamp returned by the `.counter()`
+call. Returns `true` if alarm is sucessfully set, false otherwise.
+
+{{#callout}}
+Only one alarm can be set at any given point in time. If you call '.setAlarm' a
+second time before the previous alarm expires, the second (latest) alarm will override the previous alarm.
+{{/callout}}
+
+This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
+
+```cpp
+typedef struct RtcDatetime
+{
+   uint16_t year;    /*!< Range from 1970 to 2099.*/
+   uint16_t month;   /*!< Range from 1 to 12.*/
+   uint16_t day;     /*!< Range from 1 to 31 (depending on month).*/
+   uint16_t hour;    /*!< Range from 0 to 23.*/
+   uint16_t minute;  /*!< Range from 0 to 59.*/
+   uint8_t second;   /*!< Range from 0 to 59.*/
+} rtc_datetime_t;
+```
+
+**Parameters:**
+
+* `dt` (rtc_datetime_t) -- Alarm timestamp.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
 #### Clock.setAlarm(seconds)
 
 Set an alarm at the given timestamp (seconds). By registering a callback function via the
@@ -755,13 +788,19 @@ Returns the cell network connection status.
 
 #### HologramCloud.getSignalStrength()
 
-Returns the signal strength of the cell network connection.
+Returns the RSSI signal strength of the cell network connection.
 
 **Parameters:** None
 
 **Returns:** `int` -- the signal strength.
 
 #### HologramCloud.getNetworkTime(dt)
+
+Fetches and stores the internal modem network time.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.powerUp()
 
@@ -809,7 +848,7 @@ been written but don't want the contents be sent.
 **Parameters:**
 * `content` (const char *) -- The content payload.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content, tag)
 
@@ -817,7 +856,7 @@ been written but don't want the contents be sent.
 * `content` (const char *) -- The content payload.
 * `tag` (const char *) -- Tags that the content is associated with.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content, length)
 
@@ -825,7 +864,7 @@ been written but don't want the contents be sent.
 * `content` (const uint8_t *) -- The content payload.
 * `length` (uint32_t) -- The payload length.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content, length, tag)
 
@@ -834,14 +873,14 @@ been written but don't want the contents be sent.
 * `length` (uint32_t) -- The payload length.
 * `tag` (const char *) -- Tags that the content is associated with.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content)
 
 **Parameters:**
 * `content` (const String &) -- The content payload.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content, tag)
 
@@ -849,7 +888,7 @@ been written but don't want the contents be sent.
 * `content` (const String &) -- The content payload.
 * `tag` (const String &) -- Tags that the content is associated with.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content, tag)
 
@@ -857,7 +896,7 @@ been written but don't want the contents be sent.
 * `content` (const String &) -- The content payload.
 * `tag` (const char *) -- Tags that the content is associated with.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content, tag)
 
@@ -865,7 +904,7 @@ been written but don't want the contents be sent.
 * `content` (const char *) -- The content payload.
 * `tag` (const String &) -- Tags that the content is associated with.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
 
 #### HologramCloud.sendMessage(content, length, tag)
 
@@ -874,7 +913,16 @@ been written but don't want the contents be sent.
 * `length` (uint32_t) -- The payload length.
 * `tag` (const String &) -- Tags that the content is associated with.
 
-**Returns:** `bool` --- `true` if successful, `false` otherwise.
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.systemVersion()
+
+**Parameters:**
+* `content` (const uint8_t *) -- The content payload.
+* `length` (uint32_t) -- The payload length.
+* `tag` (const String &) -- Tags that the content is associated with.
+
+**Returns:** `String` -- A formatted version string.
 
 
 ### System Events
