@@ -55,7 +55,7 @@ These instances are compatible with Arduino's [Serial
 interface](https://www.arduino.cc/en/Reference/Serial).
 
 
-** SerialCloud will be deprecated in Arduino SDK version 0.9.8 and removed
+** SerialCloud has been deprecated in Arduino SDK version 0.9.8 and will be removed
 in the future. Please use the `HologramCloud` functions documented below. **
 
 ### Dash Instantiation
@@ -639,7 +639,8 @@ expires, the second (latest) alarm will override the previous alarm.
 Adjust the number of RTC clock ticks per second. The ticks parameter can either be
 a negative or positive offset. This fine tunes the 32,768 input clock to the RTC.
 By adding/subtracting ticks per second, the accuracy of 1 second can be improved.
-You may want to do this due to factors such as the crystal and temperature.
+You may wish to calibrate this to adjust for environment temperature or variations
+between crystals.
 
 **Parameters:**
 
@@ -803,11 +804,19 @@ Explicitly disconnect from the Hologram Cloud.
 
 #### HologramCloud.getConnectionStatus()
 
-Returns the cell network connection status.
+Returns the cell network connection status. This is represented by the following
+return codes:
+
+**Connection Status Code:**
+* `CLOUD_DISONNECTED` -- 0
+* `CLOUD_CONNECTED` -- 1
+* `CLOUD_ERR_SIM` - 3
+* `CLOUD_ERR_SIGNAL` -- 5
+* `CLOUD_ERR_CONNECT` -- 12
 
 **Parameters:** None
 
-**Returns:** `int`
+**Returns:** `int` -- The connection status codes.
 
 #### HologramCloud.getSignalStrength()
 
@@ -862,97 +871,46 @@ been written but don't want the contents be sent.
 
 #### HologramCloud.checkSMS()
 
+Returns the number of queued SMS messages received.
+
 **Parameters:** None
 
-**Returns:** `int`
+**Returns:** `int` -- The number of queued SMS messages received.
 
-#### HologramCloud.sendMessage(content)
+#### HologramCloud.sendMessage()
 
-**Parameters:**
-* `content` (const char *) -- The content payload.
+Sends the contents of the message buffer. This does not clear the message buffer.
 
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.sendMessage(content, tag)
-
-**Parameters:**
-* `content` (const char *) -- The content payload.
-* `tag` (const char *) -- Tags that the content is associated with.
+**Parameters:** None
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
-#### HologramCloud.sendMessage(content, length)
+#### HologramCloud.sendMessage(const char \*content)
+#### HologramCloud.sendMessage(const String &content)
+#### HologramCloud.sendMessage(const char \*content, const char \*tag)
+#### HologramCloud.sendMessage(const String &content, const String &tag)
+#### HologramCloud.sendMessage(const String &content, const char\* tag)
+#### HologramCloud.sendMessage(const char\* content, const String &tag)
+#### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length)
+#### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const char\* tag)
+#### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const String &tag)
+
+Appends the content and its tag to the current message buffer and sends the message to the cloud.
 
 **Parameters:**
-* `content` (const uint8_t *) -- The content payload.
-* `length` (uint32_t) -- The payload length.
+* `content` -- The content payload.
+* `tag` -- Tags that the content is associated with.
+* `length` -- The payload length.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
-#### HologramCloud.sendMessage(content, length, tag)
-
-**Parameters:**
-* `content` (const uint8_t *) -- The content payload.
-* `length` (uint32_t) -- The payload length.
-* `tag` (const char *) -- Tags that the content is associated with.
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.sendMessage(content)
-
-**Parameters:**
-* `content` (const String &) -- The content payload.
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.sendMessage(content, tag)
-
-**Parameters:**
-* `content` (const String &) -- The content payload.
-* `tag` (const String &) -- Tags that the content is associated with.
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.sendMessage(content, tag)
-
-**Parameters:**
-* `content` (const String &) -- The content payload.
-* `tag` (const char *) -- Tags that the content is associated with.
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.sendMessage(content, tag)
-
-**Parameters:**
-* `content` (const char *) -- The content payload.
-* `tag` (const String &) -- Tags that the content is associated with.
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.sendMessage(content, length, tag)
-
-**Parameters:**
-* `content` (const uint8_t *) -- The content payload.
-* `length` (uint32_t) -- The payload length.
-* `tag` (const String &) -- Tags that the content is associated with.
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.attachTag(tag)
+#### HologramCloud.attachTag(const char \*tag)
+#### HologramCloud.attachTag(const String &tag)
 
 Attaches a tag to the upcoming message.
 
 **Parameters:**
-* `tag` (const char *) -- Tag name.
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
-#### HologramCloud.attachTag(tag)
-
-Attaches a tag to the upcoming message.
-
-**Parameters:**
-* `tag` (const String &) -- Tag name.
+* `tag` -- Tag name.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
@@ -995,7 +953,7 @@ LED](https://github.com/hologram-io/hologram-dash-arduino-examples/blob/master/r
 sketch for an example of parsing SMS messages.
 
 
-** SMSRCVD will be deprecated in Arduino SDK version 0.9.8 and removed
+** SMSRCVD has been deprecated in Arduino SDK version 0.9.8 and will be removed
 in the future. Please use `HologramCloud`'s `.checkSMS()` and `.attachHandlerSMS()`
 instead. **
 
