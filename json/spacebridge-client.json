@@ -1,26 +1,25 @@
 [
   {
     "package": "Windows",
-    "version": "0.3",
-    "link": "[Download](http://downloads.hologram.io/spacebridge/spacebridge-0.3-i686-windows.zip)",
-    "sha1": "8928a56a0e7a466567b104e9ee8fb8e234d85202"
+    "version": "0.4",
+    "link": "[Download](http://downloads.hologram.io/spacebridge/spacebridge-0.4-i686-windows.zip)",
+    "sha1": "6d3533ffee230aa65d197444b45049af393c49b9"
   },
   {
     "package": "Mac",
-    "version": "0.3",
-    "link": "[Download](http://downloads.hologram.io/spacebridge/spacebridge-0.3-x86_64-apple-darwin.tar.bz2)",
-    "sha1": "d078635944cc2c0f5d43aa7f62c851a8ca410f94"
+    "version": "0.4",
+    "link": "[Download](http://downloads.hologram.io/spacebridge/spacebridge-0.4-x86_64-apple-darwin.tar.bz2)",
+    "sha1": "ec3d210e6372ac347c198a6750f21c78fabd757b"
   },
   {
     "package": "Linux",
-    "version": "0.3",
-    "link": "[Download](http://downloads.hologram.io/spacebridge/spacebridge-0.3-x86_64-pc-linux-gnu.tar.bz2)",
-    "sha1": "1672e4ede70b7d4b0e3d9af17204c098ffd5439d"
+    "version": "0.4",
+    "link": "[Download](http://downloads.hologram.io/spacebridge/spacebridge-0.4-x86_64-pc-linux-gnu.tar.bz2)",
+    "sha1": "44d267f157c26954de0281478b81c70826006e5d"
   },
   {
     "package": "Python Source",
-    "version": "0.3",
-    "link": "[Download](http://downloads.hologram.io/spacebridge/spacebridge-src-0.3.tar.bz2)",
-    "sha1": "59ead6d988be74b349df04ae09d40bb772064896"
+    "version": "0.4",
+    "link": "[GitHub](https://github.com/hologram-io/spacebridge)",
   }
 ]
