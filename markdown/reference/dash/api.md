@@ -923,6 +923,15 @@ Attaches a tag to the upcoming message.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
+#### HologramCloud.write(x)
+
+Resets the message buffer and writes a given byte to it.
+
+**Parameters:**
+* `x` (uint8_t) -- Input byte.
+
+**Returns:** `size_t` -- the size of a successfully written byte (1), 0 otherwise.
+
 #### HologramCloud.systemVersion()
 
 **Parameters:**
