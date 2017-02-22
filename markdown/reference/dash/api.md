@@ -627,17 +627,24 @@ Returns `true` if the clock has been reset since the last system reset.
 
 **Returns:** `bool` -- `true` if the clock has been reset since the last system reset, `false` otherwise.
 
-#### Clock.setDateTime(year, month, day, hour, minute, second)
+#### Clock.setDateTime(dt)
 
 Sets the clock based on the given year, month, day, hour, minute and second parameters.
+This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
 
+```cpp
+typedef struct RtcDatetime
+{
+   uint16_t year;    /*!< Range from 1970 to 2099.*/
+   uint16_t month;   /*!< Range from 1 to 12.*/
+   uint16_t day;     /*!< Range from 1 to 31 (depending on month).*/
+   uint16_t hour;    /*!< Range from 0 to 23.*/
+   uint16_t minute;  /*!< Range from 0 to 59.*/
+   uint8_t second;   /*!< Range from 0 to 59.*/
+} rtc_datetime_t;
+```
 **Parameters:**
-* `year` (uint6_t)
-* `month` (uint6_t)
-* `day` (uint6_t)
-* `hour` (uint6_t)
-* `minute` (uint6_t)
-* `second` (uint6_t)
+* `dt` (const rtc_datetime_t &) -- RtcDatetime struct.
 
 **Returns:** `bool` -- `true` if the date and time can be set, `false` otherwise.
 
@@ -861,7 +868,7 @@ been written but don't want the contents be sent.
 * `length` (uint32_t) -- The payload length.
 * `tag` (const String &) -- Tags that the content is associated with.
 
-**Returns:** `bool` --- `true` if successful, `false`otherwise.
+**Returns:** `bool` --- `true` if successful, `false` otherwise.
 
 
 ### System Events
