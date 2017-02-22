@@ -556,6 +556,42 @@ expires, the second (latest) alarm will override the previous alarm.
 
 **Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
 
+#### Clock.setAlarmMinutesFromNow(minutes)
+
+Set an alarm for the given number of minutes from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+
+**Parameters:**
+
+* `minutes` (uint32_t) -- Number of minutes from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarmHoursFromNow(hours)
+
+Set an alarm for the given number of hours from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+
+**Parameters:**
+
+* `hours` (uint32_t) -- Number of hours from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarmDaysFromNow(days)
+
+Set an alarm for the given number of days from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+
+**Parameters:**
+
+* `days` (uint32_t) -- Number of days from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
 #### Clock.adjust(ticks)
 
 Adjust the number of RTC clock ticks per second. The ticks parameter can either be
