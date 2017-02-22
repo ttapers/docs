@@ -728,12 +728,30 @@ change the existing year, month and day values.
 
 #### Clock.currentDateTime()
 
-Returns a formatted date and time string. If the clock has not beed adjusted, this
+Returns a formatted date and time string (yyyy/mm/dd,hh:mm:ss). If the clock has not beed adjusted, this
 will be the default Unix time plus the time lapse since the Dash is powered on.
 
 **Parameters:** None
 
-**Returns:** `String` -- a formatted date and time string (1970-01-01 00:55:03).
+**Returns:** `String` -- a formatted date and time string (1970/01/01,02:50:22).
+
+#### Clock.currentDate()
+
+Returns a formatted date string (yyyy/mm/dd). If the clock has not beed adjusted, this
+will be the default Unix time plus the time lapse since the Dash is powered on.
+
+**Parameters:** None
+
+**Returns:** `String` -- a formatted date string (1970/01/01).
+
+#### Clock.currentTime()
+
+Returns a formatted time string (hh:mm:ss). If the clock has not beed adjusted, this
+will be the default Unix time plus the time lapse since the Dash is powered on.
+
+**Parameters:** None
+
+**Returns:** `String` -- a formatted time string (00:55:03).
 
 #### Clock.cancelAlarm()
 
