@@ -1,5 +1,5 @@
 ---
-title: Devices and Connectivity
+title: Connectivity
 nav_sort: 2
 layout: guide.hbs
 ---

@@ -77,4 +77,22 @@ For a complete listing of system tags that may be added to your messages,
 please refer
 to the [System Topics reference](/docs/reference/cloud/csr/#system-topics).
 
+### Hologram Cloud Credentials
 
+When sending a message to Hologram's Cloud Services Router (CSR) via the [TCP
+API](/docs/reference/cloud/embedded/), you must provide authentication
+credentials to indicate which device was the source of the message. The
+credentials consist of a 4-byte *Source ID* and a 4-byte *Key*. You may view
+these credentials under *Cloud & messaging* on the device dashboard page. 
+
+If you believe that a device's credentials may have been compromised, you can
+regenerate them. Each device only has one active set of credentials at a time,
+so the old credentials will no longer authenticate successfully after
+regenerating.
+
+{{#callout}}
+The Hologram Dash uses a separate authentication method when sending CSR
+messages. It is therefore not necessary to generate CSR credentials for the
+Dash, and regenerating credentials will not impact the Dash's ability to send
+messages.
+{{/callout}}
