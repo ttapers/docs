@@ -921,6 +921,8 @@ Registers a SMS handler that will be executed whenever a SMS is received.
 #### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const char\* tag)
 #### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const String &tag)
 
+Sends a message with the given content and attached topics.
+
 Let `sendMessage()` be the first method signature with no arguments (first signature
 listed here), while `sendMessage(params)` be all other method signatures that take in
 arguments.
