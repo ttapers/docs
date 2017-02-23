@@ -910,15 +910,7 @@ Registers a SMS handler that will be executed whenever a SMS is received.
 
 **Returns:** `void`
 
-
 #### HologramCloud.sendMessage()
-
-Sends the contents of the message buffer. This does not clear the message buffer.
-
-**Parameters:** None
-
-**Returns:** `bool` -- `true` if successful, `false` otherwise.
-
 #### HologramCloud.sendMessage(const char \*content)
 #### HologramCloud.sendMessage(const String &content)
 #### HologramCloud.sendMessage(const char \*content, const char \*tag)
@@ -929,7 +921,18 @@ Sends the contents of the message buffer. This does not clear the message buffer
 #### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const char\* tag)
 #### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const String &tag)
 
-Appends the content and its tag to the current message buffer and sends the message to the cloud.
+Let `sendMessage()` be the first method signature with no arguments (first signature
+listed here), while `sendMessage(params)` be all other method signatures that take in
+arguments.
+
+`sendMessage(params)` appends the given content and topics to the existing "open" message buffer, defines what is to be considered the "end" of a message, and then attempts to send out the message.
+
+If the existing buffer contains the end of an existing message (i.e. the buffer is "closed"), then that previous message will be cleared and removed, before replacing the new content and topics of the buffer with this message and sending it out.
+
+If the existing buffer contains content from an "open" message buffer (i.e. anything added with print), it will append the given content and tags, before closing the buffer as the end of the message and sending out the message.
+
+If a call to `sendMessage(params)` fails, then that message remains in the buffer to allow subsequent retries via a call to sendMessage() - or simply retry with a repeat of the same `sendMessage(params)` call. Any subsequent calls to `sendMessage(params)` will clear out the existing closed message buffer, before sending out the new message.
+
 
 **Parameters:**
 * `content` -- The content payload.
