@@ -55,6 +55,9 @@ These instances are compatible with Arduino's [Serial
 interface](https://www.arduino.cc/en/Reference/Serial).
 
 
+** SerialCloud has been deprecated in Arduino SDK version v0.10.0 and will be removed
+in the future. Please use the `HologramCloud` functions documented below. **
+
 ### Dash Instantiation
 
 #### Dash.begin()
@@ -405,6 +408,10 @@ board is configured for battery operation via the jumper settings.
 Returns the battery level as a percentage (0-100). Will only return a valid value if the
 board is configured for battery operation via the jumper settings.
 
+{{#callout}}
+This battery percentage returned will be undefined if no battery is connected.
+{{/callout}}
+
 **Parameters:** None
 
 **Returns:** (byte) Battery level as a percentage.
@@ -454,16 +461,22 @@ Returns whether the charger is charging.
 
 **Parameters:** None
 
-**Returns:** Boolean. `true` if the charger is charging, false if it's
+**Returns:** Boolean. `true` if the charger is charging, `false` if it's
 discharging.
 
 #### Charger.enable(enabled)
 
-Manually switch between charging and discharging.
+Hardware enable/disable of the charger circuit. Can be used to override the overcharge protection shutdown of the charger.
+
+Note: If the charger enters overcharge shutdown (the battery is connected, a charging power source is connected and the battery is not yet fully charged, but charging has stopped), disable and enable the charger to reset and resume charging.
+
+{{#callout}}
+Overcharging can damage or destroy the battery.
+{{/callout}}
 
 **Parameters:**
 
-* `enabled` (bool) -- `true` to set to charging, `false` to set to discharging.
+* `enabled` (bool) -- `true` to enable charge circuit, `false` to disable it.
 
 **Returns:** `void`
 
@@ -493,6 +506,468 @@ periodic basis.
   already charging, will only switch to discharging if the battery is at 100%.
   Default value is 3900 (3.9V).
 
+### Clock
+
+The Dash also features RTC clock and alarm interfaces.  You can set and control these
+timers and alarms using the `Clock` class. When the Dash is powered on, the clock will default
+to epoch time (January 1, 1970), then start counting up from then. You can, among many things,
+choose to set the appropriate date and time with the interfaces below. It is important to note that `Clock` interfaces are persistent as long as the Dash is powered. In other words, if you set an alarm
+and press the program button/reprogram the Dash, the alarm will still be active unless
+you explicitly cancel/cut the power off from the Dash.
+
+{{#callout}}
+This Clock class is only functional on Dash 1.1 and above hardware.
+{{/callout}}
+
+#### Clock.alarmExpired()
+
+Returns `true` if alarm is not set or has expired, false otherwise.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if alarm is expired, `false` otherwise.
+
+#### Clock.counter()
+
+Returns the clock timestamp/counter in seconds since epoch time.
+
+**Parameters:** None
+
+**Returns:** `uint32_t` -- The clock timestamp/counter in seconds since epoch time.
+
+#### Clock.setAlarm(dt)
+
+Set an alarm at the time represented in the given `rtc_datetime_t` struct. By registering
+a callback function via the `.attachAlarmInterrupt(callback)` call described below,
+you can schedule calls to your callback function via the alarm interrupt. Note that
+the seconds parameter must be greater than the timestamp returned by the `.counter()`
+call. Returns `true` if alarm is sucessfully set, false otherwise.
+
+{{#callout}}
+Only one alarm can be set at any given point in time. If you call '.setAlarm' a
+second time before the previous alarm expires, the second (latest) alarm will override the previous alarm.
+{{/callout}}
+
+This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
+
+```cpp
+typedef struct RtcDatetime
+{
+   uint16_t year;    /*!< Range from 1970 to 2099.*/
+   uint16_t month;   /*!< Range from 1 to 12.*/
+   uint16_t day;     /*!< Range from 1 to 31 (depending on month).*/
+   uint16_t hour;    /*!< Range from 0 to 23.*/
+   uint16_t minute;  /*!< Range from 0 to 59.*/
+   uint8_t second;   /*!< Range from 0 to 59.*/
+} rtc_datetime_t;
+```
+
+**Parameters:**
+
+* `dt` (rtc_datetime_t) -- Alarm timestamp.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarm(seconds)
+
+Set an alarm at the given timestamp (seconds). By registering a callback function via the
+`.attachAlarmInterrupt(callback)` call described below, you can schedule calls to your callback
+function via the alarm interrupt. Note that the seconds parameter must be greater than
+the timestamp returned by the `.counter()` call. Returns `true` if alarm is sucessfully set, false otherwise.
+
+{{#callout}}
+Only one alarm can be set at any given point in time. If you call '.setAlarm' a
+second time before the previous alarm expires, the second (latest) alarm will override the previous alarm.
+{{/callout}}
+
+**Parameters:**
+
+* `seconds` (uint32_t) -- Timestamp for the alarm in seconds.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarmSecondsFromNow(seconds)
+
+Set an alarm for the given number of seconds from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+
+**Parameters:**
+
+* `seconds` (uint32_t) -- Number of seconds from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarmMinutesFromNow(minutes)
+
+Set an alarm for the given number of minutes from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+
+**Parameters:**
+
+* `minutes` (uint32_t) -- Number of minutes from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarmHoursFromNow(hours)
+
+Set an alarm for the given number of hours from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+
+**Parameters:**
+
+* `hours` (uint32_t) -- Number of hours from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.setAlarmDaysFromNow(days)
+
+Set an alarm for the given number of days from now. Only one alarm can be set at any
+given point in time. If you call .setAlarm a second time before the previous alarm
+expires, the second (latest) alarm will override the previous alarm.
+
+**Parameters:**
+
+* `days` (uint32_t) -- Number of days from now.
+
+**Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
+
+#### Clock.adjust(ticks)
+
+Adjust the number of RTC clock ticks per second. The ticks parameter can either be
+a negative or positive offset. This fine tunes the 32,768 input clock to the RTC.
+By adding/subtracting ticks per second, the accuracy of 1 second can be improved.
+You may wish to calibrate this to adjust for environment temperature or variations
+between crystals.
+
+**Parameters:**
+
+* `ticks` (int8_t) -- The RTC clock tick offset.
+
+**Returns:** `void`
+
+#### Clock.adjusted()
+
+Returns the configured number of ticks per second.
+
+**Parameters:** None
+
+**Returns:** `int` -- The configured number of ticks per second.
+
+#### Clock.isRunning()
+
+Returns true if the clock is running.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if it is running, `false` otherwise.
+
+#### Clock.wasReset()
+
+Returns `true` if the clock has been reset since the last system reset.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if the clock has been reset since the last system reset, `false` otherwise.
+
+#### Clock.setDateTime(dt)
+
+Sets the clock based on the given year, month, day, hour, minute and second parameters.
+This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
+
+```cpp
+typedef struct RtcDatetime
+{
+   uint16_t year;    /*!< Range from 1970 to 2099.*/
+   uint16_t month;   /*!< Range from 1 to 12.*/
+   uint16_t day;     /*!< Range from 1 to 31 (depending on month).*/
+   uint16_t hour;    /*!< Range from 0 to 23.*/
+   uint16_t minute;  /*!< Range from 0 to 59.*/
+   uint8_t second;   /*!< Range from 0 to 59.*/
+} rtc_datetime_t;
+```
+
+**Parameters:**
+* `dt` (const rtc_datetime_t &) -- RtcDatetime struct.
+
+**Returns:** `bool` -- `true` if the date and time can be set, `false` otherwise.
+
+#### Clock.setDateTime(year, month, day, hour, minute, second)
+
+Sets the clock based on the given year, month, day, hour, minute and second parameters.
+
+**Parameters:**
+* `year` (uint6_t)
+* `month` (uint6_t)
+* `day` (uint6_t)
+* `hour` (uint6_t)
+* `minute` (uint6_t)
+* `second` (uint6_t)
+
+**Returns:** `bool` -- `true` if the date and time can be set, `false` otherwise.
+
+#### Clock.setDate(year, month, day)
+
+Sets the clock date based on the given year, month, and day parameters. This does not
+change the existing hour, minute and second values.
+
+**Parameters:**
+* `year` (uint6_t)
+* `month` (uint6_t)
+* `day` (uint6_t)
+
+**Returns:** `bool` -- `true` if the date can be set, `false` otherwise.
+
+
+#### Clock.setTime(hour, minute, second)
+
+Sets the clock time based on the given hour, minute, and second parameters. This does not
+change the existing year, month and day values.
+
+**Parameters:**
+* `hour` (uint6_t)
+* `minute` (uint6_t)
+* `second` (uint6_t)
+
+**Returns:** `bool` -- `true` if the time can be set, `false` otherwise.
+
+#### Clock.currentDateTime()
+
+Returns a formatted date and time string (yyyy/mm/dd,hh:mm:ss). If the clock has not beed adjusted, this
+will be the default Unix time plus the time lapse since the Dash is powered on.
+
+**Parameters:** None
+
+**Returns:** `String` -- a formatted date and time string (1970/01/01,02:50:22).
+
+#### Clock.currentDate()
+
+Returns a formatted date string (yyyy/mm/dd), where yyyy is the year, mm is the
+month and dd is the date. If the clock has not beed adjusted, this
+will be the default Unix time plus the time lapse since the Dash is powered on.
+
+**Parameters:** None
+
+**Returns:** `String` -- a formatted date string (1970/01/01).
+
+#### Clock.currentTime()
+
+Returns a formatted time string (hh:mm:ss), where hh is the hours, mm is the minutes and ss is the seconds.
+If the clock has not beed adjusted, this will be the default Unix time plus the
+time lapse since the Dash is powered on.
+
+**Parameters:** None
+
+**Returns:** `String` -- a formatted time string (00:55:03).
+
+#### Clock.cancelAlarm()
+
+Cancels the alarm.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### Clock.attachAlarmInterrupt(callback)
+
+Attach a callback function to the alarm interrupt. Only one callback function is allowed
+at any single point in time. If you try to register another callback function to the
+alarm interrupt, it'll override the previous callback function registered to it.
+
+**Parameters:**
+* `callback` (void *) -- Pointer to a callback function.
+
+**Returns:** `void`
+
+### HologramCloud
+
+The `HologramCloud` class provides you with a clean interface to interact with the Hologram
+Cloud. You can choose to connect and send messages to the cloud using the interfaces below.
+
+
+#### HologramCloud.connect(reconnect)
+
+Establish a packet switched connection to the cell tower. This is optional because calling `.sendMessage()`
+will connect as needed. This is a blocking call with a default timeout. This may be
+useful if you get disconnected due to an idle timeout.
+
+**Parameters:**
+* `reconnect` (bool) -- A reconnect flag that enables connection retries. Default to `false`.
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.disconnect()
+
+Explicitly disconnect from the packet switched connection.
+
+**Parameters:** None
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.getConnectionStatus()
+
+Returns the cell network connection status. This is represented by the following
+return codes:
+
+**Connection Status Code:**
+* `CLOUD_DISCONNECTED` -- 0
+* `CLOUD_CONNECTED` -- 1
+* `CLOUD_ERR_SIM` - 3
+* `CLOUD_ERR_SIGNAL` -- 5
+* `CLOUD_ERR_CONNECT` -- 12
+
+**Parameters:** None
+
+**Returns:** `int` -- The connection status codes.
+
+#### HologramCloud.getSignalStrength()
+
+Returns the [RSSI signal strength](https://en.wikipedia.org/wiki/Received_signal_strength_indication) of the cell network connection.
+
+**Parameters:** None
+
+**Returns:** `int` -- the signal strength.
+
+#### HologramCloud.getNetworkTime(dt)
+
+This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
+
+```cpp
+typedef struct RtcDatetime
+{
+   uint16_t year;    /*!< Range from 1970 to 2099.*/
+   uint16_t month;   /*!< Range from 1 to 12.*/
+   uint16_t day;     /*!< Range from 1 to 31 (depending on month).*/
+   uint16_t hour;    /*!< Range from 0 to 23.*/
+   uint16_t minute;  /*!< Range from 0 to 59.*/
+   uint8_t second;   /*!< Range from 0 to 59.*/
+} rtc_datetime_t;
+```
+
+Fetches and stores the internal modem network time.
+
+**Parameters:**
+* `dt` (rtc_datetime_t) -- Populated RCDatetime struct.
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.powerUp()
+
+Power up the modem. This is optional as any cell network related commands will invoke a
+power up call.  
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.powerDown()
+
+Turn the modem off. This could improve power consumption when the modem is not in use.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.pollEvents()
+
+Manually check for events, such as an SMS received while in deep sleep.
+Events are also checked automatically before powering down the modem.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.clear()
+
+Explicitly clear the message buffer. You may want to call this if the buffer has
+been written but don't want the contents be sent.
+
+**Parameters:** None
+
+**Returns:** `void`
+
+#### HologramCloud.checkSMS()
+
+Returns the number of queued SMS messages received.
+
+**Parameters:** None
+
+**Returns:** `int` -- The number of queued SMS messages received.
+
+#### HologramCloud.attachHandlerSMS(sms_handler)
+
+Registers a SMS handler that will be executed whenever a SMS is received.
+
+**Parameters:**
+* `sms_handler` (void * sms_handler(sender, timestamp, message))
+
+** sms_handler Parameters:**
+* `sender` (const String &) -- SMS sender.
+* `timestamp` (const rtc_datetime_t &) -- Timestamp in `rtc-datetime_t` format.
+* `message` (const String &) -- SMS body.
+
+**Returns:** `void`
+
+#### HologramCloud.sendMessage()
+#### HologramCloud.sendMessage(const char \*content)
+#### HologramCloud.sendMessage(const String &content)
+#### HologramCloud.sendMessage(const char \*content, const char \*tag)
+#### HologramCloud.sendMessage(const String &content, const String &tag)
+#### HologramCloud.sendMessage(const String &content, const char\* tag)
+#### HologramCloud.sendMessage(const char\* content, const String &tag)
+#### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length)
+#### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const char\* tag)
+#### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const String &tag)
+
+Sends a message with the given content and attached topics.
+
+Let `sendMessage()` be the first method signature with no arguments (first signature
+listed here), while `sendMessage(params)` be all other method signatures that take in
+arguments.
+
+`sendMessage(params)` appends the given content and topics to the existing "open" message buffer, defines what is to be considered the "end" of a message, and then attempts to send out the message.
+
+If the existing buffer contains the end of an existing message (i.e. the buffer is "closed"), then that previous message will be cleared and removed, before replacing the new content and topics of the buffer with this message and sending it out.
+
+If the existing buffer contains content from an "open" message buffer (i.e. anything added with print), it will append the given content and tags, before closing the buffer as the end of the message and sending out the message.
+
+If a call to `sendMessage(params)` fails, then that message remains in the buffer to allow subsequent retries via a call to sendMessage() - or simply retry with a repeat of the same `sendMessage(params)` call. Any subsequent calls to `sendMessage(params)` will clear out the existing closed message buffer, before sending out the new message.
+
+
+**Parameters:**
+* `content` -- The content payload.
+* `tag` -- Tags that the content is associated with.
+* `length` -- The payload length.
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.attachTag(const char \*tag)
+#### HologramCloud.attachTag(const String &tag)
+
+Attaches a tag to the upcoming message. Returns `true` if successful, `false` otherwise.
+
+**Parameters:**
+* `tag` -- Tag name.
+
+**Returns:** `bool` -- `true` if successful, `false` otherwise.
+
+#### HologramCloud.write(x)
+
+Resets the message buffer and writes a given byte to it.
+
+**Parameters:**
+* `x` (uint8_t) -- Input byte.
+
+**Returns:** `size_t` -- the size of a successfully written byte (1), 0 otherwise.
+
+#### HologramCloud.systemVersion()
+
+**Parameters:** None
+
+**Returns:** `String` -- A formatted version string ("0.9.8").
+
 
 ### System Events
 
@@ -521,6 +996,11 @@ another mobile device sending to the device's phone number.
 See the [RGB
 LED](https://github.com/hologram-io/hologram-dash-arduino-examples/blob/master/rgbleds/rgbleds.ino)
 sketch for an example of parsing SMS messages.
+
+
+** SMSRCVD has been deprecated in Arduino SDK version v0.10.0 and will be removed
+in the future. Please use `HologramCloud`'s `.checkSMS()` and `.attachHandlerSMS()`
+instead. **
 
 #### LOG
 
