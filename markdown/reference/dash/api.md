@@ -550,7 +550,7 @@ second time before the previous alarm expires, the second (latest) alarm will ov
 
 This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
 
-```cpp
+```c
 typedef struct RtcDatetime
 {
    uint16_t year;    /*!< Range from 1970 to 2099.*/
@@ -677,7 +677,7 @@ Returns `true` if the clock has been reset since the last system reset.
 Sets the clock based on the given year, month, day, hour, minute and second parameters.
 This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
 
-```cpp
+```c
 typedef struct RtcDatetime
 {
    uint16_t year;    /*!< Range from 1970 to 2099.*/
@@ -834,7 +834,7 @@ Returns the [RSSI signal strength](https://en.wikipedia.org/wiki/Received_signal
 
 This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
 
-```cpp
+```c
 typedef struct RtcDatetime
 {
    uint16_t year;    /*!< Range from 1970 to 2099.*/
