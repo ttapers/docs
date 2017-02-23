@@ -1,8 +1,8 @@
 [
   {
     "package": "Dash & Dash Pro Firmware",
-    "version": "0.9.7",
-    "link": "[Download](http://downloads.hologram.io/dash/system_firmware/dash_system_module_firmware_0.9.7.bin)",
-    "sha1": "3f18c3eda8ab5694be12266dcecf1af63c004131"
+    "version": "0.9.8",
+    "link": "[Download](http://downloads.hologram.io/dash/system_firmware/dash_system_module_firmware_0.9.8.bin)",
+    "sha1": "50af4f22293e578291e6fde5ce8aedd8655c31f8"
   }
 ]
