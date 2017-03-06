@@ -3,6 +3,7 @@ title: Communication Protocols
 autotoc: true
 nav_sort: 3
 layout: guide.hbs
+lunr: true
 ---
 
 ### Overview

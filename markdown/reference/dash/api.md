@@ -6,6 +6,7 @@ autotoc: true
 layout: reference.hbs
 description: Classes and functions available when programming the Dash
 icon: docs
+lunr: true
 ---
 
 This page documents methods available when developing code for the Dash

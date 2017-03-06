@@ -3,6 +3,7 @@ title: Serial Connectivity
 nav_sort: 2
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 The Dash [Quick Start Guide](/docs/guide/dash/quick-start) walks through the easiest way to establish a

@@ -3,6 +3,7 @@ title: Connect Your Device
 nav_sort: 0
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 The Hologram network is device-agnostic. All you need to get online

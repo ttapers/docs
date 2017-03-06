@@ -4,6 +4,7 @@ nav_sort: 4
 autotoc: true
 layout: tutorial.hbs
 preview_image: "/wp-content/uploads/2016/11/beaglebone-med.jpg"
+lunr: true
 ---
 
 ### Introduction

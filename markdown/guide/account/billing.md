@@ -3,6 +3,7 @@ title: Billing and Usage
 nav_sort: 0
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 ### Billing Mechanics

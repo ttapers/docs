@@ -4,6 +4,7 @@ nav_sort: 1
 autotoc: true
 layout: tutorial.hbs
 preview_image: "/wp-content/uploads/2015/04/rpi.jpg"
+lunr: true
 ---
 
 ### Introduction

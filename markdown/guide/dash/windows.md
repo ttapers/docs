@@ -3,6 +3,7 @@ title: Windows Serial Driver
 nav_sort: 3
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 ### Overview

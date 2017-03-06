@@ -5,6 +5,7 @@ nav_sort: 0
 layout: reference.hbs
 description: Pinouts and electrical specifications
 icon: docs
+lunr: true
 ---
 
 ### Introduction
