@@ -3,6 +3,7 @@ title: Quick Start
 nav_sort: 0
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 ### Overview

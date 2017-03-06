@@ -2,6 +2,7 @@
 title: CSR Messages
 nav_sort: 0
 layout: guide.hbs
+lunr: true
 ---
 
 Hologram's Cloud Services Router (CSR) is a message queue and protocol translation 

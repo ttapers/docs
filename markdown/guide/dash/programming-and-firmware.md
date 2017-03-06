@@ -3,6 +3,7 @@ title: Programming and Firmware Updates
 nav_sort: 1
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 The Hologram Dash integrates with the Arduino IDE, so developing on the Dash
