@@ -8,14 +8,14 @@ layout: guide.hbs
 DashReadEvalPrint is a Dash program that provides an interactive console for
 testing and debugging various Dash features. Instead of continuously
 re-programming the Dash to try different functionality, you can send commands and receive
-output via the USB serial interface, similar to the read-eval-print loop (REPL)
+output via the USB serial interface. This is similar to the read-eval-print loop (REPL)
 consoles for dynamic languages like Python and Ruby.
 
 ### Programming the Dash
 
 If you haven't already, set up the Arduino software with Hologram's boards as
 described in the [Programming and Firmware
-guide](/docs/guide/dash/programming-and-firmware). 
+guide](/docs/guide/dash/programming-and-firmware).
 
 Make sure you have the latest version of the library by opening the Boards
 Manager (*Tools* -> *Board* -> *Boards Manager*) and selecting *Updateable* from
@@ -75,6 +75,30 @@ Most of the [Dash API](/docs/reference/dash/api/) is exposed via commands in the
 REPL. If you want to see exactly what gets executed for a given command, you can
 look at the [source code for the DashReadEvalPrint
 library](https://github.com/hologram-io/hologram-dash-arduino-integration/blob/master/konektdash/libraries/DashReadEvalPrint/src/DashReadEvalPrint.cpp).
+
+#### SMS debugging
+
+The REPL program will print info about any received SMS messages to the serial
+console. It will also send a message to the Hologram Cloud with the sender's
+phone number.
+
+For example, if you send an SMS from the Hologram Dashboard with content
+"Hello Dash!" and from number *+13125554010*, the following will be printed to
+the serial console:
+
+```bash
+CLOUD SMS RECEIVED:
+SMS SENDER: +13125554010
+SMS TIMESTAMP: 2017/03/07,22:38:07
+SMS TEXT:
+Hello Dash!
+SMS received message sent to cloud.
+```
+
+The corresponding cloud message will be:
+
+{{{ image src="/wp-content/uploads/2017/03/dash-repl-sms-cloud.png"
+    alt="REPL SMS forwarded to cloud" }}}
 
 ### Examples
 
