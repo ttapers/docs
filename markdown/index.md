@@ -7,12 +7,12 @@ blurb: "Learn how to build, manage, and deploy connected devices with Hologram"
 sections:
 - title: "Build a device with the Dash"
   main_card:
-    title: "Quick Start Guide"
+    title: "Quick Start Tutorial"
     image: "/wp-content/uploads/2017/02/dash-thumbnail-test.jpg"
     description:
       Get up and running with Hologram's cellular-enabled microcontroller
-    url: "/docs/guide/dash/quick-start/"
-    cta: Launch guide
+    url: "/docs/tutorials/quick-start-dash/"
+    cta: Launch tutorial
   cards:
     - title: "API reference"
       description:
