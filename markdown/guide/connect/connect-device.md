@@ -13,17 +13,15 @@ We sell USB modems on [our online store](/store) that can be used with any
 computer or Linux-based embedded device. See our 
 [USB modem guide](/docs/guide/connect/usb-modem/) for details.
 
+{{#callout title="Dash-specific guide"}}
+Connecting with the Hologram Dash board? Check out our
+[Dash Quick Start guide](/docs/guide/dash/quick-start) for more
+comprehensive instructions.
+{{/callout}}
+
 ### SIM Activation
 
-Activate your Hologram Global 
-SIM Card on [our Device Dashboard](https://dashboard.hologram.io) or via 
-the [HTTP API](/docs/reference/cloud/http). The SIM must be a Hologram-branded 
-card that has not previously been activated.
-
-When activating a SIM, you must choose a data plan and geographic zone; see our
-[pricing page](https://hologram.io/pricing/) for details.
-Different devices can have different plans or zones. You can change the plan
-of an existing device by contacting Hologram support from the dashboard.
+{{{ include "activate-sim" }}}
 
 ### APN Settings
 
@@ -45,18 +43,13 @@ The correct APN settings are as follows:
 
 That's it! Your device should now be connected to the Hologram cellular network.
 
-### Device Phone Numbers
+### Next steps
 
-A phone number allows you to easily send an SMS to your Hologram-connected device 
-from any SMS-compatible device. Phone numbers are not necessary to deliver an SMS to your
-device via the Dashboard or API.
+Now that your device is connected, you may want to explore options for 
+[communication protocols](/docs/guide/connect/protocols/) to send data to and
+from your device.
 
-You may purchase a phone number for a device from the device's page on the
-Hologram Dashboard. The monthly cost for the number depends on the number's
-country code.
+Our [Cloud Services Router](/docs/guide/cloud/csr/) is a great option for
+routing data from your device to other internet services.
 
-Note that the device will be able to respond to the SMS, but the response
-may show up as originating from a different number. This is a special, internal number
-so you should be sure to send all messages to the purchased phone number instead
-of the internal number.
 

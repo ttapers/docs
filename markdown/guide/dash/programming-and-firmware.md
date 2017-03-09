@@ -1,6 +1,6 @@
 ---
-title: Programming and Firmware Updates
-nav_sort: 1
+title: Programming and Firmware
+nav_sort: 0
 autotoc: true
 layout: guide.hbs
 lunr: true
@@ -10,14 +10,14 @@ The Hologram Dash integrates with the Arduino IDE, so developing on the Dash
 has all the benefits
 of the Arduino ecosystem's high quality tools, libraries, and developer
 community. This guide walks through setting up the Arduino IDE and programming
-the Dash with your own custom code. 
+the Dash.
 
 If you prefer to use a non-Arduino toolchain or already have an image you'd
-like to load onto the Dash, scroll down to [Standalone Updater](#standalone-updater).
+like to load onto the Dash, scroll down to [Standalone Updater](#alternative-method-standalone-updater).
 
 ### Arduino IDE
 
-#### Setting up the Arduino IDE
+#### Installing the Arduino IDE and library
 
 Download and install the Arduino IDE from the 
 [Arduino.cc](https://www.arduino.cc/en/Main/Software) website.
@@ -30,7 +30,9 @@ Open the Preferences window. On Windows and Linux, it can be found in the menu a
 
 Add the following URL to the *Additional Boards Manager URLs* input, then click OK:
 
-    http://downloads.hologram.io/arduino/package_konekt_index.json
+```bash
+http://downloads.hologram.io/arduino/package_konekt_index.json
+```
 
 Next, install the Dash's board files. Open the Boards Manager, located in the menu under 
 *Tools* -> *Board...* -> *Boards Manager*. Change the *Type* dropdown to "Contributed",
@@ -42,73 +44,70 @@ and select *Konekt Dash/Dash Pro Boards*.
 Select *Install* on the Dash item. When the installation finishes, close the 
 Boards Manager.
 
-#### Writing Your First Program
+#### Upgrading the Hologram library
 
-Create a new Sketch (project) by selecting *File* -> *New* in the Arduino IDE menu.
+Hologram continues to update the Dash libraries with bugfixes and new features.
+Make sure you have the latest version of the library by opening the Boards
+Manager (*Tools* -> *Board* -> *Boards Manager*) and selecting *Updateable* from
+the *Type* dropdown. If Hologram Dash appears in the list of updateable boards,
+update to the latest version.
 
-In the new editor window, paste the following code:
+#### Opening an example sketch
 
-```clike
-int numSends;   // counter to count number of sends to Cloud
+The process of actually writing your sketch is beyond the scope of this guide,
+but Hologram provides an example sketch that demonstrates various
+functions of the Dash and the Hologram Cloud.
 
-void setup() {
-  // put your setup code here, to run once:
-  SerialCloud.begin(115200);
-  SerialUSB.begin(9600);
-  SerialUSB.println("Hello Cloud example has started...");
-  numSends = 0;   // count number of sends
-}
+Open the example Dash Cloud sketch by selecting:
+*File* -> *Examples* -> *DashExamples* -> *hologram_dash_cloud*
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  // every 60 seconds, send a message to the Cloud
-  if((numSends < 6) && (millis() % 60000 == 0)) {
-    SerialUSB.println("Sending a message to the Cloud...");
-    SerialCloud.println("Hello, Cloud!"); // send to Cloud
-    SerialUSB.println("Message sent!");
-    numSends++; // increase the number-of-sends counter
-  }
-  // two-way serial passthrough for seeing debug statements
-  while(SerialUSB.available()) {
-    SerialCloud.write(SerialUSB.read());
-  }
+{{{ image src="/wp-content/uploads/2017/03/arduino-cloud-example-menu.png"
+    alt="Dash Cloud example in the Arduino IDE menu" }}}
 
-  while(SerialCloud.available()) {
-    SerialUSB.write((char)SerialCloud.read());
-  }
-}
-```
+You can also find the source [on
+GitHub](https://github.com/hologram-io/hologram-dash-arduino-integration/blob/master/konektdash/libraries/DashExamples/examples/hologram_dash_cloud/hologram_dash_cloud.ino).
 
-This snippet will send a message to the Hologram Cloud once a minute, up to six times.
-It also implements the behavior of the serial passthrough program, relaying any serial 
-input to the Hologram Cloud.
+This sketch will send a message every 30 minutes to the Hologram Cloud,
+containing battery, signal strength, and analog input value. It implements retry
+logic in the event of a failure, and puts the Dash into a low-power deep sleep state
+in between messages.
 
-#### Loading Your Code onto the Dash
+It also listens for SMS messages sent from the Hologram Dashboard or via a
+purchased phone number, and forwards those messages to the Hologram Cloud.
+
+#### Loading Code onto the Dash (USB)
 
 Hologram's Arduino extensions support programming the Dash
 via USB, as well as over-the-air via cellular connectivity.
+We recommend starting with USB to avoid data charges.
 
-Set up your Dash's SIM card, antenna, and power as described in the 
-[quick start guide](/docs/guide/dash/quick-start).
+Configure the Arduino IDE for your Dash board. In the menu, select:
 
-Configure the Arduino IDE for your Dash board: in the menu select 
-*Tools* -> *Board* -> *Dash* (or *Dash Pro*, as applicable).
+  * *Tools* -> *Board* -> *Dash* (or *Dash Pro*, as applicable).
 
-##### Programming via USB
+{{{ include 'arduino-usb-setup' }}}
 
-Connect the Dash to your computer's USB port. Select the Hologram USB programmer
-from the menu: *Tools* -> *Programmer* -> *konekt.io/hologram.io USB Loader*
+Then, select the Hologram USB programmer
+from the menu: *Tools* -> *Programmer* -> *hologram.io USB Loader*
 
-Press the PGM (program) button on the Dash. The system LED will begin blinking.
-Upload the code from the Arduino IDE menu by selecting *Sketch* -> *Upload*. A message
-will pop up indicating that the upload is successful, or an error message will
-be displayed if the upload failed.
+Press the *PROG* (program) button on the Dash. The system LED will begin blinking.
+Upload the code from the Arduino IDE menu by clicking the *Upload* button in the
+Arduino SDK.
 
-##### Programming Over-the-Air (OTA)
+{{{ image src="/wp-content/uploads/2017/03/upload-repl-sketch.png"
+    alt="Uploading a sketch in the Arduino IDE" }}}
+
+A message will pop up indicating that the upload is successful, or an error
+message will be displayed if the upload failed.
+
+#### Loading Code onto the Dash (Over-the-Air)
 
 {{#callout}}
 OTA updating is supported in Dash firmware version 0.9 and later.
 {{/callout}}
+
+Configure the Arduino IDE for your Dash board: in the menu select
+*Tools* -> *Board* -> *Dash* (or *Dash Pro*, as applicable).
 
 Ensure your Dash is powered and connected to the cellular network. Select the Hologram
 OTA programmer from the menu: *Tools* -> *Programmer* -> *konekt.io/hologram.io OTA Programmer*
@@ -122,7 +121,7 @@ A message
 will pop up indicating that the upload is successful, or an error message will
 be displayed if the upload failed.
 
-### Standalone Updater
+### Alternative Method: Standalone Updater
 
 Hologram's USB and over-the-air (OTA) programming tools can work standalone without the 
 Arduino IDE. You can use any toolchain to compile binaries (Arduino or not Arduino), and 
