@@ -6,6 +6,7 @@ layout: reference.hbs
 description: Send data to the Hologram Cloud via TCP or SMS
 icon: docs
 lunr: true
+tags:
 ---
 
 ### Overview

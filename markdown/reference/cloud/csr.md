@@ -6,6 +6,7 @@ nav_sort: 0
 description: Data format of CSR messages and Routing Rules options
 icon: docs
 lunr: true
+tags:
 ---
 
 For a description of CSR routing rules, see [the

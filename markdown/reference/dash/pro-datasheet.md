@@ -6,6 +6,7 @@ layout: reference.hbs
 description: Pinouts and electrical specifications
 icon: docs
 lunr: true
+tags:
 ---
 
 ### Introduction

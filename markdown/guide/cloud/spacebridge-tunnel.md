@@ -4,6 +4,7 @@ nav_sort: 4
 autotoc: true
 layout: guide.hbs
 lunr: true
+tags:
 ---
 
 Hologram provides a service called Spacebridge that allows you to create secure,

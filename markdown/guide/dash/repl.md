@@ -4,6 +4,7 @@ nav_sort: 1
 autotoc: true
 layout: guide.hbs
 lunr: true
+tags:
 ---
 
 DashReadEvalPrint is a Dash program that provides an interactive console for

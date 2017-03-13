@@ -4,6 +4,7 @@ nav_sort: 0
 autotoc: true
 layout: guide.hbs
 lunr: true
+tags:
 ---
 
 The Hologram Dash integrates with the Arduino IDE, so developing on the Dash
