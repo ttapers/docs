@@ -22,60 +22,85 @@ for details.
 
 ### Linux instructions
 
-1. Install some required software packages. On Debian-based distributions:
-   ```bash
-   sudo apt-get update
-   sudo apt-get install ppp usb-modeswitch screen
-   ```
-2. Disable automatic USB mode switching to prevent the modem from switching to
-   HiLink mode, if it supports it.
-   Edit the file `/etc/usb_modeswitch.conf` and change the
-   line that says `DisableSwitching=0` to `DisableSwitching=1`. Here's
-   what the correct configuration looks like when editing with the *nano*
-   editor:
+Slide the cover off of the modem and insert your Hologram SIM card
+with the full-size SIM insert. Then plug the modem into a USB port on your PC.
 
-   {{{ image src="/wp-content/uploads/2016/10/modeswitch-usb-config.png" }}}
+Install some required software packages. On Debian-based distributions:
+```bash
+sudo apt-get update
+sudo apt-get install ppp screen
+```
 
-   Save the file and reboot your system.
-3. Slide the cover off of the modem and insert your Hologram SIM card 
-   with the full-size SIM insert. Then plug the modem into a USB port on your PC.
-4. On the command line, list your connected USB devices with `lsusb`. In the 
-   output you should see a line for the modem:
-   ```bash
-   Bus 001 Device 006: ID 12d1:1f01 Huawei Technologies Co., Ltd.
-   ```
-5. The ID ending with `1f01` indicates that the modem is in storage mode. Switch it into PPP
-   modem mode by running the command:
-   ```bash
-   sudo usb_modeswitch -v 0x12d1 -p 0x1f01 -V 0x12d1 -P 0x1001 -M "55534243000000000000000000000611060000000000000000000000000000"
-   ```
-6. Run `lsusb` again, and you should see that the modem's device ID and
-   description has changed:
-   ```bash
-   Bus 001 Device 008: ID 12d1:1001 Huawei Technologies Co., Ltd. E169/E620/E800 HSDPA Modem
-   ```
-7. Get the hologram-tools files which includes the PPP configuration
-   files:
-   ```bash
-   wget https://github.com/hologram-io/hologram-tools/archive/master.zip
-   unzip master.zip
-   ```
-8. Copy the PPP configuration files to the correct locations:
-   ```bash
-   cd hologram-tools-master
-   sudo cp ppp/chatscripts/e303 /etc/chatscripts
-   sudo cp ppp/peers/e303 /etc/ppp/peers
-   ```
-9.  Stop any wifi or ethernet interfaces so that traffic we don't have to worry about things being routed
-    over the wrong interface: `sudo ifconfig wlan0 down`
-10. Start the *ppp* daemon for the modem:
-    ```bash
-    sudo pon e303
-    ```
-    You should see the modem's LED turn on. List your network interfaces with
-    `ifconfig` and verify that you see a *ppp0* entry.
-11. You are now connected to the internet via cellular. To stop the
-    connection: `sudo poff e303`
+#### Disable USB mode switching
+
+{{#callout}}
+This section is only required if your modem supports HiLink mode. This is required 
+for the E303 and E353 modems, but can be skipped for the MS2131.
+{{/callout}}
+
+Install the usb-modeswitch utility:
+
+```bash
+sudo apt-get install usb-modeswitch
+```
+
+Edit the file `/etc/usb_modeswitch.conf` and change the
+line that says `DisableSwitching=0` to `DisableSwitching=1`. Here's
+what the correct configuration looks like when editing with the *nano*
+editor:
+
+{{{ image src="/wp-content/uploads/2016/10/modeswitch-usb-config.png" }}}
+
+Save the file and reboot your system.
+
+Plug the modem into a USB port. On the command line, list your connected USB
+devices with `lsusb`. In the output you should see a line for the modem:
+
+```bash
+Bus 001 Device 006: ID 12d1:1f01 Huawei Technologies Co., Ltd.
+```
+
+The ID ending with `1f01` indicates that the modem is in storage mode. Switch it into PPP
+modem mode by running the command:
+
+```bash
+sudo usb_modeswitch -v 0x12d1 -p 0x1f01 -V 0x12d1 -P 0x1001 -M "55534243000000000000000000000611060000000000000000000000000000"
+```
+
+Then run `lsusb` again, and you should see that the modem's device ID and
+description has changed:
+```bash
+Bus 001 Device 008: ID 12d1:1001 Huawei Technologies Co., Ltd. E169/E620/E800 HSDPA Modem
+```
+
+#### PPP configuration
+
+Get the hologram-tools files which includes the PPP configuration
+files:
+```bash
+wget https://github.com/hologram-io/hologram-tools/archive/master.zip
+unzip master.zip
+```
+
+Copy the PPP configuration files to the correct locations:
+```bash
+cd hologram-tools-master
+sudo cp ppp/chatscripts/e303 /etc/chatscripts
+sudo cp ppp/peers/e303 /etc/ppp/peers
+```
+
+Stop any wifi or ethernet interfaces so that traffic we don't have to worry about things being routed
+over the wrong interface: `sudo ifconfig wlan0 down`
+
+Start the *ppp* daemon for the modem:
+```bash
+sudo pon e303
+```
+You should see the modem's LED turn on. List your network interfaces with
+`ifconfig` and verify that you see a *ppp0* entry.
+
+You are now connected to the internet via cellular. To stop the
+connection: `sudo poff e303`
 
 #### Opening the Serial Console for AT Commands
 
