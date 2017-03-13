@@ -4,6 +4,7 @@ nav_sort: 7
 layout: tutorial.hbs
 preview_image: /wp-content/uploads/2016/11/iphone.jpg
 lunr: true
+tags:
 ---
 
 {{#callout}}

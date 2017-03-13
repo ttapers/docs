@@ -4,6 +4,7 @@ nav_sort: 2
 autotoc: true
 layout: guide.hbs
 lunr: true
+tags:
 ---
 
 The easiest way to develop and debug your Dash programs is with a serial

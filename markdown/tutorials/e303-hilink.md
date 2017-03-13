@@ -5,6 +5,7 @@ autotoc: true
 layout: tutorial.hbs
 preview_image: "/wp-content/uploads/2016/12/huawei-e303-front-1.jpg"
 lunr: true
+tags:
 ---
 
 ### Introduction

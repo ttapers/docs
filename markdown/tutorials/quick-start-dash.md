@@ -5,6 +5,7 @@ autotoc: true
 layout: tutorial.hbs
 preview_image: "/wp-content/uploads/2016/10/dash-usb.jpg"
 lunr: true
+tags:
 ---
 
 ### Overview
