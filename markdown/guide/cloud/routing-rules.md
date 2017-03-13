@@ -88,8 +88,8 @@ Parameters:
 
 Sends an SMS to a phone number containing the payload of a CSR message.
 
-* Recipient phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164)
-  - e.g. *+13125554010*
+* Recipient phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) --
+  e.g. *+13125554010*
 
 ### Slack Route
 
