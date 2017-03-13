@@ -58,7 +58,7 @@ Returns the SDK version.
 **Example:**
 
 ```python
-print cloud.getSDKVersion() # 0.2.0
+print cloud.getSDKVersion() # 0.3.0
 ```
 
 ### CustomCloud
