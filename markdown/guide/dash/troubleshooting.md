@@ -3,6 +3,7 @@ title: Troubleshooting
 nav_sort: 4
 layout: guide.hbs
 lunr: true
+tags:
 ---
 
 If you are having problems with the Dash or connecting via cellular, this page lists

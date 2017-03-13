@@ -4,6 +4,7 @@ nav_sort: 1
 autotoc: true
 layout: guide.hbs
 lunr: true
+tags:
 ---
 
 Hologram supports creating **organizations** so that multiple users can share

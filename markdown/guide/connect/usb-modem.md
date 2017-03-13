@@ -4,6 +4,7 @@ nav_sort: 1
 autotoc: true
 layout: guide.hbs
 lunr: true
+tags:
 ---
 
 ### Introduction
