@@ -3,6 +3,7 @@ title: Billing and Usage
 nav_sort: 0
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 ### Billing Mechanics
@@ -74,3 +75,19 @@ While a device is in a paused state, monthly plan charges still apply. When
 pausing a device for an extended period, you would typically first convert it to
 a pay-as-you-go plan, so that the paused device will only be charged the low
 monthly SIM base cost. 
+
+### Device Phone Numbers
+
+A phone number allows you to easily send an SMS to your Hologram-connected device 
+from any SMS-compatible device. Phone numbers are not necessary to deliver an SMS to your
+device via the Dashboard or API.
+
+You may purchase a phone number for a device from the device's page on the
+Hologram Dashboard. The monthly cost for the number depends on the number's
+country code.
+
+Note that the device will be able to respond to the SMS, but the response
+may show up as originating from a different number. This is a special, internal number
+so you should be sure to send all messages to the purchased phone number instead
+of the internal number.
+

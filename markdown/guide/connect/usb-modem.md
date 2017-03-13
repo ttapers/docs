@@ -3,6 +3,7 @@ title: USB Cellular Modems
 nav_sort: 1
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 ### Introduction

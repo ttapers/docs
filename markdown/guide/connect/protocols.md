@@ -3,6 +3,7 @@ title: Communication Protocols
 autotoc: true
 nav_sort: 3
 layout: guide.hbs
+lunr: true
 ---
 
 ### Overview
@@ -136,7 +137,7 @@ number for receiving inbound SMS messages.
 
 To receive SMS messages from other SMS-capable devices, you must purchase a
 dedicated phone number for your Hologram device. This may be done from a
-device page on the Hologram Dashboard, under *Cloud & messaging* > *Configure
+device page on the Hologram Dashboard, under *Cloud configuration* > *Configure
 phone number*.
 
 To read inbound SMSes on the device, you will likely need to use AT commands to

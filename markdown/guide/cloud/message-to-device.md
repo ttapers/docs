@@ -3,6 +3,7 @@ title: Sending Messages to a Device
 nav_sort: 3
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
 The Hologram Cloud provides an API and a Dashboard interface to send TCP or UDP 

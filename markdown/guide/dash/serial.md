@@ -3,13 +3,42 @@ title: Serial Connectivity
 nav_sort: 2
 autotoc: true
 layout: guide.hbs
+lunr: true
 ---
 
-The Dash [Quick Start Guide](/docs/guide/dash/quick-start) walks through the easiest way to establish a
-serial connection between the Dash and your PC: Using USB and the Arduino IDE's
-serial monitor. There may be cases where these tools aren't available or
-feasible, so this guide describes some alternative methods to connect your PC
-to the Dash.
+The easiest way to develop and debug your Dash programs is with a serial
+connection to a computer.  Two-way serial communication can be used for printing
+diagnostic information or sending commands to the Dash without wiring physical
+components such as buttons.
+
+Setting up a serial connection requires two parts:
+
+* Physically connecting the Dash to your computer, with USB or UART pins on the Dash
+* Software on your computer for interfacing with the serial connection
+
+The easiest method is to use a USB connection with the Arduino IDE's serial
+monitor. There may be cases where these tools aren't available or
+feasible, so this guide also describes some alternatives.
+
+### Recommended: USB and Arduino's serial monitor
+
+{{{ include 'arduino-usb-setup' }}}
+
+Then, open the Serial Monitor from any Arduino editor window.
+
+{{{ image src="/wp-content/uploads/2017/03/arduino-serial-button.png"
+    alt="Opening the Serial Monitor" }}}
+
+At the top of the Serial Monitor is an input box for sending text to the Dash.
+Under that is a larger box which displays text received from the Dash. At the
+bottom of the window are settings for the serial connection. 
+
+{{{ image src="/wp-content/uploads/2016/10/serial-monitor-screenshot.png"
+    alt="Arduino Serial Monitor" }}}
+
+Typically you should set *Line ending* to *Newline* so that sending a message
+automatically appends a newline (`\n`) character. Baud rate must be matched to
+the rate configured in the Dash program. Most example programs use 9600 baud.
 
 ### USB-to-TTL Converter
 

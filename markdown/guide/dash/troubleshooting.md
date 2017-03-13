@@ -2,6 +2,7 @@
 title: Troubleshooting
 nav_sort: 4
 layout: guide.hbs
+lunr: true
 ---
 
 If you are having problems with the Dash or connecting via cellular, this page lists
