@@ -61,6 +61,112 @@ Returns the SDK version.
 print cloud.getSDKVersion() # 0.3.0
 ```
 
+### HologramCloud
+
+`HologramCloud` is a subclass of `CustomCloud` and is the main way to use
+our cloud via the SDK. The Hologram cloud parameters/configs are used to populate
+properties in `CustomCloud`. In other words, the `HologramCloud` property values are:
+
+* `send_host` -- 'cloudsocket.hologram.io'
+* `send_port` -- 9999
+* `receive_host` -- '0.0.0.0'
+* `receive_port` -- 4010
+
+{{#callout}}
+The HologramCloud inbound functionality, which utilizes both receive_host and
+receive_port, will only work if the SDK is used in a Hologram cellular connected device.
+Please use with caution.
+{{/callout}}
+
+**Properties:**
+
+* `credentials` (dict()) - The dictionary stores the credentials required to make remote calls to the Hologram Cloud.
+
+#### HologramCloud(credentials, enable_inbound = True)
+
+The `HologramCloud` constructor is responsible for initializing many of SDK components selected by the user.
+
+**Parameters:**
+
+* `credentials` (dict()) -- The dictionary used to store the keys for authentication purposes.
+* `enable_inbound` (bool) -- Enables inbound connection during instantiation of `HologramCloud`. Default to `True`.
+* `network` (string) -- The `Network` interface that you intend to use for this `HologramCloud` instance. Default to '', which is to set up non-network mode.
+
+**Network Interface Options**
+
+These are cellular network interfaces (strings) that you can use to choose which `Network`
+interface you want to use for the connectivity layer in the Hologram SDK.
+
+* `wifi` -- WiFi interface.
+* `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
+* `cellular-e303` -- Cellular interface with the Huawei E303 modem.
+* `cellular-iota` -- Cellular interface with the iota modem.
+* `ble` -- BLE interface.
+* `ethernet` -- Ethernet interface.
+* '' -- Empty string for network agnostic (non-network) mode.
+
+**Example:**
+
+```python
+from Hologram import Hologram
+credentials = {'cloud_id': '34mg', 'cloud_key': '12ab'}
+
+hologram1 = HologramCloud(credentials, network = 'cellular-iota') # 1st example with cellular network interface.
+
+hologram2 = HologramCloud(credentials, enable_inbound = False) # 2nd example with inbound disabled.
+```
+
+#### .sendMessage(message, topics = None, timeout = 5)
+
+This method sends a message to the specified host. This will also broadcast the `message.sent`
+event if the message is sent successfully.
+
+**Parameters:**
+* `message` (string) -- The message that will be sent.
+* `topics` (string array, optional) -- The topic(s) that will be sent.
+* `timeout` (int) -- A timeout period in seconds for when the socket should close if it doesn't
+receive any response. The default timeout is 5 seconds.
+
+**Returns:** A message response description (string) This message description depends
+on what was message mode you're using.
+
+There are specific error descriptions that will be returned as follows:
+
+* `ERR_OK` (0) -- The message has been sent successfully.
+* `ERR_CONNCLOSED` (1) -- Connection was closed so we couldn't read the whole message.
+* `ERR_MSGINVALID` (2) -- Failed to parse the message.
+* `ERR_AUTHINVALID` (3) -- Auth section of the message was invalid.
+* `ERR_PAYLOADINVALID` (4) -- Payload type was invalid.
+* `ERR_PROTINVALID` (5) -- Protocol type was invalid.
+
+```python
+# Send message with topics. This has a 5 sec socket timeout
+recv = cloud.sendMessage("hi there!", topics = ["TOPIC 1","TOPIC 2"])
+
+# Send message with a timeout of 7 seconds
+recv2 = cloud.sendMessage("hi again!", topics = ["TOPIC 1","TOPIC 2"], timeout = 7)
+```
+
+Cloud messages are buffered if the network is down (on a `network.disconnected`
+event). Once the network is reestablished (a broadcast on `network.connected`),
+these messages that failed to send initially will be sent to the cloud again.
+
+#### .sendSMS(destination_number, message)
+
+**Parameters:**
+* `destination_number` (string) -- The destination number.
+* `message` (string) -- The SMS body. This SMS must be less than or equal to 160
+characters in length
+
+**Returns:** A message response description (string)
+
+**Example:**
+
+```python
+destination_number = "+11234567890"
+recv = cloud.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination number
+```
+
 ### CustomCloud
 
 `CustomCloud` is a subclass of `Cloud`, and it allows the user to make inbound
@@ -287,111 +393,7 @@ function(s) are not thread safe. Once again, we highly recommend that you keep t
 thread safe so you don't run into an undefined behavior like this.
 {{/callout}}
 
-### HologramCloud
 
-`HologramCloud` is a subclass of `CustomCloud` and is the main way to use
-our cloud via the SDK. The Hologram cloud parameters/configs are used to populate
-properties in `CustomCloud`. In other words, the `HologramCloud` property values are:
-
-* `send_host` -- 'cloudsocket.hologram.io'
-* `send_port` -- 9999
-* `receive_host` -- '0.0.0.0'
-* `receive_port` -- 4010
-
-{{#callout}}
-The HologramCloud inbound functionality, which utilizes both receive_host and
-receive_port, will only work if the SDK is used in a Hologram cellular connected device.
-Please use with caution.
-{{/callout}}
-
-**Properties:**
-
-* `credentials` (dict()) - The dictionary stores the credentials required to make remote calls to the Hologram Cloud.
-
-#### HologramCloud(credentials, enable_inbound = True)
-
-The `HologramCloud` constructor is responsible for initializing many of SDK components selected by the user.
-
-**Parameters:**
-
-* `credentials` (dict()) -- The dictionary used to store the keys for authentication purposes.
-* `enable_inbound` (bool) -- Enables inbound connection during instantiation of `HologramCloud`. Default to `True`.
-* `network` (string) -- The `Network` interface that you intend to use for this `HologramCloud` instance. Default to '', which is to set up non-network mode.
-
-**Network Interface Options**
-
-These are cellular network interfaces (strings) that you can use to choose which `Network`
-interface you want to use for the connectivity layer in the Hologram SDK.
-
-* `wifi` -- WiFi interface.
-* `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
-* `cellular-e303` -- Cellular interface with the Huawei E303 modem.
-* `cellular-iota` -- Cellular interface with the iota modem.
-* `ble` -- BLE interface.
-* `ethernet` -- Ethernet interface.
-* '' -- Empty string for network agnostic (non-network) mode.
-
-**Example:**
-
-```python
-from Hologram import Hologram
-credentials = {'cloud_id': '34mg', 'cloud_key': '12ab'}
-
-hologram1 = HologramCloud(credentials, network = 'cellular-iota') # 1st example with cellular network interface.
-
-hologram2 = HologramCloud(credentials, enable_inbound = False) # 2nd example with inbound disabled.
-```
-
-#### .sendMessage(message, topics = None, timeout = 5)
-
-This method sends a message to the specified host. This will also broadcast the `message.sent`
-event if the message is sent successfully.
-
-**Parameters:**
-* `message` (string) -- The message that will be sent.
-* `topics` (string array, optional) -- The topic(s) that will be sent.
-* `timeout` (int) -- A timeout period in seconds for when the socket should close if it doesn't
-receive any response. The default timeout is 5 seconds.
-
-**Returns:** A message response description (string) This message description depends
-on what was message mode you're using.
-
-There are specific error descriptions that will be returned as follows:
-
-* `ERR_OK` (0) -- The message has been sent successfully.
-* `ERR_CONNCLOSED` (1) -- Connection was closed so we couldn't read the whole message.
-* `ERR_MSGINVALID` (2) -- Failed to parse the message.
-* `ERR_AUTHINVALID` (3) -- Auth section of the message was invalid.
-* `ERR_PAYLOADINVALID` (4) -- Payload type was invalid.
-* `ERR_PROTINVALID` (5) -- Protocol type was invalid.
-
-```python
-# Send message with topics. This has a 5 sec socket timeout
-recv = cloud.sendMessage("hi there!", topics = ["TOPIC 1","TOPIC 2"])
-
-# Send message with a timeout of 7 seconds
-recv2 = cloud.sendMessage("hi again!", topics = ["TOPIC 1","TOPIC 2"], timeout = 7)
-```
-
-Cloud messages are buffered if the network is down (on a `network.disconnected`
-event). Once the network is reestablished (a broadcast on `network.connected`),
-these messages that failed to send initially will be sent to the cloud again.
-
-#### .sendSMS(destination_number, message)
-
-**Parameters:**
-* `destination_number` (string) -- The destination number.
-* `message` (string) -- The SMS body. This SMS must be less than or equal to 160
-characters in length
-
-**Returns:** A message response description (string)
-
-**Example:**
-
-```python
-destination_number = "+11234567890"
-recv = cloud.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination number
-```
 ### NetworkManager
 
 The `NetworkManager` class is responsible for defining and managing the networking interfaces of Hologram SDK.
