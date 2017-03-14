@@ -752,6 +752,8 @@ with the SDK. We only support 'ppp' for now.
 The chatscript file must be an executable for the SDK to load it. You can do this
 by running `sudo chmod +x <file>`.
 {{/callout}}
+
+
 #### .connect(timeout = 15)
 
 Connect to a cellular connection.
