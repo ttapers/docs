@@ -405,6 +405,11 @@ instance. The `NetworkManager` is responsible for picking the right interface ba
 The `NetworkManager` interface is in beta, and the interface may change in the future.
 {{/callout}}
 
+{{#callout}}
+The network library is potentially Raspberry Pi specific, and we were able to run them
+successfully on a Raspberry Pi 3.
+{{/callout}}
+
 We also provide a non-network mode that can be used to disable the Hologram SDK
 networking functionality. You may want to do this if you just want to interact with
 the interfaces in the Hologram SDK, but not deal with the details on how to
