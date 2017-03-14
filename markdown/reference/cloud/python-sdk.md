@@ -154,7 +154,8 @@ these messages that failed to send initially will be sent to the cloud again.
 #### .sendSMS(destination_number, message)
 
 **Parameters:**
-* `destination_number` (string) -- The destination number.
+* `destination_number` (string) -- The destination number. This must be a E.164 formatted
+string with a '+' sign.
 * `message` (string) -- The SMS body. This SMS must be less than or equal to 160
 characters in length
 
@@ -163,8 +164,7 @@ characters in length
 **Example:**
 
 ```python
-destination_number = "+11234567890"
-recv = cloud.sendSMS(destination_number, "Hello, Python!") # Send SMS to destination number
+recv = cloud.sendSMS("+11234567890", "Hello, Python!") # Send SMS to destination number
 ```
 
 ### CustomCloud
@@ -906,7 +906,8 @@ python hologram_sms.py [-h] [--cloud_id [CLOUD_ID]]
 * `message` (string) -- message that will be sent to the cloud
 * `--cloud_id` (string) -- The 4 character cloud id obtained from your dashboard.
 * `--cloud_key` (string) -- The 4 character cloud key obtained from your dashboard.
-* `--destination` (string) -- The destination number in which the SMS will be sent
+* `--destination` (string) -- The destination number in which the SMS will be sent. This must be a E.164 formatted
+string with a '+' sign.
 * `-f` `--file` (string) -- Configuration (HJSON) file that stores the required credentials to send SMS
 
 **Example:**
