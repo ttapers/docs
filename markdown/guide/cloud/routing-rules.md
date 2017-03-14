@@ -27,21 +27,71 @@ and the destination where the applicable messages get published.
 A route subscribes to messages with *any* of the specified topics.  In other
 words, a route subscribes to the union (*OR*) of its list of topics.
 
-The CSR supports several route types and formats:
+The CSR supports several route types and formats. The sections below describe
+each route type in more detail.
 
-* **Slack** -- Send payload as a Slack message
-* **SMS** -- Send payload as a text message
-* **Email** -- Send payload and metadata in an email
-* **AT&T M2X** -- Publish data to AT&T's M2X platform
-* **Heartbeat** -- Emit an event if no data has been received for a period of
-  time
-* **Advanced Webhook Builder (Your Own App)** -- Send a configurable HTTP request
-  to a URL
-* **Custom Webhook URL (Your Own App)** -- Send payload and metadata in
-  a predefined JSON format to a URL
+### CSR template format
 
-{{{ image src="/wp-content/uploads/2016/11/route-create-form.png" alt="Route create form" }}}
+Several route types support templates for the data that they send out. For
+example, the Email route's configurable body can include a CSR
+message's metadata or data payload.
 
+Variables can be included by enclosing the variable name in double angle
+brackets, e.g. `<<device_id>>`. Supported variables are:
+
+* `received`: ISO8601-formatted UTC timestamp when the message was received by
+the CSR
+* `tags`: JSON-formatted array of topics belonging to the message
+* `device_name`: Human-readable name of the device
+* `device_id`: Integer ID of the device
+* `data`: Base64-encoded representation of the data payload
+* `decdata`: Decoded (raw) representation of the data payload. This may not be valid
+  if the message has a non-text payload.
+* `decdata.fieldName`: Access a JSON field in the data payload, for example,
+  `decdata.voltage`. Results in an empty string if the payload isn't valid JSON
+  or if the field isn't present.
+
+One common use case is to construct a custom JSON string as a webhook
+body. For example, the payload template could be:
+
+```json
+{
+  "temperature": <<decdata.temperature>>,
+  "source_device": "<<device_id>>",
+  "datetime": "<<received>>"
+}
+```
+
+Which would result in a webhook body such as:
+
+```json
+{
+  "temperature": 23.5,
+  "source_device": "12345",
+  "datetime": "2016-09-27T18:53:09.302915"
+}
+```
+
+### Email
+
+Sends an email with the specified subject and body to one or more recipients.
+
+Parameters:
+
+* **Recipients:** Comma-separated list of email addresses
+* **Subject:** Subject line for the email
+* **Message:** Template for the body of the message. See [CSR Template
+  Format](#csr-template-format) for syntax and supported variables.
+
+{{{ image src="/wp-content/uploads/2017/03/email-route.png" alt="Email route form" }}}
+
+
+### SMS
+
+Sends an SMS to a phone number containing the payload of a CSR message.
+
+* Recipient phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) --
+  e.g. *+13125554010*
 
 ### Slack
 
@@ -157,7 +207,34 @@ after you send a message to the CSR. It should then display
 the HTTP headers and content of the corresponding webhook.
 {{/callout}}
 
+
+#### Advanced Webhook Builder
+
+The *Advanced Webhook Builder* sends HTTP POST requests where the body
+and URL can be customized via templates. It is therefore more flexible
+than the *Custom Webhook URL* destination--it can be used when the
+destination application expects an HTTP request in a specific format.
+
+...
+
+When sending JSON content, make sure the *Send JSON Content Type* checkbox
+is checked. This sets the HTTP *Content-Type* header so that the receiving 
+application knows to interpret the body as JSON.
+
+It's also possible to include template variables in the destination URL.
+This is useful for sending data as URL query string parameters.
+For example, the URL:
+
+```bash
+https://example.com/webhook?device=<<device_id>>&data=<<data>>
+```
+
+Will send the `device_id` and `data` variables as query string parameters.
+
 #### Custom Webhook URL
+
+**The Custom Webhook URL route is deprecated. New applications should use the
+Advanced Webhook Builder instead.**
 
 The *Custom Webhook URL* destination sends a *form-urlencoded* HTTP POST 
 request with a message's 
@@ -191,62 +268,3 @@ called `key` alongside the `payload` in the request.
 
 See the [CSR Reference](/docs/reference/cloud/csr/) for details about
 the data fields sent in messages from the CSR.
-
-#### Advanced Webhook Builder
-
-The *Advanced Webhook Builder* sends HTTP POST requests where the body
-and URL can be customized via templates. It is therefore more flexible
-than the *Custom Webhook URL* destination--it can be used when the
-destination application expects an HTTP request in a specific format.
-
-Variables can be included by enclosing the variable name in double angle
-brackets, e.g. `<<device_id>>`. Supported variables are:
-
-* `received`: ISO8601-formatted UTC timestamp when the message was received by
-the CSR
-* `tags`: JSON-formatted array of topics belonging to the message
-* `device_name`: Human-readable name of the device
-* `device_id`: Integer ID of the device
-* `data`: Base64-encoded representation of the data payload
-* `decdata`: Decoded (raw) representation of the data payload. This may not be valid
-  if the message has a non-text payload.
-* `decdata.fieldName`: Access a JSON field in the data payload, for example,
-  `decdata.voltage`. Results in an empty string if the payload isn't valid JSON
-  or if the field isn't present.
-
-One common use case is to construct a custom JSON string as the webhook
-body. For example, the payload template could be:
-
-```json
-{
-  "text_data": "<<decdata>>",
-  "source_device": "<<device_id>>",
-  "datetime": "<<received>>"
-}
-```
-
-Which would result in a webhook body such as:
-
-```json
-{
-  "text_data": "Hello, World!",
-  "source_device": "12345",
-  "datetime": "2016-09-27T18:53:09.302915"
-}
-```
-
-When sending JSON content, make sure the *Send JSON Content Type* checkbox
-is checked. This sets the HTTP *Content-Type* header so that the receiving 
-application knows to interpret the body as JSON.
-
-It's also possible to include template variables in the destination URL.
-This is useful for sending data as URL query string parameters.
-For example, the URL:
-
-```bash
-https://example.com/webhook?device=<<device_id>>&data=<<data>>
-```
-
-Will send the `device_id` and `data` variables as query string parameters.
-
-
