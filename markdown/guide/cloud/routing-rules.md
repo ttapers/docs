@@ -70,7 +70,7 @@ Which would result in a webhook body such as:
 }
 ```
 
-### Email Route
+### Email
 
 Sends an email with the specified subject and body to one or more recipients.
 
@@ -84,14 +84,14 @@ Parameters:
 {{{ image src="/wp-content/uploads/2017/03/email-route.png" alt="Email route form" }}}
 
 
-### SMS Route
+### SMS
 
 Sends an SMS to a phone number containing the payload of a CSR message.
 
 * Recipient phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) --
   e.g. *+13125554010*
 
-### Slack Route
+### Slack
 
 Slack is a group messaging application that has great support for integrating
 with external services. Hologram's Slack integration posts matching messages
@@ -116,7 +116,7 @@ Hologram messages will display as two lines in Slack: the first line is the
 message payload in text format, the second line is a JSON representation of the
 message, including metadata such as received time and message topics.
 
-### AT&T M2X Route
+### AT&T M2X
 
 M2X is a platform by AT&T for logging and streaming data from
 device sources to various cloud destinations. M2X organizes data within *devices*, 
@@ -160,8 +160,7 @@ be stored in M2X. However, if you pre-create a numeric stream with the given
 name, M2X will attempt to parse the data payload as a number. This can be useful
 for devices sending numeric sensor readings to the Hologram Cloud.
 
-
-### Heartbeat Route
+### Heartbeat
 
 The Heartbeat routing rule emits an event if it does not receive data from its
 subscribed topics for a period of time. This can be useful to generate alerts
@@ -189,7 +188,7 @@ topic that you defined in the Heartbeat route. Now, if your device
 fails to write a message in a 15-minute period, you'll receive an email.
 
 
-### Custom Integrations With Webhook Routes
+### Custom Integrations With Webhooks
 
 If you need to send messages to an app or service that Hologram doesn't
 natively support, you may use one of the Webhook route types to generate an
