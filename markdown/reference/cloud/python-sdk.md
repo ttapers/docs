@@ -755,6 +755,11 @@ by running `sudo chmod +x <file>`.
 
 Connect to a cellular connection.
 
+{{#callout}}
+It could take up to 3 minutes (blocking) for the iota modem to establish a cellular
+connection.
+{{/callout}}
+
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
 if it fails to connect. Default is 200 seconds.
