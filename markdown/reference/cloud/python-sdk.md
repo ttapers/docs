@@ -289,7 +289,7 @@ thread safe so you don't run into an undefined behavior like this.
 
 ### HologramCloud
 
-`HologramCloud` is a derived class of `CustomCloud` and is the main way to use
+`HologramCloud` is a subclass of `CustomCloud` and is the main way to use
 our cloud via the SDK. The Hologram cloud parameters/configs are used to populate
 properties in `CustomCloud`. In other words, the `HologramCloud` property values are:
 
