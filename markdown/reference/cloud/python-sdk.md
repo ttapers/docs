@@ -394,14 +394,19 @@ recv = cloud.sendSMS(destination_number, "Hello, Python!") # Send SMS to destina
 ```
 ### NetworkManager
 
-NOTE: The `NetworkManager` interface is still under major development, and although we hope we
-don't have to change the interface, this might still happen as we introduce more features
-in the future. We hope you keep this in mind as you develop your applications on top of it.
-
 The `NetworkManager` class is responsible for defining and managing the networking interfaces of Hologram SDK.
 There are interfaces here that allow you to, for example, connect and disconnect
 from a network of your choice. This `NetworkManager` interface lives within a `Cloud`
 instance. The `NetworkManager` is responsible for picking the right interface based on the argument set in the `Cloud` constructors.
+
+{{#callout}}
+The `NetworkManager` interface is in beta, and the interface may change in the future.
+{{/callout}}
+
+We also provide a non-network mode that can be used to disable the Hologram SDK
+networking functionality. You may want to do this if you just want to interact with
+the interfaces in the Hologram SDK, but not deal with the details on how to
+connect/disconnect the device itself via the SDK.
 
 **Example:**
 
@@ -472,7 +477,7 @@ print hologram.network.listAvailableInterfaces() # ['cellular-e303', 'wifi', 'ce
 ### Wifi
 
 The `Wifi` class is a derived class and is responsible for defining the `Network` interface of Hologram SDK.
-The `Wifi` interface requires root permissions to connect/disconnect from access points. I strongly recommend
+The `Wifi` interface requires root permissions to connect/disconnect from access points. We strongly recommend
 running your scripts with `sudo` privileges.
 
 #### .connect(timeout = 15)
@@ -501,23 +506,7 @@ Returns the AP address.
 
 **Parameters:** None
 
-**Returns:** the AP address (string)
-
-#### .getAvgSignalStrength()
-
-Returns the average signal strength of the Wifi connection.
-
-**Parameters:** None
-
-**Returns:** the average signal strength (string)
-
-#### .getMaxSignalStrength()
-
-Returns the max signal strength of the Wifi connection.
-
-**Parameters:** None
-
-**Returns:** the maximum signal strength (string)
+**Returns:** the access point address (string)
 
 #### .getSSID()
 
@@ -564,13 +553,8 @@ The operation modes used varies with the cellular modem that you're using. For e
 in PPP mode, you can use the Huawei E303 and MS2131 modems as part of your cellular connectivity
 solution, and serial for the iota modem.
 
-The non-network mode can be used to disable the Hologram SDK networking functionality.
-You may want to do this if you just want to interact with the interfaces in the Hologram
-SDK, but not deal with the nitty gritty details on how to connect/disconnect the 
-device itself via the SDK.
-
 The `Cellular` interface requires root permissions to connect/disconnect from a
-given address. I strongly recommend running your scripts with `sudo` privileges.
+given address. We strongly recommend running your scripts with `sudo` privileges.
 
 * PPP Mode supported devices: Huawei E303, MS2131 modems
 * Serial mode supported devices: iota modem
@@ -661,6 +645,8 @@ with the SDK. We only support 'ppp' for now.
 * `baudRate` (string) -- The baud rate of the serial line.
 * `chatScriptFile` (string) -- Path to chatscript file.
 
+You can obtain a sample chatscript that works with the `E303` [here](https://github.com/hologram-io/hologram-tools/blob/master/ppp/chatscripts/e303)
+
 {{#callout}}
 The chatscript file must be an executable for the SDK to load it. You can do this
 by running `sudo chmod +x <file>`.
@@ -703,6 +689,8 @@ with the SDK. We only support 'ppp' for now.
 * `deviceName` (string) -- The device name. Default is '/dev/ttyUSB0' (macroed as MS2131_DEVICE_NAME)
 * `baudRate` (string) -- The baud rate of the serial line.
 * `chatScriptFile` (string) -- Path to chatscript file.
+
+You can obtain a sample chatscript that works with the `MS2131` [here](https://github.com/hologram-io/hologram-tools/blob/master/ppp/chatscripts/e303)
 
 {{#callout}}
 The chatscript file must be an executable for the SDK to load it. You can do this
@@ -747,6 +735,8 @@ with the SDK. We only support 'ppp' for now.
 * `deviceName` (string) -- The device name. Default is '/dev/ttyACM0' (macroed as IOTA_DEVICE_NAME)
 * `baudRate` (string) -- The baud rate of the serial line.
 * `chatScriptFile` (string) -- Path to chatscript file.
+
+You can obtain a sample chatscript that works with the `IOTA` [here](https://github.com/hologram-io/hologram-tools/blob/master/ppp/chatscripts/e303)
 
 {{#callout}}
 The chatscript file must be an executable for the SDK to load it. You can do this
