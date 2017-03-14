@@ -426,15 +426,15 @@ Non-network mode allows you to use the Python SDK independent of the network use
 by your machine. This assumes that you have figured out the network connectivity
 layer required by the SDK.
 
-#### .connect(timeout = 15)
+#### .connect(timeout = 200)
 
 Connects to the specified network. This will also broadcast the `network.connected`
 event. This is meant to be called by a subclass that implements the `Network` interface,
-and not to be called directly. Default timeout is 15 seconds.
+and not to be called directly. Default timeout is 200 seconds.
 
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default timeout is 15 seconds.
+if it fails to connect. Default timeout is 200 seconds.
 
 **Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
@@ -480,14 +480,14 @@ The `Wifi` class is a derived class and is responsible for defining the `Network
 The `Wifi` interface requires root permissions to connect/disconnect from access points. We strongly recommend
 running your scripts with `sudo` privileges.
 
-#### .connect(timeout = 15)
+#### .connect(timeout = 200)
 
 Connect to Wifi. This will also broadcast the `wifi.connected`
 event.
 
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default timeout is 15 seconds.
+if it fails to connect. Default timeout is 200 seconds.
 
 **Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
@@ -524,7 +524,7 @@ interface of Hologram SDK.
 The `Ethernet` interface requires root permissions to connect/disconnect from a
 given address. I strongly recommend running your scripts with `sudo` privileges.
 
-#### .connect(timeout = 15)
+#### .connect(timeout = 200)
 
 Connect to an Ethernet connection. This will also broadcast the `ethernet.connected`
 event.
@@ -532,7 +532,7 @@ event.
 **Parameters:** None
 
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default timeout is 15 seconds.
+if it fails to connect. Default timeout is 200 seconds.
 
 **Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
@@ -565,14 +565,14 @@ a cellular connection.
 * `localIPAddress` (string) -- The local IP address. It'll be `None` if the cell network is inactive.
 * `remoteIPAddress` (string) -- The remote IP address. It'll be `None` if the cell network is inactive.
 
-#### .connect(timeout = 15)
+#### .connect(timeout = 200)
 
 Connect to a cellular connection. This will also broadcast the `cellular.connected`
 event.
 
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default timeout is 15 seconds.
+if it fails to connect. Default timeout is 200 seconds.
 
 **Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
@@ -652,13 +652,13 @@ The chatscript file must be an executable for the SDK to load it. You can do thi
 by running `sudo chmod +x <file>`.
 {{/callout}}
 
-#### .connect(timeout = 15)
+#### .connect(timeout = 200)
 
 Connect to a cellular connection.
 
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default is 15 seconds.
+if it fails to connect. Default is 200 seconds.
 
 **Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
@@ -698,13 +698,13 @@ by running `sudo chmod +x <file>`.
 {{/callout}}
 
 
-#### .connect(timeout = 15)
+#### .connect(timeout = 200)
 
 Connect to a cellular connection.
 
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default is 15 seconds.
+if it fails to connect. Default is 200 seconds.
 
 **Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
@@ -744,13 +744,13 @@ by running `sudo chmod +x <file>`.
 {{/callout}}
 
 
-#### .connect(timeout = 15)
+#### .connect(timeout = 200)
 
 Connect to a cellular connection.
 
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default is 15 seconds.
+if it fails to connect. Default is 200 seconds.
 
 **Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
