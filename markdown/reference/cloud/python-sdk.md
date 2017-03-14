@@ -63,25 +63,14 @@ print cloud.getSDKVersion() # 0.3.0
 
 ### CustomCloud
 
-`CustomCloud` is a derived class of `Cloud`, and it allows the user to make inbound
+`CustomCloud` is a subclass of `Cloud`, and it allows the user to make inbound
 and outbound connections via the SDK by specifying the host and port parameters.
 
-**Properties:**
-* `credentials` (dict()) - Credentials are required to make remote calls to the custom cloud of your choice. If you don't support credentials at all, you can set this to `None`.
-* `send_host` (string) -- The server host used to send data via this TCP outbound socket connection.
-* `send_port` (int) -- The server port used to send data via this TCP outbound socket connection.
-* `receive_host` (string) -- The server host used to listen for a TCP inbound socket connection.
-* `receive_port` (int) -- The server port used to listen for a TCP inbound socket connection.
+If you would like to use the Hologram cloud, please check out the `HologramCloud`
+subclass instead as it'll populate the appropriate host, port and any other required
+parameters for you.
 
-{{#callout}}
-You must set `send_host` and `send_port` if you choose to use the `CustomCloud`
-class to send messages (make outbound connection) in your application.
-Likewise, `receive_host` and `receive_port` must be set if you plan to enable
-inbound connection.
-{{/callout}}
-
-
-#### .CustomCloud(credentials, send_host, send_port, receive_host, receive_port, enable_inbound = False)
+#### CustomCloud(credentials, send_host, send_port, receive_host, receive_port, enable_inbound = False)
 
 The `CustomCloud` constructor is responsible for initializing many of SDK components
 selected by the user.
@@ -89,12 +78,19 @@ selected by the user.
 **Parameters:**
 
 * `credentials` (dict()) - Credentials are required to make remote calls to the custom cloud of your choice. If you don't support credentials at all, you can set this to `None`.
-* `send_host` (string) -- The server host used to send data via this TCP outbound socket connection.
-* `send_port` (int) -- The server port used to send data via this TCP outbound socket connection.
+* `send_host` (string) -- The remote host that data will be sent to via this TCP outbound socket connection.
+* `send_port` (int) -- The remote port that data will be sent to via this TCP outbound socket connection.
 * `receive_host` (string) -- The server host used to listen for a TCP inbound socket connection.
 * `receive_port` (int) -- The server port used to listen for a TCP inbound socket connection.
 * `enable_inbound` (bool) -- Enables inbound connection during instantiation of `CustomCloud`. Default to `False`.
 * `network` (string) -- The `Network` interface that you intend to use for this `CustomCloud` instance. Default to '', which is to set up non-network mode.
+
+{{#callout}}
+You must set `send_host` and `send_port` if you choose to use the `CustomCloud`
+class to send messages (make outbound connection) in your application.
+Likewise, `receive_host` and `receive_port` must be set if you plan to enable
+inbound connection.
+{{/callout}}
 
 **Network Interface Options**
 
@@ -143,8 +139,7 @@ event if the message is sent successfully.
 * `timeout` (int) -- A timeout period in seconds for when the socket should close if it doesn't
 receive any response. The default timeout is 5 seconds.
 
-**Returns:** A message response description (string) This message description depends
-on what was message mode you're using.
+**Returns:** The response from the remote host (string)
 
 **Example:**
 
@@ -164,7 +159,10 @@ Opens and binds an inbound TCP socket connection. This method is also responsibl
 for spinning up another thread for the blocking socket `accept` call, which is
 used to process incoming connections.
 
-You will most likely call this function if you want to enable inbound connections
+This interface is automatically called when `enable_inbound` is set to `True` during
+instantiation via the constructor.
+
+You will most likely call this function only if you want to enable inbound connections
 but set the `enable_inbound` option in the constructor to `False`, or if you want
 to reopen the TCP socket connection.
 
@@ -282,11 +280,11 @@ recv = consumeReceivedMessage() # prints ""
 ```
 
 {{#callout}}
-Another thing to note is that although you can have multiple event handlers subscribed
-to the 'message.received' event, we cannot guarantee which event handler will run first.
-Hence, you might run into a race condition and cause undefined behavior, especially so
-when your event handler function(s) are not thread safe. Once again, we highly recommend
-that you keep them thread safe so you don't run into an undefined behavior like this.
+Although you can have multiple event handlers subscribed to the 'message.received' event,
+we cannot guarantee which event handler will run first. Hence, you might run into
+a race condition and cause undefined behavior, especially so when your event handler
+function(s) are not thread safe. Once again, we highly recommend that you keep them
+thread safe so you don't run into an undefined behavior like this.
 {{/callout}}
 
 ### HologramCloud
@@ -310,7 +308,7 @@ Please use with caution.
 
 * `credentials` (dict()) - The dictionary stores the credentials required to make remote calls to the Hologram Cloud.
 
-#### .HologramCloud(credentials, enable_inbound = True)
+#### HologramCloud(credentials, enable_inbound = True)
 
 The `HologramCloud` constructor is responsible for initializing many of SDK components selected by the user.
 
@@ -654,7 +652,7 @@ with the SDK. We only support 'ppp' for now.
 * `localIPAddress` (string) -- The local IP address. It'll be `None` if the cell network is inactive.
 * `remoteIPAddress` (string) -- The remote IP address. It'll be `None` if the cell network is inactive.
 
-#### .E303(mode = 'ppp', deviceName = E303_DEVICE_NAME, baudRate = '9600', chatScriptFile = '../../example-script')
+#### E303(mode = 'ppp', deviceName = E303_DEVICE_NAME, baudRate = '9600', chatScriptFile = '../../example-script')
 
 **Parameters:**
 * `mode` (string) -- The mode in which the modem is currently using to communicate
@@ -692,7 +690,7 @@ with the SDK.
 * `localIPAddress` (string) -- The local IP address. It'll be `None` if the cell network is inactive.
 * `remoteIPAddress` (string) -- The remote IP address. It'll be `None` if the cell network is inactive.
 
-#### .MS2131(mode = 'ppp', deviceName = MS2131_DEVICE_NAME, baudRate = '9600', chatScriptFile = '../../example-script')
+#### MS2131(mode = 'ppp', deviceName = MS2131_DEVICE_NAME, baudRate = '9600', chatScriptFile = '../../example-script')
 
 **Parameters:**
 * `mode` (string) -- The mode in which the modem is currently using to communicate
@@ -731,7 +729,7 @@ with the SDK. We only support 'ppp' for now.
 * `localIPAddress` (string) -- The local IP address. It'll be `None` if the cell network is inactive.
 * `remoteIPAddress` (string) -- The remote IP address. It'll be `None` if the cell network is inactive.
 
-#### .IOTA(mode = 'ppp', deviceName = IOTA_DEVICE_NAME, baudRate = '9600', chatScriptFile = '../../example-script')
+#### IOTA(mode = 'ppp', deviceName = IOTA_DEVICE_NAME, baudRate = '9600', chatScriptFile = '../../example-script')
 
 **Parameters:**
 * `mode` (string) -- The mode in which the modem is currently using to communicate
