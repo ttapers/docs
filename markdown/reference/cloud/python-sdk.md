@@ -659,7 +659,12 @@ with the SDK. We only support 'ppp' for now.
 with the SDK. We only support 'ppp' for now.
 * `deviceName` (string) -- The device name. Default is '/dev/ttyUSB0' (macroed as E303_DEVICE_NAME)
 * `baudRate` (string) -- The baud rate of the serial line.
-* `chatScriptFile` (string) -- Chatscript path.
+* `chatScriptFile` (string) -- Path to chatscript file.
+
+{{#callout}}
+The chatscript file must be an executable for the SDK to load it. You can do this
+by running `sudo chmod +x <file>`.
+{{/callout}}
 
 #### .connect(timeout = 15)
 
@@ -697,7 +702,12 @@ with the SDK.
 with the SDK. We only support 'ppp' for now.
 * `deviceName` (string) -- The device name. Default is '/dev/ttyUSB0' (macroed as MS2131_DEVICE_NAME)
 * `baudRate` (string) -- The baud rate of the serial line.
-* `chatScriptFile` (string) -- Chatscript path.
+* `chatScriptFile` (string) -- Path to chatscript file.
+
+{{#callout}}
+The chatscript file must be an executable for the SDK to load it. You can do this
+by running `sudo chmod +x <file>`.
+{{/callout}}
 
 
 #### .connect(timeout = 15)
@@ -736,8 +746,12 @@ with the SDK. We only support 'ppp' for now.
 with the SDK. We only support 'ppp' for now.
 * `deviceName` (string) -- The device name. Default is '/dev/ttyACM0' (macroed as IOTA_DEVICE_NAME)
 * `baudRate` (string) -- The baud rate of the serial line.
-* `chatScriptFile` (string) -- Chatscript path.
+* `chatScriptFile` (string) -- Path to chatscript file.
 
+{{#callout}}
+The chatscript file must be an executable for the SDK to load it. You can do this
+by running `sudo chmod +x <file>`.
+{{/callout}}
 #### .connect(timeout = 15)
 
 Connect to a cellular connection.
