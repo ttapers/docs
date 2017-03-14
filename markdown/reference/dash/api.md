@@ -605,8 +605,7 @@ Returns the clock timestamp/counter in seconds since epoch time.
 Set an alarm at the time represented in the given `rtc_datetime_t` struct. By registering
 a callback function via the `.attachAlarmInterrupt(callback)` call described below,
 the callback function will be executed on alarm expiration. Note that
-the alarm time must be greater than the current time. Returns `true` if alarm is
-successfully set, false otherwise.
+the alarm time must be greater than the current time.
 
 {{#callout}}
 Only one alarm can be set at any given point in time. If '.setAlarm' is called a
@@ -783,7 +782,7 @@ change the existing year, month and day values.
 
 #### Clock.currentDateTime()
 
-Returns a formatted date and time string (yyyy/mm/dd,hh:mm:ss). If the clock has not beed set, this
+Returns a formatted date and time string (yyyy/mm/dd,hh:mm:ss). If the clock has not been set, this
 will be the epoch time plus the time lapse since the Dash was powered on.
 
 **Parameters:** None
@@ -793,7 +792,7 @@ will be the epoch time plus the time lapse since the Dash was powered on.
 #### Clock.currentDate()
 
 Returns a formatted date string (yyyy/mm/dd), where yyyy is the year, mm is the
-month and dd is the date. If the clock has not beed set, this
+month and dd is the date. If the clock has not been set, this
 will be the epoch time plus the time lapse since the Dash was powered on.
 
 **Parameters:** None
@@ -803,7 +802,7 @@ will be the epoch time plus the time lapse since the Dash was powered on.
 #### Clock.currentTime()
 
 Returns a formatted time string (hh:mm:ss), where hh is the hour, mm is the minute and ss is the second.
-If the clock has not beed set, this will be the epoch time plus the
+If the clock has not been set, this will be the epoch time plus the
 time lapse since the Dash was powered on.
 
 **Parameters:** None
