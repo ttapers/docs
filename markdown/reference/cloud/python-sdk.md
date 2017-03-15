@@ -406,8 +406,7 @@ The `NetworkManager` interface is in beta, and the interface may change in the f
 {{/callout}}
 
 {{#callout}}
-The network library is potentially Raspberry Pi specific, and we were able to run them
-successfully on a Raspberry Pi 3.
+The networking functionality has only been tested on a Raspberry Pi 3 running Raspbian Jessie. It should work on other Debian-based Linux installations. Please post in our community forum if you have any issues.
 {{/callout}}
 
 We also provide a non-network mode that can be used to disable the Hologram SDK
