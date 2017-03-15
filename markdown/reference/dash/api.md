@@ -11,7 +11,7 @@ tags:
 ---
 
 This page documents methods available when developing code for the Dash
-microcontroller. You can target the Dash in the Arduino IDE by
+microcontroller. Target the Dash in the Arduino IDE by
 adding the board as described in the
 [guide](/docs/guide/dash/programming-and-firmware).
 
@@ -30,7 +30,7 @@ location, GPIO channel, and analog channel. Refer to the [Dash
 datasheet](/docs/reference/dash/datasheet/) for pinouts for specific Dash
 variants.
 
-* `L01`, `L02`, `R01`, `R02`, etc: Address pins by their location on the left 
+* `L01`, `L02`, `R01`, `R02`, etc: Address pins by their location on the left
 and right side of the board
 * `D01`, `D02`, etc: Address digital I/O pins by their GPIO channel
 * `A01`, `A02`, etc: Address analog input pins by their analog input channel
@@ -76,7 +76,7 @@ Call this method in your program's `setup()` block.
 
 #### Dash.end()
 
-Deactivate interrupts and pin settings. You should never need to call this
+Deactivate interrupts and pin settings. There should never be a need to call this
 explicitly.
 
 **Parameters:** None
@@ -159,7 +159,7 @@ alternative to Arduino's standard `delay()` function.
 
 #### Dash.sleep()
 
-Pause execution until an interrupt occurs or serial data is received. 
+Pause execution until an interrupt occurs or serial data is received.
 Interrupts must be configured with the Arduino
 [*attachInterrupt()*](https://www.arduino.cc/en/Reference/AttachInterrupt)
 function.
@@ -173,7 +173,7 @@ execution resumes on the line after the `sleep()` call.
 
 #### Dash.deepSleep()
 
-Put the device into the lowest-power state until the device receives a 
+Put the device into the lowest-power state until the device receives a
 wakeup interrupt. See `attachWakeup()` for details.
 
 **Parameters:** None
@@ -279,8 +279,8 @@ See `attachWakeup()` for details.
 
 #### Dash.shutdown()
 
-Put the device into the lowest-power state until the device receives a 
-wakeup interrupt. 
+Put the device into the lowest-power state until the device receives a
+wakeup interrupt.
 
 Put the device into the lowest-power state (same as deep sleep).  When the
 device receives a wakeup interrupt, the processor resets and your program begins
@@ -297,7 +297,7 @@ See `attachWakeup()` for details on wakeup interrupts.
 
 The Dash uses Arduino's standard
 [*attachInterrupt()*](https://www.arduino.cc/en/Reference/AttachInterrupt) function
-for configuring interrupts. These standard interrupts can be used to execute a 
+for configuring interrupts. These standard interrupts can be used to execute a
 function when the level of an input pin changes, and also to resume execution
 after calling `Dash.sleep()`.
 
@@ -345,11 +345,11 @@ Disable all configured wakeup interrupts.
 
 #### Dash.batteryMillivolts()
 
-**Removed in Arudino SDK version 0.9.2. Use DashCharger.batteryMillivolts() instead.**
+**Removed in Arudino SDK version 0.9.2. Use Charger.batteryMillivolts() instead.**
 
 #### Dash.batteryPercentage()
 
-**Removed in Arudino SDK version 0.9.2. Use DashCharger.batteryPercentage() instead.**
+**Removed in Arudino SDK version 0.9.2. Use Charger.batteryPercentage() instead.**
 
 #### Dash.bootVersion()
 
@@ -371,13 +371,23 @@ the major version number. For example, version 2.1.1 would be represented as
 
 **Returns:** Version int
 
+#### Dash.serialNumber()
+
+**New in Arduino SDK version 0.9.2**
+
+Returns a string representation of the USB serial number, which consists of 32
+hexadecimal characters.
+
+**Parameters:** None
+
+**Returns:** Serial number string, e.g. `001600005DD301A14E4531735001001B`
 
 ### Battery Charger
 
 The Dash features an onboard battery charging circuit. When the jumpers are
-set to power the Dash from the battery, the Dash will also charge the battery 
-from the USB_5V line. You can control the specific charge/discharge behavior
-using the `Charger` class.
+set to power the Dash from the battery, the Dash will also charge the battery
+from the USB_5V line. Control the specific charge/discharge behavior
+using the `Charger` class on Dash 1.1 hardware only.
 
 #### Charger.begin()
 
@@ -396,7 +406,16 @@ charger detects a problem
 
 **New in Arduino SDK version 0.9.2**
 
-Returns the battery level in millivolts. Will only return a valid value if the
+Reads the battery level in millivolts. Will only return a valid value if the
+board is configured for battery operation via the jumper settings.
+
+**Parameters:** None
+
+**Returns:** (unsigned int) Battery level in millivolts (1000 = 1 volt)
+
+#### Charger.lastMillivolts()
+
+Returns the last read battery level in millivolts. Will only return a valid value if the
 board is configured for battery operation via the jumper settings.
 
 **Parameters:** None
@@ -407,7 +426,22 @@ board is configured for battery operation via the jumper settings.
 
 **New in Arduino SDK version 0.9.2**
 
-Returns the battery level as a percentage (0-100). Will only return a valid value if the
+Reads the battery level as a percentage (0-100). Will only return a valid value if the
+board is configured for battery operation via the jumper settings.
+
+{{#callout}}
+This battery percentage returned will be undefined if no battery is connected.
+{{/callout}}
+
+**Parameters:** None
+
+**Returns:** (byte) Battery level as a percentage.
+
+#### Charger.lastPercentage()
+
+**New in Arduino SDK version 0.9.2**
+
+Returns the last read battery level as a percentage (0-100). Will only return a valid value if the
 board is configured for battery operation via the jumper settings.
 
 {{#callout}}
@@ -433,6 +467,10 @@ discharge based on the battery percentage.
 * `percentage` (unsigned int) -- Start charging if the battery drops below this
   percentage, as returned from `Charger.batteryPercentage()`. Default value is 90.
 
+{{#callout}}
+This function has effect on Dash 1.1 hardware only.
+{{/callout}}
+
 #### Charger.beginAutoMillivolts(minutes, millivolts)
 
 Activate charger control logic, automatically switching between charge and
@@ -449,28 +487,49 @@ discharge based on the battery voltage.
   voltage, as returned from `Charger.batteryMillivolts()`. Default value is 3900
   (3.9V).
 
+{{#callout}}
+This function has effect on Dash 1.1 hardware only.
+{{/callout}}
+
 #### Charger.end()
 
-Deactivate charger control logic. Should never need to be called explicitly.
+Deactivate charger software control logic.
 
 **Parameters:** None
 
 **Returns:** `void`
 
-#### Charger.isEnabled()
+#### Charger.isControllable()
 
-Returns whether the charger is charging.
+Returns whether or not the charger can be enabled/disabled.
+
+{{#callout}}
+This function will return true on Dash 1.1 hardware only.
+{{/callout}}
 
 **Parameters:** None
 
-**Returns:** Boolean. `true` if the charger is charging, `false` if it's
-discharging.
+**Returns:** Boolean. `true` if the charger circuit can be enabled/disabled,
+`false` if it cannot.
+
+#### Charger.isEnabled()
+
+Returns whether the charger circuit is hardware-enabled.
+
+**Parameters:** None
+
+**Returns:** Boolean. `true` if the charger circuit is hardware-enabled, `false` if it is
+disabled via hardware control.
 
 #### Charger.enable(enabled)
 
 Hardware enable/disable of the charger circuit. Can be used to override the overcharge protection shutdown of the charger.
 
 Note: If the charger enters overcharge shutdown (the battery is connected, a charging power source is connected and the battery is not yet fully charged, but charging has stopped), disable and enable the charger to reset and resume charging.
+
+{{#callout}}
+This function has effect on Dash 1.1 hardware only.
+{{/callout}}
 
 {{#callout}}
 Overcharging can damage or destroy the battery.
@@ -495,6 +554,10 @@ periodic basis.
   already charging, will only switch to discharging if the battery is at 100%.
   Default value is 90.
 
+{{#callout}}
+This function has effect on Dash 1.1 hardware only.
+{{/callout}}
+
 #### Charger.checkMillivolts(millivolts)
 
 Ensure the charger is in the correct charge/discharge state based on a given
@@ -508,14 +571,16 @@ periodic basis.
   already charging, will only switch to discharging if the battery is at 100%.
   Default value is 3900 (3.9V).
 
+{{#callout}}
+This function has effect on Dash 1.1 hardware only.
+{{/callout}}
+
 ### Clock
 
-The Dash also features RTC clock and alarm interfaces.  You can set and control these
+The Dash features a Real Time Clock (RTC) with an alarm function. Set and control these
 timers and alarms using the `Clock` class. When the Dash is powered on, the clock will default
-to epoch time (January 1, 1970), then start counting up from then. You can, among many things,
-choose to set the appropriate date and time with the interfaces below. It is important to note that `Clock` interfaces are persistent as long as the Dash is powered. In other words, if you set an alarm
-and press the program button/reprogram the Dash, the alarm will still be active unless
-you explicitly cancel/cut the power off from the Dash.
+to epoch time (January 1, 1970), and begin counting up automatically. Set the appropriate date and time with the interfaces below. It is important to note that `Clock` interfaces are persistent as long as the Dash is powered. For example, if an alarm is set and the User Reset button is pressed, the time will not be reset and the alarm will still be active. The time continues to increment, even with the Dash in
+deep sleep. An alarm expiration will wake the Dash from Sleep and Deep Sleep.
 
 {{#callout}}
 This Clock class is only functional on Dash 1.1 and above hardware.
@@ -541,16 +606,15 @@ Returns the clock timestamp/counter in seconds since epoch time.
 
 Set an alarm at the time represented in the given `rtc_datetime_t` struct. By registering
 a callback function via the `.attachAlarmInterrupt(callback)` call described below,
-you can schedule calls to your callback function via the alarm interrupt. Note that
-the seconds parameter must be greater than the timestamp returned by the `.counter()`
-call. Returns `true` if alarm is sucessfully set, false otherwise.
+the callback function will be executed on alarm expiration. Note that
+the alarm time must be greater than the current time.
 
 {{#callout}}
-Only one alarm can be set at any given point in time. If you call '.setAlarm' a
+Only one alarm can be set at any given point in time. If '.setAlarm' is called a
 second time before the previous alarm expires, the second (latest) alarm will override the previous alarm.
 {{/callout}}
 
-This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
+This function takes reference to a `rtc_datetime_t` struct. The struct has the following properties:
 
 ```c
 typedef struct RtcDatetime
@@ -566,21 +630,13 @@ typedef struct RtcDatetime
 
 **Parameters:**
 
-* `dt` (rtc_datetime_t) -- Alarm timestamp.
+* `dt` (const rtc_datetime_t &) -- Reference to an Alarm timestamp.
 
 **Returns:** `bool` -- `true` if the alarm is set successfully, `false` otherwise.
 
 #### Clock.setAlarm(seconds)
 
-Set an alarm at the given timestamp (seconds). By registering a callback function via the
-`.attachAlarmInterrupt(callback)` call described below, you can schedule calls to your callback
-function via the alarm interrupt. Note that the seconds parameter must be greater than
-the timestamp returned by the `.counter()` call. Returns `true` if alarm is sucessfully set, false otherwise.
-
-{{#callout}}
-Only one alarm can be set at any given point in time. If you call '.setAlarm' a
-second time before the previous alarm expires, the second (latest) alarm will override the previous alarm.
-{{/callout}}
+Set an alarm for the seconds since epoch (Jan 1, 1970). See Clock.setAlarm(dt) for details.
 
 **Parameters:**
 
@@ -590,9 +646,7 @@ second time before the previous alarm expires, the second (latest) alarm will ov
 
 #### Clock.setAlarmSecondsFromNow(seconds)
 
-Set an alarm for the given number of seconds from now. Only one alarm can be set at any
-given point in time. If you call .setAlarm a second time before the previous alarm
-expires, the second (latest) alarm will override the previous alarm.
+Set an alarm for the given number of seconds after the current time. See Clock.setAlarm(dt) for details.
 
 **Parameters:**
 
@@ -602,9 +656,7 @@ expires, the second (latest) alarm will override the previous alarm.
 
 #### Clock.setAlarmMinutesFromNow(minutes)
 
-Set an alarm for the given number of minutes from now. Only one alarm can be set at any
-given point in time. If you call .setAlarm a second time before the previous alarm
-expires, the second (latest) alarm will override the previous alarm.
+Set an alarm for the given number of minutes after the current time. See Clock.setAlarm(dt) for details.
 
 **Parameters:**
 
@@ -614,9 +666,7 @@ expires, the second (latest) alarm will override the previous alarm.
 
 #### Clock.setAlarmHoursFromNow(hours)
 
-Set an alarm for the given number of hours from now. Only one alarm can be set at any
-given point in time. If you call .setAlarm a second time before the previous alarm
-expires, the second (latest) alarm will override the previous alarm.
+Set an alarm for the given number of hours after the current time. See Clock.setAlarm(dt) for details.
 
 **Parameters:**
 
@@ -626,9 +676,7 @@ expires, the second (latest) alarm will override the previous alarm.
 
 #### Clock.setAlarmDaysFromNow(days)
 
-Set an alarm for the given number of days from now. Only one alarm can be set at any
-given point in time. If you call .setAlarm a second time before the previous alarm
-expires, the second (latest) alarm will override the previous alarm.
+Set an alarm for the given number of days after the current time. See Clock.setAlarm(dt) for details.
 
 **Parameters:**
 
@@ -641,8 +689,7 @@ expires, the second (latest) alarm will override the previous alarm.
 Adjust the number of RTC clock ticks per second. The ticks parameter can either be
 a negative or positive offset. This fine tunes the 32,768 input clock to the RTC.
 By adding/subtracting ticks per second, the accuracy of 1 second can be improved.
-You may wish to calibrate this to adjust for environment temperature or variations
-between crystals.
+Adjustments can be made for environment temperature or variations between crystals.
 
 **Parameters:**
 
@@ -668,16 +715,16 @@ Returns true if the clock is running.
 
 #### Clock.wasReset()
 
-Returns `true` if the clock has been reset since the last system reset.
+Returns `true` if the clock was reset to epoch time (Jan 1, 1970) on the last system reset.
 
 **Parameters:** None
 
-**Returns:** `bool` -- `true` if the clock has been reset since the last system reset, `false` otherwise.
+**Returns:** `bool` -- `true` if the clock was reset on the last system reset, `false` otherwise.
 
 #### Clock.setDateTime(dt)
 
 Sets the clock based on the given year, month, day, hour, minute and second parameters.
-This function signature takes in a `rtc_datetime_t` struct. The struct has the following properties:
+This function takes a reference to a `rtc_datetime_t` struct. The struct has the following properties:
 
 ```c
 typedef struct RtcDatetime
@@ -737,28 +784,28 @@ change the existing year, month and day values.
 
 #### Clock.currentDateTime()
 
-Returns a formatted date and time string (yyyy/mm/dd,hh:mm:ss). If the clock has not beed adjusted, this
-will be the default Unix time plus the time lapse since the Dash is powered on.
+Returns a formatted date and time string (yyyy/mm/dd,hh:mm:ss). If the clock has not been set, this
+will be the epoch time plus the time lapse since the Dash was powered on.
 
 **Parameters:** None
 
-**Returns:** `String` -- a formatted date and time string (1970/01/01,02:50:22).
+**Returns:** `String` -- a formatted date and time string (1970/12/31,15:50:22).
 
 #### Clock.currentDate()
 
 Returns a formatted date string (yyyy/mm/dd), where yyyy is the year, mm is the
-month and dd is the date. If the clock has not beed adjusted, this
-will be the default Unix time plus the time lapse since the Dash is powered on.
+month and dd is the date. If the clock has not been set, this
+will be the epoch time plus the time lapse since the Dash was powered on.
 
 **Parameters:** None
 
-**Returns:** `String` -- a formatted date string (1970/01/01).
+**Returns:** `String` -- a formatted date string (1970/12/31).
 
 #### Clock.currentTime()
 
-Returns a formatted time string (hh:mm:ss), where hh is the hours, mm is the minutes and ss is the seconds.
-If the clock has not beed adjusted, this will be the default Unix time plus the
-time lapse since the Dash is powered on.
+Returns a formatted time string (hh:mm:ss), where hh is the hour, mm is the minute and ss is the second.
+If the clock has not been set, this will be the epoch time plus the
+time lapse since the Dash was powered on.
 
 **Parameters:** None
 
@@ -775,28 +822,30 @@ Cancels the alarm.
 #### Clock.attachAlarmInterrupt(callback)
 
 Attach a callback function to the alarm interrupt. Only one callback function is allowed
-at any single point in time. If you try to register another callback function to the
-alarm interrupt, it'll override the previous callback function registered to it.
+at any single point in time. Attempting to register another callback function to the
+alarm interrupt will override the previous callback function registered to it.
 
 **Parameters:**
-* `callback` (void *) -- Pointer to a callback function.
+* `callback` (void *) -- Pointer to a callback function with no parameters.
 
 **Returns:** `void`
 
 ### HologramCloud
 
-The `HologramCloud` class provides you with a clean interface to interact with the Hologram
-Cloud. You can choose to connect and send messages to the cloud using the interfaces below.
+The `HologramCloud` class provides a programatic interface to interact with the Hologram
+Cloud. Connect and send/receive messages to/from the cloud using the functions below.
 
 
 #### HologramCloud.connect(reconnect)
 
 Establish a packet switched connection to the cell tower. This is optional because calling `.sendMessage()`
-will connect as needed. This is a blocking call with a default timeout. This may be
-useful if you get disconnected due to an idle timeout.
+will connect as needed. This is a blocking call with a max timeout of 3 minutes to find a tower to
+connect to. To minimize this blocking time, check to see if a tower has already been found
+by calling `.getSignalStrength()`. If connect fails (returns `false`), call `.getConnectionStatus()` to
+determine the reason.
 
 **Parameters:**
-* `reconnect` (bool) -- A reconnect flag that enables connection retries. Default to `false`.
+* `reconnect` (bool) -- An optional reconnect flag that enables connection retries. Default to `false` if omitted.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
@@ -814,11 +863,11 @@ Returns the cell network connection status. This is represented by the following
 return codes:
 
 **Connection Status Code:**
-* `CLOUD_DISCONNECTED` -- 0
-* `CLOUD_CONNECTED` -- 1
-* `CLOUD_ERR_SIM` - 3
-* `CLOUD_ERR_SIGNAL` -- 5
-* `CLOUD_ERR_CONNECT` -- 12
+* `CLOUD_DISCONNECTED` (0) -- No packet switched connection
+* `CLOUD_CONNECTED` (1) -- Packet switched connection established
+* `CLOUD_ERR_SIM` (3) -- A valid SIM card was not found
+* `CLOUD_ERR_SIGNAL` (5) -- No tower was found
+* `CLOUD_ERR_CONNECT` (12) -  SIM card is not active
 
 **Parameters:** None
 
@@ -826,7 +875,15 @@ return codes:
 
 #### HologramCloud.getSignalStrength()
 
-Returns the [RSSI signal strength](https://en.wikipedia.org/wiki/Received_signal_strength_indication) of the cell network connection.
+Returns the [Received Signal Strength Indication (RSSI)](https://en.wikipedia.org/wiki/Received_signal_strength_indication)
+of the cell network connection.
+
+**Signal Strength Code:**
+* 0: -113 dBm or less
+* 1: -111 dBm
+* 2 to 30: -109 to -53 dBm with 2 dBm steps
+* 31 to 98 -- -51 dBm or greater
+* 99 -- No signal
 
 **Parameters:** None
 
@@ -848,10 +905,19 @@ typedef struct RtcDatetime
 } rtc_datetime_t;
 ```
 
-Fetches and stores the internal modem network time.
+Gets the current network time. If a tower has not yet been found, network time is not
+available.
+
+To synchronize the Dash RTC to network time:
+```cpp
+rtc_datetime_t dt;
+if(HologramCloud.getNetworkTime(dt)) {
+    Clock.setDateTime(dt);
+}
+```
 
 **Parameters:**
-* `dt` (rtc_datetime_t) -- Populated RCDatetime struct.
+* `dt` (rtc_datetime_t &) -- reference to a date time struct.
 
 **Returns:** `bool` -- `true` if successful, `false` otherwise.
 
@@ -866,7 +932,8 @@ power up call.
 
 #### HologramCloud.powerDown()
 
-Turn the modem off. This could improve power consumption when the modem is not in use.
+Turn the modem off. This will greatly lower power consumption, but no network functionality
+will be available while the modem is off.
 
 **Parameters:** None
 
@@ -874,8 +941,9 @@ Turn the modem off. This could improve power consumption when the modem is not i
 
 #### HologramCloud.pollEvents()
 
-Manually check for events, such as an SMS received while in deep sleep.
-Events are also checked automatically before powering down the modem.
+Manually check for events, such as an SMS received. This function is called
+automatically before powering down the modem and after each run of the `loop()`
+function. For most applications this function will not need to be called explicitly.
 
 **Parameters:** None
 
@@ -883,8 +951,8 @@ Events are also checked automatically before powering down the modem.
 
 #### HologramCloud.clear()
 
-Explicitly clear the message buffer. You may want to call this if the buffer has
-been written but don't want the contents be sent.
+Explicitly clear the contents of the message buffer. See `.sendMessage()` for the
+details of message buffering.
 
 **Parameters:** None
 
@@ -900,7 +968,17 @@ Returns the number of queued SMS messages received.
 
 #### HologramCloud.attachHandlerSMS(sms_handler)
 
-Registers a SMS handler that will be executed whenever a SMS is received.
+Register an SMS handler that will be executed whenever an SMS is received.
+
+```cpp
+void my_sms_handler(const String &sender, const rtc_datetime_t &timestamp, const String &message) {
+    //take action on the SMS
+}
+
+void setup() {
+    HologramCloud.attachHandlerSMS(my_sms_handler);
+}
+```
 
 **Parameters:**
 * `sms_handler` (void * sms_handler(sender, timestamp, message))
@@ -923,20 +1001,69 @@ Registers a SMS handler that will be executed whenever a SMS is received.
 #### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const char\* tag)
 #### HologramCloud.sendMessage(const uint8_t\* content, uint32_t length, const String &tag)
 
-Sends a message with the given content and attached topics.
+The maximum message content is 4096 bytes.
+The maximum number of topics (tags) is 10.
+The maximum size of a topic (tag) is 63.
 
-Let `sendMessage()` be the first method signature with no arguments (first signature
-listed here), while `sendMessage(params)` be all other method signatures that take in
-arguments.
+HologramCloud contains a single message buffer that consists of the contents of the message
+along with any attached topics (tags). The message buffer is initially empty, but can
+be appended to using any [Arduino Print](https://www.arduino.cc/en/Serial/Print) functions.
 
-`sendMessage(params)` appends the given content and topics to the existing "open" message buffer, defines what is to be considered the "end" of a message, and then attempts to send out the message.
+Calling `.sendMessage(...)` with any parameters (content and/or topics) appends those parameters
+to the existing message buffer, then the message is sent. Example
 
-If the existing buffer contains the end of an existing message (i.e. the buffer is "closed"), then that previous message will be cleared and removed, before replacing the new content and topics of the buffer with this message and sending it out.
+```cpp
+//Send "Hello, World!" with the topic: "greeting"
+HologramCloud.sendMessage("Hello, World!", "greeting");
 
-If the existing buffer contains content from an "open" message buffer (i.e. anything added with print), it will append the given content and tags, before closing the buffer as the end of the message and sending out the message.
+//Send "Battery: 78%" for example
+HologramCloud.print("Battery: ");
+HologramCloud.print(Charger.batteryPercentage());
+HologramCloud.sendMessage("%");
+```
 
-If a call to `sendMessage(params)` fails, then that message remains in the buffer to allow subsequent retries via a call to sendMessage() - or simply retry with a repeat of the same `sendMessage(params)` call. Any subsequent calls to `sendMessage(params)` will clear out the existing closed message buffer, before sending out the new message.
+Calling `.sendMessage()` with no parameters sends the contents of the message buffer.
+```cpp
+//Send "Signal: 21" for example
+HologramCloud.print("Signal: ");
+HologramCloud.print(HologramCloud.getSignalStrength());
+HologramCloud.sendMessage();
+```
 
+Repeating a call to `.sendMessage()` without first modifying the contents of the
+buffer will resend the last message.
+```cpp
+//Send "Battery: 78%" with topic "battery" for example
+HologramCloud.print("Battery: ");
+HologramCloud.print(Charger.batteryPercentage());
+HologramCloud.attachTag("battery");
+if(!HologramCloud.sendMessage("%")) {
+    //failed to send the message
+    //wait 1 minute and try again
+    Dash.snooze(60*1000);
+
+    //Retry sending "Battery: 78%"
+    HologramCloud.sendMessage();
+}
+
+//Start a new message
+HologramCloud.attachTag("my_data");
+//Buffer emptied and the new topic is appended to the buffer
+
+//Send "This is my data" with topic "my_data"
+HologramCloud.sendMessage("This is my data");
+```
+
+After any `.sendMessage` call, the buffer contents are retained until the buffer
+is modified by calling any of the following:
+
+* `HologramCloud.attachTag(...)`
+* `HologramCloud.print(...)`
+* `HologramCloud.println(...)`
+* `HologramCloud.write(...)`
+* `HologramCloud.sendMessage(...)`
+
+At which point the buffer is cleared and the new content is appended.
 
 **Parameters:**
 * `content` -- The content payload.
@@ -948,7 +1075,7 @@ If a call to `sendMessage(params)` fails, then that message remains in the buffe
 #### HologramCloud.attachTag(const char \*tag)
 #### HologramCloud.attachTag(const String &tag)
 
-Attaches a tag to the upcoming message. Returns `true` if successful, `false` otherwise.
+Attaches a tag to the message buffer. Returns `true` if successful, `false` otherwise.
 
 **Parameters:**
 * `tag` -- Tag name.
@@ -957,7 +1084,7 @@ Attaches a tag to the upcoming message. Returns `true` if successful, `false` ot
 
 #### HologramCloud.write(x)
 
-Resets the message buffer and writes a given byte to it.
+Append a single byte to the message buffer.
 
 **Parameters:**
 * `x` (uint8_t) -- Input byte.
@@ -965,6 +1092,8 @@ Resets the message buffer and writes a given byte to it.
 **Returns:** `size_t` -- the size of a successfully written byte (1), 0 otherwise.
 
 #### HologramCloud.systemVersion()
+
+The version number for the System Firmware.
 
 **Parameters:** None
 
@@ -978,6 +1107,10 @@ They can be useful for debugging or accessing certain information not available
 through direct APIs.
 
 #### SMSRCVD
+
+** SMSRCVD has been deprecated in Arduino SDK version v0.10.0 and will be removed
+in the future. Please use `HologramCloud`'s `.checkSMS()` and `.attachHandlerSMS()`
+instead. **
 
 ```bash
 +EVENT:SMSRCVD,<msglen>,<message>
@@ -1000,11 +1133,10 @@ LED](https://github.com/hologram-io/hologram-dash-arduino-examples/blob/master/r
 sketch for an example of parsing SMS messages.
 
 
-** SMSRCVD has been deprecated in Arduino SDK version v0.10.0 and will be removed
-in the future. Please use `HologramCloud`'s `.checkSMS()` and `.attachHandlerSMS()`
-instead. **
-
 #### LOG
+
+** LOG messages have been removed as of in Arduino SDK version v0.10.0. Please
+use `HologramCloud`'s functions for operational feedback instead. **
 
 ```bash
 +EVENT:LOG,<msglen>,<severitylen>,<severity>,<bodylen>,<body>
@@ -1024,4 +1156,3 @@ status and other internal information.
 ```bash
 +EVENT:LOG,38,5,DEBUG,27,Opening connection to cloud
 ```
-
