@@ -7,7 +7,7 @@ lunr: true
 tags:
 ---
 
-### Billing Mechanics
+### Billing Period
 
 The billing period for a data plan is 30 days, beginning from the time of
 activation. At the end of the billing period, the device's plan amount will be 
@@ -65,6 +65,14 @@ on the device's dashboard page:
 {{{ image src="/wp-content/uploads/2016/11/device-data-limits.png"
                    alt="Device data limits configuration" }}}
 
+You can also apply overage limits to many devices at once from the device list
+page. Select which devices to apply the limit to, and select *Manage*->*Set data
+limits/overage*. Note that the limits are applied per-device, not on an
+aggregate of usage.
+
+{{{ image src="/wp-content/uploads/2017/03/bulk-device-actions.png"
+    alt="Bulk device actions" }}}
+
 ### Pausing Data
 
 Pausing a device's data allows you to temporarily disable all connectivity for
@@ -75,7 +83,7 @@ inactive for a period of time and wish to ensure that no usage charges accrue.
 While a device is in a paused state, monthly plan charges still apply. When
 pausing a device for an extended period, you would typically first convert it to
 a pay-as-you-go plan, so that the paused device will only be charged the low
-monthly SIM base cost. 
+monthly SIM base cost.
 
 ### Device Phone Numbers
 

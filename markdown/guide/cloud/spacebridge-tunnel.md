@@ -28,6 +28,13 @@ Select the *Cloud and messaging* view and scroll down to the *Device
 tunneling* section. If tunneling isn't already enabled, click the *Enable
 tunneling* button.
 
+You may also enable or disable tunneling on many devices at once from the device
+list page. Select which devices to configure, and select *Manage*->*Enable
+tunneling* (or *Disable tunneling*).
+
+{{{ image src="/wp-content/uploads/2017/03/bulk-device-actions.png"
+    alt="Bulk device actions" }}}
+
 {{#callout}}
 Your network interface itself must also be configured to support inbound
 connections. Web-based configurations for some USB modems (e.g. E303's HiLink mode)
