@@ -6,6 +6,8 @@ autotoc: true
 layout: reference.hbs
 description: Classes and functions available in the Python SDK
 icon: docs
+lunr: true
+tags:
 ---
 
 ### Introduction

@@ -25,13 +25,13 @@
     "Outbound": "Yes",
     "Inbound": "Yes",
     "Pricing": "Outbound: Data, Inbound: Free",
-    "Dash Support": "No"
+    "Dash Support": "Yes"
   },
   {
     "Method": "[Circuit-Switched SMS](#circuit-switched-sms)",
     "Outbound": "Yes",
     "Inbound": "Yes",
     "Pricing": "Outbound: Per message, Inbound: Buy phone number",
-    "Dash Support": "No"
+    "Dash Support": "Inbound Only"
   }
 ]
