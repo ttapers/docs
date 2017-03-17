@@ -24,11 +24,22 @@ on [GitHub](https://github.com/hologram-io/hologram-python).
 
 #### Installation
 
+There are two main ways to install the Hologram Python SDK:
+
+##### Pip Installation (recommended):
+
+```bash
+pip install hologram-python
+```
+
+##### Manual Installation:
+
 ```bash
 git clone https://github.com/hologram-io/hologram-python.git
 cd hologram-python
 python setup.py install
 ```
+
 ### Credentials
 
 The credentials  dictionary requires the 4 character shared id and 4 character shared key of your Hologram Device. For instructions on finding your shared id and shared key, please refer to
@@ -933,7 +944,7 @@ python hologram_receive.py [-h] [--host [HOST]] [-p [PORT]] [-t [TIMEOUT]]
 
 * `--host` (string) -- The server IP address for TCP inbound connection. Default to '0.0.0.0'
 * `-p` `--port` (string) -- The server port for TCP inbound connection. Default to 4010.
-* `-t` `--timeout` (int) -- The number of seconds before the socket is closed. Default to 10 seconds.
+* `-t` `--timeout` (int) -- The number of seconds before the socket is closed. Default to -1 (blocking forever until explicitly closed by the user).
 
 **Example:**
 
