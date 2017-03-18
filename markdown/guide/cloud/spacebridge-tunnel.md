@@ -43,7 +43,7 @@ page](/docs/downloads/#spacebridge-client).
 
 Extract the downloaded package and run the extracted application. You will be
 prompted for your API key, which can be found in [Account 
-Settings](https://dashboard.hologram.io/account/apikey).
+Settings](https://dashboard.hologram.io/account/api).
 
 You can then configure the devices and ports you wish to tunnel to. Each row
 corresponds to a single tunnel, so for most basic usage you'll only need to
