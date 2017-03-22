@@ -110,12 +110,9 @@ The `HologramCloud` constructor is responsible for initializing many of SDK comp
 These are cellular network interfaces (strings) that you can use to choose which `Network`
 interface you want to use for the connectivity layer in the Hologram SDK.
 
-* `wifi` -- WiFi interface.
 * `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
 * `cellular-e303` -- Cellular interface with the Huawei E303 modem.
 * `cellular-iota` -- Cellular interface with the iota modem.
-* `ble` -- BLE interface.
-* `ethernet` -- Ethernet interface.
 * '' -- Empty string for network agnostic (non-network) mode.
 
 **Example:**
@@ -216,12 +213,9 @@ inbound connection.
 These are cellular network interfaces (strings) that you can use to choose which `Network`
 interface you want to use for the connectivity layer in the Hologram SDK.
 
-* `wifi` -- WiFi interface.
 * `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
 * `cellular-e303` -- Cellular interface with the Huawei E303 modem.
 * `cellular-iota` -- Cellular interface with the iota modem.
-* `ble` -- BLE interface.
-* `ethernet` -- Ethernet interface.
 * '' -- Empty string for network agnostic (non-network) mode.
 
 **Example:**
@@ -435,11 +429,9 @@ customCloud.network.connect()
 customCloud.network.disconnect()
 ```
 
-The `NetworkManager` interface allows you to choose between 3 different network options:
-1. `Wifi`
-2. `Ethernet`
-3. `Cellular`
-4. `None` (non-network mode)
+The `NetworkManager` interface allows you to choose between 2 different network options:
+1. `Cellular`
+2. `None` (non-network mode)
 
 Non-network mode allows you to use the Python SDK independent of the network used
 by your machine. This assumes that you have figured out the network connectivity
@@ -477,12 +469,9 @@ implements the `Network` interface, and not to be called directly.
 Returns a list of available network interfaces supported by the Python SDK. This
 will be a subset of the following strings:
 
-* `wifi` -- WiFi interface.
 * `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
 * `cellular-e303` -- Cellular interface with the Huawei E303 modem.
 * `cellular-iota` -- Cellular interface with the iota modem.
-* `ble` -- BLE interface.
-* `ethernet` -- Ethernet interface.
 * '' -- Empty string for network agnostic (non-network) mode.
 
 **Returns:** List of available interfaces (list())
@@ -490,79 +479,8 @@ will be a subset of the following strings:
 **Example:**
 ```python
 print 'Available network interfaces:'
-print hologram.network.listAvailableInterfaces() # ['cellular-e303', 'wifi', 'cellular-iota', 'ble', 'ethernet', 'cellular-ms2131']
+print hologram.network.listAvailableInterfaces() # ['cellular-e303', 'cellular-iota', 'cellular-ms2131']
 ```
-
-### Wifi
-
-The `Wifi` class is a derived class and is responsible for defining the `Network` interface of Hologram SDK.
-The `Wifi` interface requires root permissions to connect/disconnect from access points. We strongly recommend
-running your scripts with `sudo` privileges.
-
-#### .connect(timeout = 200)
-
-Connect to Wifi. This will also broadcast the `wifi.connected`
-event.
-
-**Parameters:**
-* `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default timeout is 200 seconds.
-
-**Returns:** `Bool` -- `True` if successful, `False` otherwise.
-
-#### .disconnect()
-
-Disconnect from an active Wifi connection. This will also broadcast the
-`wifi.disconnected` event.
-
-**Parameters:** None
-
-**Returns:** `Bool` -- `True` if successful, `False` otherwise.
-
-#### .getAPAddress()
-
-Returns the AP address.
-
-**Parameters:** None
-
-**Returns:** the access point address (string)
-
-#### .getSSID()
-
-Returns the SSID.
-
-**Parameters:** None
-
-**Returns:** the SSID (string)
-
-### Ethernet
-
-The `Ethernet` class is a derived class and is responsible for defining the `Network`
-interface of Hologram SDK.
-
-The `Ethernet` interface requires root permissions to connect/disconnect from a
-given address. I strongly recommend running your scripts with `sudo` privileges.
-
-#### .connect(timeout = 200)
-
-Connect to an Ethernet connection. This will also broadcast the `ethernet.connected`
-event.
-
-**Parameters:** None
-
-* `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default timeout is 200 seconds.
-
-**Returns:** `Bool` -- `True` if successful, `False` otherwise.
-
-#### .disconnect()
-
-Disconnect from an active Ethernet connection. This will also broadcast the
-`ethernet.disconnected` event.
-
-**Parameters:** None
-
-**Returns:** `Bool` -- `True` if successful, `False` otherwise.
 
 ### Cellular
 
