@@ -112,7 +112,6 @@ interface you want to use for the connectivity layer in the Hologram SDK.
 
 * `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
 * `cellular-e303` -- Cellular interface with the Huawei E303 modem.
-* `cellular-iota` -- Cellular interface with the iota modem.
 * '' -- Empty string for network agnostic (non-network) mode.
 
 **Example:**
@@ -121,7 +120,7 @@ interface you want to use for the connectivity layer in the Hologram SDK.
 from Hologram import Hologram
 credentials = {'cloud_id': '34mg', 'cloud_key': '12ab'}
 
-hologram1 = HologramCloud(credentials, network = 'cellular-iota') # 1st example with cellular network interface.
+hologram1 = HologramCloud(credentials, network = 'cellular-ms2131') # 1st example with cellular network interface.
 
 hologram2 = HologramCloud(credentials, enable_inbound = False) # 2nd example with inbound disabled.
 ```
@@ -215,7 +214,6 @@ interface you want to use for the connectivity layer in the Hologram SDK.
 
 * `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
 * `cellular-e303` -- Cellular interface with the Huawei E303 modem.
-* `cellular-iota` -- Cellular interface with the iota modem.
 * '' -- Empty string for network agnostic (non-network) mode.
 
 **Example:**
@@ -226,7 +224,7 @@ from Hologram import Hologram
 customCloud1 = CustomCloud(None, send_host = 'my.example.host.com', send_port = 9999)
 
 # receive example with cellular network interface
-customCloud2 = CustomCloud(None, receive_host = '0.0.0.0', receive_port = 57750, network = 'cellular-iota')
+customCloud2 = CustomCloud(None, receive_host = '0.0.0.0', receive_port = 57750, network = 'cellular-ms2131')
 
 # send/receive with inbound connection enabled.
 customCloud3 = CustomCloud(None, send_host = 'my.example.host.com', send_port = 9999,
@@ -471,7 +469,6 @@ will be a subset of the following strings:
 
 * `cellular-ms2131` -- Cellular interface with the Huawei MS2131 modem.
 * `cellular-e303` -- Cellular interface with the Huawei E303 modem.
-* `cellular-iota` -- Cellular interface with the iota modem.
 * '' -- Empty string for network agnostic (non-network) mode.
 
 **Returns:** List of available interfaces (list())
@@ -479,7 +476,7 @@ will be a subset of the following strings:
 **Example:**
 ```python
 print 'Available network interfaces:'
-print hologram.network.listAvailableInterfaces() # ['cellular-e303', 'cellular-iota', 'cellular-ms2131']
+print hologram.network.listAvailableInterfaces() # ['cellular-e303', 'cellular-ms2131']
 ```
 
 ### Cellular
@@ -488,13 +485,12 @@ The `Cellular` interface allows you to use the Hologram SDK to connect/disconnec
 the network. We currently support two modes of operation, which are PPP and Serial mode.
 The operation modes used varies with the cellular modem that you're using. For example,
 in PPP mode, you can use the Huawei E303 and MS2131 modems as part of your cellular connectivity
-solution, and serial for the iota modem.
+solution.
 
 The `Cellular` interface requires root permissions to connect/disconnect from a
 given address. We strongly recommend running your scripts with `sudo` privileges.
 
 * PPP Mode supported devices: Huawei E303, MS2131 modems
-* Serial mode supported devices: iota modem
 
 **Properties:**
 * `modem` (Modem) -- Holds the `Modem` instance that will be responsible for establishing
@@ -554,7 +550,7 @@ print 'CONNECTION STATUS: ' + str(hologram.network.getConnectionStatus())
 ### Modem
 
 The `Modem` interface allows you to interact directly with the modem. This is a
-base class for the Huawei MS2131, E303 and iota modem interfaces.
+base class for the Huawei MS2131 and E303 modem interfaces.
 
 **Properties:**
 * `mode` (`PPP`) -- The mode in which the modem is currently using to communicate
@@ -638,57 +634,6 @@ by running `sudo chmod +x <file>`.
 #### .connect(timeout = 200)
 
 Connect to a cellular connection.
-
-**Parameters:**
-* `timeout` (int) -- A timeout period in seconds for when the connection should close
-if it fails to connect. Default is 200 seconds.
-
-**Returns:** `Bool` -- `True` if successful, `False` otherwise.
-
-#### .disconnect()
-
-Disconnect from an active cellular connection.
-
-**Parameters:** None
-
-**Returns:** `Bool` -- `True` if successful, `False` otherwise.
-
-### iota
-
-The `IOTA` class implements the `Modem` interface and is designed to interact with
-a Hologram iota modem.
-
-**Properties:**
-* `mode` (`PPP`) -- The mode in which the modem is currently using to communicate
-with the SDK. We only support 'ppp' for now.
-* `localIPAddress` (string) -- The local IP address. It'll be `None` if the cell network is inactive.
-* `remoteIPAddress` (string) -- The remote IP address. It'll be `None` if the cell network is inactive.
-
-#### IOTA(mode = 'ppp', deviceName = IOTA_DEVICE_NAME, baudRate = '9600', chatScriptFile = '../../example-script')
-
-**Parameters:**
-* `mode` (string) -- The mode in which the modem is currently using to communicate
-with the SDK. We only support 'ppp' for now.
-* `deviceName` (string) -- The device name. Default is '/dev/ttyACM0' (macroed as IOTA_DEVICE_NAME)
-* `baudRate` (string) -- The baud rate of the serial line.
-* `chatScriptFile` (string) -- Path to chatscript file.
-
-You can obtain a sample chatscript that works with the `IOTA` [here](https://github.com/hologram-io/hologram-tools/blob/master/ppp/chatscripts/e303)
-
-{{#callout}}
-The chatscript file must be an executable for the SDK to load it. You can do this
-by running `sudo chmod +x <file>`.
-{{/callout}}
-
-
-#### .connect(timeout = 200)
-
-Connect to a cellular connection.
-
-{{#callout}}
-It could take up to 3 minutes (blocking) for the iota modem to establish a cellular
-connection.
-{{/callout}}
 
 **Parameters:**
 * `timeout` (int) -- A timeout period in seconds for when the connection should close
