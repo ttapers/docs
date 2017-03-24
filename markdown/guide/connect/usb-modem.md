@@ -85,8 +85,8 @@ unzip master.zip
 Copy the PPP configuration files to the correct locations:
 ```bash
 cd hologram-tools-master
-sudo cp ppp/chatscripts/e303 /etc/chatscripts
-sudo cp ppp/peers/e303 /etc/ppp/peers
+sudo cp ppp/chatscripts/* /etc/chatscripts/
+sudo cp ppp/peers/* /etc/ppp/peers/
 ```
 
 Stop any wifi or ethernet interfaces so that traffic we don't have to worry about things being routed
